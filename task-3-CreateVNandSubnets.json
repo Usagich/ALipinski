@@ -10,9 +10,14 @@
         },
         "subnets_Frontend_name": {
             "type": "string"
+        },
+        "subnetFront_addressPrefix": {
+            "type": "string"
+        },
+        "subnetBack_addressPrefix": {
+            "type": "string"
         }
     },
-    "variables": {},
     "resources": [
         {
             "type": "Microsoft.Network/virtualNetworks",
@@ -27,49 +32,22 @@
                 },
                 "subnets": [
                     {
-                        "name": "Frontend",
+                        "name": "[parameters('subnets_Frontend_name')]",
                         "properties": {
-                            "addressPrefix": "10.8.1.0/24"
+                            "addressPrefix": "[parameters('subnetFront_addressPrefix')]"
                         }
                     },
                     {
-                        "name": "Backend",
+                        "name": "[parameters('subnets_Backend_name')]",
                         "properties": {
-                            "addressPrefix": "10.8.0.0/24"
+                            "addressPrefix": "[parameters('subnetBack_addressPrefix')]"
                         }
                     }
                 ],
                 "enableDdosProtection": false,
                 "enableVmProtection": false
             }
-        },
-        {
-            "type": "Microsoft.Network/virtualNetworks/subnets",
-            "name": "[concat(parameters('virtualNetworks_Task3VN1_name'), '/', parameters('subnets_Frontend_name'))]",
-            "apiVersion": "2018-02-01",
-            "scale": null,
-            "properties": {
-                "provisioningState": "Succeeded",
-                "addressPrefix": "10.8.1.0/24",
-                "serviceEndpoints": []
-            },
-            "dependsOn": [
-                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_Task3VN1_name'))]"
-            ]
-        },
-        {
-            "type": "Microsoft.Network/virtualNetworks/subnets",
-            "name": "[concat(parameters('virtualNetworks_Task3VN1_name'), '/', parameters('subnets_Backend_name'))]",
-            "apiVersion": "2018-02-01",
-            "scale": null,
-            "properties": {
-                "provisioningState": "Succeeded",
-                "addressPrefix": "10.8.0.0/24",
-                "serviceEndpoints": []
-            },
-            "dependsOn": [
-                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_Task3VN1_name'))]"
-            ]
         }
+        
     ]
 }

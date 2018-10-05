@@ -10,11 +10,11 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri":"https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/CreateVNandSubnets.json",
+                    "uri":"https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-3-CreateVNandSubnets.json",
                     "contentVersion": "1.0.0.0"
                 },
                 "parametersLink": {
-                    "uri":"https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/VN-parameters.json",
+                    "uri":"https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-3-VN-parameters.json",
                     "contentVersion": "1.0.0.0"
                 }
             }
@@ -26,11 +26,11 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri":"https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/CreateStorageAccount.json",
+                    "uri":"https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-3-CreateStorageAccount.json",
                     "contentVersion": "1.0.0.0"
                 },
                 "parametersLink": {
-                    "uri":"https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/SA-parameters.json",
+                    "uri":"https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-3-SA-parameters.json",
                     "contentVersion": "1.0.0.0"
                 }
             }

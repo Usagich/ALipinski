@@ -15,15 +15,11 @@
     "variables": {},
     "resources": [
         {
-            "comments": "Generalized from resource: '/subscriptions/1f1fe2e5-5f13-4687-aef3-063acc693dd3/resourceGroups/TestRG/providers/Microsoft.Network/virtualNetworks/Task3VN1'.",
             "type": "Microsoft.Network/virtualNetworks",
             "name": "[parameters('virtualNetworks_Task3VN1_name')]",
             "apiVersion": "2018-02-01",
             "location": "northeurope",
-            "scale": null,
             "properties": {
-                "provisioningState": "Succeeded",
-                "resourceGuid": "daafa07e-a23d-42ce-8837-6d13e45140d0",
                 "addressSpace": {
                     "addressPrefixes": [
                         "10.8.0.0/16"
@@ -32,31 +28,22 @@
                 "subnets": [
                     {
                         "name": "Frontend",
-                        "etag": "W/\"3b88cf1f-77ce-4ea0-8532-fd3e70d0e293\"",
                         "properties": {
-                            "provisioningState": "Succeeded",
-                            "addressPrefix": "10.8.1.0/24",
-                            "serviceEndpoints": []
+                            "addressPrefix": "10.8.1.0/24"
                         }
                     },
                     {
                         "name": "Backend",
-                        "etag": "W/\"3b88cf1f-77ce-4ea0-8532-fd3e70d0e293\"",
                         "properties": {
-                            "provisioningState": "Succeeded",
-                            "addressPrefix": "10.8.0.0/24",
-                            "serviceEndpoints": []
+                            "addressPrefix": "10.8.0.0/24"
                         }
                     }
                 ],
-                "virtualNetworkPeerings": [],
                 "enableDdosProtection": false,
                 "enableVmProtection": false
-            },
-            "dependsOn": []
+            }
         },
         {
-            "comments": "Generalized from resource: '/subscriptions/1f1fe2e5-5f13-4687-aef3-063acc693dd3/resourceGroups/TestRG/providers/Microsoft.Network/virtualNetworks/Task3VN1/subnets/Frontend'.",
             "type": "Microsoft.Network/virtualNetworks/subnets",
             "name": "[concat(parameters('virtualNetworks_Task3VN1_name'), '/', parameters('subnets_Frontend_name'))]",
             "apiVersion": "2018-02-01",
@@ -71,7 +58,6 @@
             ]
         },
         {
-            "comments": "Generalized from resource: '/subscriptions/1f1fe2e5-5f13-4687-aef3-063acc693dd3/resourceGroups/TestRG/providers/Microsoft.Network/virtualNetworks/Task3VN1/subnets/Backend'.",
             "type": "Microsoft.Network/virtualNetworks/subnets",
             "name": "[concat(parameters('virtualNetworks_Task3VN1_name'), '/', parameters('subnets_Backend_name'))]",
             "apiVersion": "2018-02-01",

@@ -3,7 +3,7 @@ Param(
     [string]$resourceGroupName = 'TestRG'
 )
 $Sub = "1f1fe2e5-5f13-4687-aef3-063acc693dd3"
-
+git 
 Select-AzureRmSubscription -Subscriptionid $Sub
 
 $resourceGroup = Get-AzureRmResourceGroup -Name $resourceGroupName -ErrorAction SilentlyContinue

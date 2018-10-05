@@ -1,2 +1,2 @@
 # ALipinski
-Repo for Azure DevOps Lab
+Repo for Azure Lab home tasks.

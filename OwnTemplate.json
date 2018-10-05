@@ -1,0 +1,39 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {},
+    "resources": [
+        {
+            "apiVersion": "2017-05-10",
+            "name": "TemplateVnet",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri":"https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/CreateVNandSubnets.json",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parametersLink": {
+                    "uri":"https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/VN-parameters.json",
+                    "contentVersion": "1.0.0.0"
+                }
+            }
+        },
+        {
+            "apiVersion": "2017-05-10",
+            "name": "TemplateStorageAccount",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri":"https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/CreateStorageAccount.json",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parametersLink": {
+                    "uri":"https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/SA-parameters.json",
+                    "contentVersion": "1.0.0.0"
+                }
+            }
+        }
+    ]
+}

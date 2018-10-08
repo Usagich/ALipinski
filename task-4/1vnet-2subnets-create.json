@@ -5,12 +5,6 @@
         "virtualNetworks_Task3VN1_name": {
             "type": "string"
         },
-        "publicIPAddresses_TestRG_publicIP_name": {
-            "type": "string"
-        },
-        "location": {
-            "type": "string"
-        },
         "subnets_Backend_name": {
             "type": "string"
         },
@@ -23,7 +17,10 @@
         "subnetBack_addressPrefix": {
             "type": "string"
         },
-        "vnet_addressPrefix": {
+        "location":{
+            "type": "string"
+        },
+        "vnet-addressPrefixes":{
             "type": "string"
         }
     },
@@ -36,7 +33,7 @@
             "properties": {
                 "addressSpace": {
                     "addressPrefixes": [
-                        "[parameters('vnet_addressPrefix')]"
+                        "[parameters('vnet-addressPrefixes')]"
                     ]
                 },
                 "subnets": [
@@ -54,18 +51,9 @@
                     }
                 ],
                 "enableDdosProtection": false,
-                "enableVmProtection": false,
-                "type": "Microsoft.Network/publicIPAddresses",
-                "name": "[parameters('publicIPAddresses_TestRG_publicIP_name')]",
-                "apiVersion": "2018-02-01",
-                "location": "[parameters('location')]",
-                "scale": null,
-                "properties": {
-                    "provisioningState": "Succeeded",
-                    "publicIPAddressVersion": "IPv4",
-                    "publicIPAllocationMethod": "Static"
-                }
+                "enableVmProtection": false
             }
         }
+        
     ]
 }

@@ -11,5 +11,9 @@ if (!$resourceGroup) {
     New-AzureRmResourceGroup -Name $resourceGroupName -Location 'North Europe'
 }
 
-$templateFilePath = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-4/main.json' 
-New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName -TemplateFile $templateFilePath
+#$templateFilePath = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-4/main.json' 
+#New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName -TemplateFile $templateFilePath
+
+$templateFilePath = "https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-4/public-ip-create.json" 
+$templateFilePathPar = "https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-4/public-ip-create-parameters.json"
+New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName -TemplateFile $templateFilePath -TemplateParameterFile $templateFilePathPar

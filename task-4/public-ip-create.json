@@ -5,7 +5,7 @@
         "name": {
             "type": "string"
         },
-        "location": {
+        "location_ip": {
             "type": "string"
         },
         "sku": {
@@ -26,7 +26,7 @@
             "apiVersion": "2018-08-01",
             "type": "Microsoft.Network/publicIPAddresses",
             "name": "[parameters('name')]",
-            "location": "[parameters('location')]",
+            "location": "[parameters('location_ip')]",
             "sku": {
                 "name": "[parameters('sku')]"
             },

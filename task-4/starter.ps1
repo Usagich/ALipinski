@@ -1,2 +1,3 @@
-$templateFilePath = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-4/create-vnet-subnets-pubip-vm.json' 
-New-AzureRmResourceGroupDeployment -ResourceGroupName TestRG1 -TemplateFile $templateFilePath
+$templateFilePath = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-4/1vnet-2subnets-create.json' 
+$templateFilePathPar = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-4/1vnet-2subnets-create-parameters.json'
+New-AzureRmResourceGroupDeployment -ResourceGroupName TestRG2 -TemplateFile $templateFilePath -TemplateParameterFile -$templateFilePathPar

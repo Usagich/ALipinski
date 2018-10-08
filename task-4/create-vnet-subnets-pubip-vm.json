@@ -3,19 +3,18 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "adminUsername": {
-            "type": "string",
-            "defaultValue": "azureuser"
+            "type": "string"
         },
         "adminPassword": {
             "type": "securestring"
         },
-        "vnet_addressPrefixes":{
+        "vnet_addressPrefixes": {
             "type": "string"
         },
-        "subnet_addressPrefix":{
+        "subnet_addressPrefix": {
             "type": "string"
         },
-        "pubtIP_name":{
+        "pubtIP_name": {
             "type": "string"
         }
     },

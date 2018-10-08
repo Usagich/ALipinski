@@ -1,26 +1,7 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {
-        "virtualNetworks_Task3VN1_name": {
-            "type": "string"
-        },
-        "vnet_addressPrefix": {
-            "type": "string"
-        },
-        "subnets_Backend_name": {
-            "type": "string"
-        },
-        "subnets_Frontend_name": {
-            "type": "string"
-        },
-        "subnetFront_addressPrefix": {
-            "type": "string"
-        },
-        "subnetBack_addressPrefix": {
-            "type": "string"
-        }
-    },
+    "parameters": {},
     "resources": [
         {
             "apiVersion": "2016-03-30",

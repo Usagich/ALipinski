@@ -15,7 +15,7 @@
             "value": "Static"
         },
         "idleTimeoutInMinutes": {
-            "value": 4
+            "value": "4"
         },
         "publicIpAddressVersion": {
             "value": "IPv4"

@@ -9,18 +9,10 @@
             "type": "string"
         },
         "sku": {
-            "type": "string",
-            "allowedValues": [
-                "Basic",
-                "Standard"
-            ]
+            "type": "string"
         },
         "publicIPAllocationMethod": {
-            "type": "string",
-            "allowedValues": [
-                "Dynamic",
-                "Static"
-            ]
+            "type": "string"
         },
         "idleTimeoutInMinutes": {
             "type": "int"

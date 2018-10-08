@@ -1,45 +1,62 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {},
-    "resources": [
-        {
-            "apiVersion": "2016-03-30",
-            "type": "Microsoft.Network/publicIPAddresses",
-            "name": "myPublicIPAddress",
-            "location": "[resourceGroup().location]",
-            "properties": {
-                "publicIPAllocationMethod": "Dynamic"
-            }
+    "parameters": {
+        "vnet_name": {
+            "type": "string"
         },
-        {
-            "type": "Microsoft.Network/virtualNetworks",
-            "name": "[parameters('vnet_name')]",
-            "apiVersion": "2018-02-01",
-            "location": "[resourceGroup().location]",
-            "properties": {
-                "addressSpace": {
-                    "addressPrefixes": "[parameters('vnet_addressPrefix')]"
-                    
-                },
-                "subnets": [
-                    {
-                        "name": "[parameters('subnets_Frontend_name')]",
-                        "properties": {
-                            "addressPrefix": "[parameters('subnetFront_addressPrefix')]"
-                        }
-                    },
-                    {
-                        "name": "[parameters('subnets_Backend_name')]",
-                        "properties": {
-                            "addressPrefix": "[parameters('subnetBack_addressPrefix')]"
-                        }
-                    }
-                ],
-                "enableDdosProtection": false,
-                "enableVmProtection": false
-            }
+        "vnet_addressPrefix": {
+            "type": "string"
+        },
+        "subnets_Backend_name": {
+            "type": "string"
+        },
+        "subnets_Frontend_name": {
+            "type": "string"
+        },
+        "subnetFront_addressPrefix": {
+            "type": "string"
+        },
+        "subnetBack_addressPrefix": {
+            "type": "string"
         }
-        
-    ]
-}
+    },
+        "resources": [
+            {
+                "apiVersion": "2016-03-30",
+                "type": "Microsoft.Network/publicIPAddresses",
+                "name": "myPublicIPAddress",
+                "location": "[resourceGroup().location]",
+                "properties": {
+                    "publicIPAllocationMethod": "Dynamic"
+                }
+            },
+            {
+                "type": "Microsoft.Network/virtualNetworks",
+                "name": "[parameters('vnet_name')]",
+                "apiVersion": "2018-02-01",
+                "location": "[resourceGroup().location]",
+                "properties": {
+                    "addressSpace": {
+                        "addressPrefixes": "[parameters('vnet_addressPrefix')]"
+                    },
+                    "subnets": [
+                        {
+                            "name": "[parameters('subnets_Frontend_name')]",
+                            "properties": {
+                                "addressPrefix": "[parameters('subnetFront_addressPrefix')]"
+                            }
+                        },
+                        {
+                            "name": "[parameters('subnets_Backend_name')]",
+                            "properties": {
+                                "addressPrefix": "[parameters('subnetBack_addressPrefix')]"
+                            }
+                        }
+                    ],
+                    "enableDdosProtection": false,
+                    "enableVmProtection": false
+                }
+            }
+        ]
+    }

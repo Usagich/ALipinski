@@ -8,7 +8,7 @@
         "adminPassword": {
             "reference": {
                 "keyVault": {
-                    "id": "https://testrg5keys.vault.azure.net/secrets/mykey/d87f076c1f0e48c181b931a84bd9cd75"
+                    "id": "/subscriptions/1f1fe2e5-5f13-4687-aef3-063acc693dd3/resourceGroups/TestRG5/providers/Microsoft.KeyVault/vaults/TestRG5Keys"
                 },
                 "secretName": "mykey"
             }

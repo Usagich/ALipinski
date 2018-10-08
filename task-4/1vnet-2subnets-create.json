@@ -16,12 +16,19 @@
         },
         "subnetBack_addressPrefix": {
             "type": "string"
-        },
-        "vnet_addressPrefix":{
-            "type": "string"
         }
+
     },
     "resources": [
+        {
+            "apiVersion": "2016-03-30",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "name": "myPublicIPAddress",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "publicIPAllocationMethod": "Dynamic"
+            }
+        },
         {
             "type": "Microsoft.Network/virtualNetworks",
             "name": "[parameters('virtualNetworks_Task3VN1_name')]",
@@ -30,7 +37,7 @@
             "properties": {
                 "addressSpace": {
                     "addressPrefixes": [
-                        "[parameters('vnet_addressPrefix')]"
+                        "10.8.0.0/16"
                     ]
                 },
                 "subnets": [

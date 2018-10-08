@@ -16,9 +16,6 @@
         },
         "subnetBack_addressPrefix": {
             "value":  "10.8.0.0/24"
-        },
-        "vnet_addressPrefix":{
-            "value": "10.8.0.0/16"
         }
     }
 }

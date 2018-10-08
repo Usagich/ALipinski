@@ -17,13 +17,23 @@
         "subnetBack_addressPrefix": {
             "type": "string"
         }
+
     },
     "resources": [
+        {
+            "apiVersion": "2016-03-30",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "name": "myPublicIPAddress",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "publicIPAllocationMethod": "Dynamic"
+            }
+        },
         {
             "type": "Microsoft.Network/virtualNetworks",
             "name": "[parameters('virtualNetworks_Task3VN1_name')]",
             "apiVersion": "2018-02-01",
-            "location": "northeurope",
+            "location": "[resourceGroup().location]",
             "properties": {
                 "addressSpace": {
                     "addressPrefixes": [

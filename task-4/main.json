@@ -10,11 +10,11 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri":"https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-4/1vnet-2subnets-create.json",
+                    "uri":"https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-3/1vnet-2subnets-create.json",
                     "contentVersion": "1.0.0.0"
                 },
                 "parametersLink": {
-                    "uri":"https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-4/1vnet-2subnets-create-parameters.json",
+                    "uri":"https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-3/1vnet-2subnets-create-parameters.json",
                     "contentVersion": "1.0.0.0"
                 }
             }
@@ -26,11 +26,11 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri":"https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-4/storage-account-create.json",
+                    "uri":"https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-3/storage-account-create.json",
                     "contentVersion": "1.0.0.0"
                 },
                 "parametersLink": {
-                    "uri":"https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-4/storage-account-create-parameters.json",
+                    "uri":"https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-3/storage-account-create-parameters.json",
                     "contentVersion": "1.0.0.0"
                 }
             }

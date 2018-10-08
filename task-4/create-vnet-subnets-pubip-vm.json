@@ -22,10 +22,7 @@
             "name": "myPublicIPAddress",
             "location": "[resourceGroup().location]",
             "properties": {
-                "publicIPAllocationMethod": "Dynamic",
-                "dnsSettings": {
-                    "domainNameLabel": "myresourcegroupdns1"
-                }
+                "publicIPAllocationMethod": "Dynamic"
             }
         },
         {

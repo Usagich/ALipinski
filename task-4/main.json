@@ -37,7 +37,7 @@
         },
         {
             "apiVersion": "2017-05-10",
-            "name": "TemplateStorageAccount",
+            "name": "TemplatePublicIp",
             "type": "Microsoft.Resources/deployments",
             "properties": {
                 "mode": "Incremental",

@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "vnet_name": {
-            "value": "Task3VN1"
+            "value": "Task4VN1"
         },
         "vnet_addressPrefix": {
             "value":"10.8.0.0/16"

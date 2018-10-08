@@ -3,10 +3,12 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "adminUsername": {
-            "type": "string"
+            "type": "string",
+            "defaultValue": "azureuser"
         },
         "adminPassword": {
-            "type": "securestring"
+            "type": "securestring",
+            "defaultValue": "Azure12345678!"
         }
     },
     "variables": {

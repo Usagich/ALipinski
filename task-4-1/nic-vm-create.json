@@ -22,10 +22,7 @@
             "type": "Microsoft.Network/networkInterfaces",
             "name": "[parameters('vm_name')]",
             "location": "[resourceGroup().location]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Network/publicIPAddresses/', 'myPublicIPAddress')]",
-                "[resourceId('Microsoft.Network/virtualNetworks/', 'vnet-TestRG5')]"
-            ],
+            "dependsOn": [],
             "properties": {
                 "ipConfigurations": [
                     {

@@ -20,7 +20,8 @@
     },
     "variables": {
         "vnetID": "[resourceId('Microsoft.Network/virtualNetworks','myVNet')]",
-        "subnetRef": "[concat(variables('vnetID'),'/subnets/mySubnet')]"
+        "subnetRef": "[concat(variables('vnetID'),'/subnets/mySubnet')]",
+        "networkSecurityGroupName": "networkSecurityGroup1"
     },
     "resources": [
         {
@@ -38,6 +39,9 @@
             "name": "myVNet",
             "location": "[resourceGroup().location]",
             "properties": {
+                "dependsOn": [
+                    "[concat('Microsoft.Network/networkSecurityGroups/', variables('networkSecurityGroupName'))]"
+                ],
                 "addressSpace": {
                     "addressPrefixes": [
                         "[parameters('vnet_addressPrefixes')]"
@@ -47,7 +51,10 @@
                     {
                         "name": "mySubnet",
                         "properties": {
-                            "addressPrefix": "[parameters('subnet_addressPrefix')]"
+                            "addressPrefix": "[parameters('subnet_addressPrefix')]",
+                            "networkSecurityGroup": {
+                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]"
+                            }
                         }
                     }
                 ]
@@ -74,6 +81,30 @@
                             "subnet": {
                                 "id": "[variables('subnetRef')]"
                             }
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "apiVersion": "2017-06-01",
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "name": "networkSecurityGroupName",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "securityRules": [
+                    {
+                        "name": "networkSecurityGroupRuleName",
+                        "properties": {
+                            "description": "IIS rule TCP 8080",
+                            "protocol": "Tcp",
+                            "sourcePortRange": "8080",
+                            "destinationPortRange": "8080",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 123,
+                            "direction": "Inbound"
                         }
                     }
                 ]

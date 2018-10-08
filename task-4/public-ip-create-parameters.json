@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "location_ip": {
-            "value": "northeurope"
+            "value": "westeurope"
         },
         "sku": {
             "value": "Basic"

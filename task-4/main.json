@@ -1,8 +1,39 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {},
-    "variables": {},
-    "resources": [],
-    "outputs": {}
+    "resources": [
+        {
+            "apiVersion": "2017-05-10",
+            "name": "TemplateVnet",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri":"https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-3/1vnet-2subnets-create.json",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parametersLink": {
+                    "uri":"https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-3/1vnet-2subnets-create-parameters.json",
+                    "contentVersion": "1.0.0.0"
+                }
+            }
+        },
+        {
+            "apiVersion": "2017-05-10",
+            "name": "TemplateStorageAccount",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri":"https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-3/storage-account-create.json",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parametersLink": {
+                    "uri":"https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-3/storage-account-create-parameters.json",
+                    "contentVersion": "1.0.0.0"
+                }
+            }
+        }
+    ]
 }

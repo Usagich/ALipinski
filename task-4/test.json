@@ -1,0 +1,202 @@
+{
+    "$": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {},
+    "variables": {},
+    "resources": [{
+        "apiVersion": "2017-06-01",
+        "type": "Microsoft.Network/networkSecurityGroups",
+        "name": "networkSecurityGroupName",
+        "location": "[resourceGroup().location]",
+        "properties": {
+            "securityRules": [{
+                "name": "networkSecurityGroupRuleName",
+                "properties": {
+                    "description": "nsgRuleDescription",
+                    "protocol": "nsgRuleProtocol",
+                    "sourcePortRange": "nsgRuleSourcePortRange",
+                    "destinationPortRange": "nsgRuleDestinationPortRange",
+                    "sourceAddressPrefix": "nsgRuleSourceAddressPrefix",
+                    "destinationAddressPrefix": "nsgRileDestinationAddressRange",
+                    "access": "nsgRuleAccess",
+                    "priority": "nsgRulePriority",
+                    "direction": "nsgRuleDirection"
+                }
+            }]
+        }
+    }],
+    "outputs": {}
+}
+{
+    "type": "Microsoft.Storage/storageAccounts",
+    "name": "[toLower('storage')]",
+    "apiVersion": "2015-06-15",
+    "location": "[resourceGroup().location]",
+    "tags": {
+        "displayName": " Storage Account"
+    },
+    "properties": {
+        "accountType": "Standard_LRS"
+    }
+},
+{
+    "apiVersion": "2015-06-15",
+    "type": "Microsoft.Network/publicIPAddresses",
+    "name": "-PublicIP",
+    "location": "[resourceGroup().location]",
+    "tags": {
+        "displayName": "PublicIPAddress"
+    },
+    "properties": {
+        "publicIPAllocationMethod": "Dynamic",
+        "dnsSettings": {
+            "domainNameLabel": "[toLower('')]"
+        }
+    }
+},
+{
+    "apiVersion": "2015-06-15",
+    "type": "Microsoft.Network/virtualNetworks",
+    "name": "-VirtualNetwork",
+    "location": "[resourceGroup().location]",
+    "tags": {
+        "displayName": "VirtualNetwork"
+    },
+    "properties": {
+        "addressSpace": {
+            "addressPrefixes": [
+                "10.0.0.0/16"
+            ]
+        },
+        "subnets": [
+            {
+                "name": "-VirtualNetwork-Subnet",
+                "properties": {
+                    "addressPrefix": "10.0.0.0/24"
+                }
+            }
+        ]
+    }
+},
+{
+    "apiVersion": "2015-06-15",
+    "type": "Microsoft.Network/networkInterfaces",
+    "name": "-NetworkInterface",
+    "location": "[resourceGroup().location]",
+    "dependsOn": [
+        "Microsoft.Network/publicIPAddresses/-PublicIP",
+        "Microsoft.Network/virtualNetworks/-VirtualNetwork"
+    ],
+    "tags": {
+        "displayName": " Network Interface"
+    },
+    "properties": {
+        "ipConfigurations": [
+            {
+                "name": "ipconfig1",
+                "properties": {
+                    "privateIPAllocationMethod": "Dynamic",
+                    "publicIPAddress": {
+                        "id": "[resourceId('Microsoft.Network/publicIPAddresses', '-PublicIP')]"
+                    },
+                    "subnet": {
+                        "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', '-VirtualNetwork'), '/subnets/-VirtualNetwork-Subnet')]"
+                    }
+                }
+            }
+        ]
+    }
+},
+{
+    "apiVersion": "2017-03-30",
+    "type": "Microsoft.Compute/virtualMachines",
+    "name": "",
+    "location": "[resourceGroup().location]",
+    "dependsOn": [
+        "[concat('Microsoft.Storage/storageAccounts/', toLower('storage'))]",
+        "Microsoft.Network/networkInterfaces/-NetworkInterface"
+    ],
+    "tags": {
+        "displayName": ""
+    },
+    "properties": {
+        "hardwareProfile": {
+            "vmSize": "Standard_A2"
+        },
+        "osProfile": {
+            "computerName": "",
+            "adminUsername": "",
+            "adminPassword": ""
+        },
+        "storageProfile": {
+            "imageReference": {
+                "publisher": "MicrosoftWindowsServer",
+                "offer": "WindowsServer",
+                "sku": "2012-R2-Datacenter",
+                "version": "latest"
+            },
+            "osDisk": {
+                "name": "OSDisk",
+                "caching": "ReadWrite",
+                "createOption": "FromImage"
+            }
+        },
+        "networkProfile": {
+            "networkInterfaces": [
+                {
+                    "id": "[resourceId('Microsoft.Network/networkInterfaces', '-NetworkInterface')]"
+                }
+            ]
+        },
+        "diagnosticsProfile": {
+            "bootDiagnostics": {
+                "enabled": true,
+                "storageUri": "[concat('http://', toLower('storage'), '.blob.core.windows.net')]"
+            }
+        }
+    },
+    "resources": [
+        {
+            "type": "extensions",
+            "name": "AzureDiagnostics",
+            "apiVersion": "2015-06-15",
+            "location": "[resourceGroup().location]",
+            "tags": {
+                "displayName": "AzureDiagnostics"
+            },
+            "dependsOn": [
+                "Microsoft.Compute/virtualMachines/"
+            ],
+            "properties": {
+                "publisher": "Microsoft.Azure.Diagnostics",
+                "type": "IaaSDiagnostics",
+                "typeHandlerVersion": "1.5",
+                "autoUpgradeMinorVersion": true,
+                "settings": {
+                    "xmlCfg": "[base64('<WadCfg> <DiagnosticMonitorConfiguration overallQuotaInMB=\"4096\" xmlns=\"http: //schemas.microsoft.com/ServiceHosting/2010/10/DiagnosticsConfiguration\"> <DiagnosticInfrastructureLogs scheduledTransferLogLevelFilter=\"Error\"/> <Logs scheduledTransferPeriod=\"PT1M\" scheduledTransferLogLevelFilter=\"Error\" /> <Directories scheduledTransferPeriod=\"PT1M\"> <IISLogs containerName =\"wad-iis-logfiles\" /> <FailedRequestLogs containerName =\"wad-failedrequestlogs\" /> </Directories> <WindowsEventLog scheduledTransferPeriod=\"PT1M\" > <DataSource name=\"Application!*\" /> </WindowsEventLog> <CrashDumps containerName=\"wad-crashdumps\" dumpType=\"Mini\"> <CrashDumpConfiguration processName=\"WaIISHost.exe\"/> <CrashDumpConfiguration processName=\"WaWorkerHost.exe\"/> <CrashDumpConfiguration processName=\"w3wp.exe\"/> </CrashDumps> <PerformanceCounters scheduledTransferPeriod=\"PT1M\"> <PerformanceCounterConfiguration counterSpecifier=\"\\Memory\\Available MBytes\" sampleRate=\"PT3M\" /> <PerformanceCounterConfiguration counterSpecifier=\"\\Web Service(_Total)\\ISAPI Extension Requests/sec\" sampleRate=\"PT3M\" /> <PerformanceCounterConfiguration counterSpecifier=\"\\Web Service(_Total)\\Bytes Total/Sec\" sampleRate=\"PT3M\" /> <PerformanceCounterConfiguration counterSpecifier=\"\\ASP.NET Applications(__Total__)\\Requests/Sec\" sampleRate=\"PT3M\" /> <PerformanceCounterConfiguration counterSpecifier=\"\\ASP.NET Applications(__Total__)\\Errors Total/Sec\" sampleRate=\"PT3M\" /> <PerformanceCounterConfiguration counterSpecifier=\"\\ASP.NET\\Requests Queued\" sampleRate=\"PT3M\" /> <PerformanceCounterConfiguration counterSpecifier=\"\\ASP.NET\\Requests Rejected\" sampleRate=\"PT3M\" /> <PerformanceCounterConfiguration counterSpecifier=\"\\Processor(_Total)\\% Processor Time\" sampleRate=\"PT3M\" /> </PerformanceCounters> </DiagnosticMonitorConfiguration> </WadCfg>')]",
+                    "storageAccount": "[toLower('storage')]"
+                },
+                "protectedSettings": {
+                    "storageAccountName": "[toLower('storage')]",
+                    "storageAccountKey": "[listkeys(concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Storage/storageAccounts/', toLower('storage')), '2015-06-15').key1]",
+                    "storageAccountEndPoint": "https://core.windows.net"
+                }
+            }
+        }
+    ]
+}
+{
+    "apiVersion": "2015-06-15",
+    "type": "Microsoft.Network/publicIPAddresses",
+    "name": "",
+    "location": "[resourceGroup().location]",
+    "tags": {
+        "displayName": ""
+    },
+    "properties": {
+        "publicIPAllocationMethod": "Dynamic",
+        "dnsSettings": {
+            "domainNameLabel": ""
+        }
+    }
+}

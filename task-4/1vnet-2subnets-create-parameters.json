@@ -17,10 +17,7 @@
         "subnetBack_addressPrefix": {
             "value":  "10.8.0.0/24"
         },
-        "location":{
-            "value": "northeurope"
-        },
-        "vnet-addressPrefixes":{
+        "vnet_addressPrefix":{
             "value": "10.8.0.0/16"
         }
     }

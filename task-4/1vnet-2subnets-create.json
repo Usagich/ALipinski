@@ -17,10 +17,7 @@
         "subnetBack_addressPrefix": {
             "type": "string"
         },
-        "location":{
-            "type": "string"
-        },
-        "vnet-addressPrefixes":{
+        "vnet_addressPrefix":{
             "type": "string"
         }
     },
@@ -29,11 +26,11 @@
             "type": "Microsoft.Network/virtualNetworks",
             "name": "[parameters('virtualNetworks_Task3VN1_name')]",
             "apiVersion": "2018-02-01",
-            "location": "[parameters('location')]",
+            "location": "[resourceGroup().location]",
             "properties": {
                 "addressSpace": {
                     "addressPrefixes": [
-                        "[parameters('vnet-addressPrefixes')]"
+                        "[parameters('vnet_addressPrefix')]"
                     ]
                 },
                 "subnets": [

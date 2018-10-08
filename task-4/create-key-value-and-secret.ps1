@@ -1,10 +1,10 @@
 Param(
     [Parameter(Mandatory = $False)]
-    [string]$resourceGroupName = 'task-4-resoure-group'
+    [string]$resourceGroupName = 'testRG5'
 )
 
 $vaultname = "winadmin"
-$password = "Qwertyu!"
+$password = "ZEtyu7702954!"
 $Location = "North Europe"
 
 $resourceGroup = Get-AzureRmResourceGroup `

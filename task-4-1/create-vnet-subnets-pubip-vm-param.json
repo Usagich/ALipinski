@@ -1,0 +1,26 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "adminUserName": {
+            "value": "azureuser"
+        },
+        "adminPassword": {
+            "reference": {
+                "keyVault": {
+                    "id": "/subscriptions/1f1fe2e5-5f13-4687-aef3-063acc693dd3/resourceGroups/testRG5/providers/Microsoft.KeyVault/vaults/winadmin"
+                },
+                "secretName": "examplesecret"
+            }
+        },
+        "vnet_addressPrefixes":{
+            "value": "10.0.0.0/16"
+        },
+        "subnet_addressPrefix":{
+            "value": "10.0.0.0/24"
+        },
+        "pubtIP_name":{
+            "value": "myPublicIPAddress"
+        }
+    }
+}

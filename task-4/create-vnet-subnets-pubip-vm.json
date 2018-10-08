@@ -8,6 +8,15 @@
         },
         "adminPassword": {
             "type": "securestring"
+        },
+        "vnet_addressPrefixes":{
+            "type": "string"
+        },
+        "subnet_addressPrefix":{
+            "type": "string"
+        },
+        "pubtIP_name":{
+            "type": "string"
         }
     },
     "variables": {
@@ -18,7 +27,7 @@
         {
             "apiVersion": "2016-03-30",
             "type": "Microsoft.Network/publicIPAddresses",
-            "name": "myPublicIPAddress",
+            "name": "[parameters('pubtIP_name')]",
             "location": "[resourceGroup().location]",
             "properties": {
                 "publicIPAllocationMethod": "Dynamic"
@@ -32,14 +41,14 @@
             "properties": {
                 "addressSpace": {
                     "addressPrefixes": [
-                        "10.0.0.0/16"
+                        "[parameters('vnet_addressPrefixes')]"
                     ]
                 },
                 "subnets": [
                     {
                         "name": "mySubnet",
                         "properties": {
-                            "addressPrefix": "10.0.0.0/24"
+                            "addressPrefix": "[parameters('subnet_addressPrefix')]"
                         }
                     }
                 ]

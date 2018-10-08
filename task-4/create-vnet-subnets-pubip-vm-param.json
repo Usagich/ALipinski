@@ -12,6 +12,15 @@
                 },
                 "secretName": "mysecret"
             }
+        },
+        "vnet_addressPrefixes":{
+            "value": "10.0.0.0/16"
+        },
+        "subnet_addressPrefix":{
+            "value": "10.0.0.0/24"
+        },
+        "pubtIP_name":{
+            "value": "myPublicIPAddress"
         }
     }
 }

@@ -7,8 +7,12 @@
             "defaultValue": "azureuser"
         },
         "adminPassword": {
-            "type": "securestring",
-            "defaultValue": "Azure12345678!"
+            "reference": {
+                "keyVault": {
+                    "id": "https://testrg5keys.vault.azure.net/secrets/mykey/d87f076c1f0e48c181b931a84bd9cd75"
+                },
+                "secretName": "mykey"
+            }
         }
     },
     "variables": {

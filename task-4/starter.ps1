@@ -11,5 +11,5 @@ if (!$resourceGroup) {
     New-AzureRmResourceGroup -Name $resourceGroupName -Location 'North Europe'
 }
 
-$templateFilePath = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-3/main.json' 
+$templateFilePath = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-4/main.json' 
 New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName -TemplateFile $templateFilePath

@@ -2,17 +2,19 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "vnet_name":{
+        "vnet_name": {
             "type": "string"
         },
-        "vnet_addressPrefixes":{
+        "subnet_name": {
             "type": "string"
         },
-        "subnet_addressPrefix":{
+        "vnet_addressPrefixes": {
+            "type": "string"
+        },
+        "subnet_addressPrefix": {
             "type": "string"
         }
     },
-    "variables": {},
     "resources": [
         {
             "apiVersion": "2016-03-30",
@@ -27,7 +29,7 @@
                 },
                 "subnets": [
                     {
-                        "name": "mySubnet",
+                        "name": "[parameters('subnet_name')]",
                         "properties": {
                             "addressPrefix": "[parameters('subnet_addressPrefix')]"
                         }

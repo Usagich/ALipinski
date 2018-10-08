@@ -10,6 +10,9 @@
         },
         "vnet_name":{
             "value": "myVnet"
+        },
+        "subnet_name":{
+            "value": "mySubnet"
         }
     }
 }

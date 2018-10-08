@@ -14,7 +14,7 @@
         },
         {
             "type": "Microsoft.Network/virtualNetworks",
-            "name": "[parameters('virtualNetworks_Task3VN1_name')]",
+            "name": "[parameters('vnet_name')]",
             "apiVersion": "2018-02-01",
             "location": "[resourceGroup().location]",
             "properties": {

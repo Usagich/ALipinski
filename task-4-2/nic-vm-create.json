@@ -10,10 +10,10 @@
             "type": "securestring",
             "defaultValue": "ZEtyu7702954!"
         },
-        "pubip_id": {
+        "pubip_name": {
             "type": "string"
         },
-        "subnet_id": {
+        "subnet_name": {
             "type": "string"
         }
     },
@@ -36,10 +36,10 @@
                         "properties": {
                             "privateIPAllocationMethod": "Dynamic",
                             "publicIPAddress": {
-                                "id": "[parameters('pubip_id')]"
+                                "id": "[parameters('pubip_name')]"
                             },
                             "subnet": {
-                                "id": "[parameters('subnet_id')]"
+                                "id": "[parameters('subnet_name')]"
                             }
                         }
                     }

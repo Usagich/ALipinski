@@ -42,11 +42,11 @@
         }
     ],
     "outputs": {
-        "nsg_id": {
+        "nsg_name": {
             "type": "string",
             "value": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('nsg_name'))]"
         },
-        "pubip_id": {
+        "pubip_name": {
             "type": "string",
             "value": "[resourceId('Microsoft.Network/publicIPAddresses', variables('pubip_name'))]"
         }

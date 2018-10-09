@@ -1,0 +1,48 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vnet_addressPrefixes": {
+            "type": "string"
+        },
+        "subnet_addressPrefix": {
+            "type": "string"
+        },
+        "nsg_name": {
+            "type": "string"
+        }
+    },
+    "variables": {
+        "vnet_name": "[concat('vnet-',resourceGroup().name)]",
+        "subnet_name": "[concat('subnet-',resourceGroup().name)]"
+    },
+    "resources": [
+        {
+            "apiVersion": "2016-03-30",
+            "type": "Microsoft.Network/virtualNetworks",
+            "name": "[variables('vnet_name')]",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "[parameters('vnet_addressPrefixes')]"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "[variables('subnet_name')]",
+                        "properties": {
+                            "addressPrefix": "[parameters('subnet_addressPrefix')]"
+                        }
+                    }
+                ]
+            }
+        }
+    ],
+    "outputs": {
+        "subnet_id": {
+            "type": "string",
+            "value": "[resourceId('Microsoft.Network/virtualNetworks/subnets/', variables('subnet_name'))]"
+        }
+    }
+}

@@ -15,10 +15,6 @@
                 "templateLink": {
                     "uri": "[concat(variables('link'), '/pubip-nsg-create.json')]",
                     "contentVersion": "1.0.0.0"
-                },
-                "parametersLink": {
-                    "uri": "[concat(variables('link'), '/pubip-nsg-create-parameters.json')]",
-                    "contentVersion": "1.0.0.0"
                 }
             }
         },

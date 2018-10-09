@@ -1,0 +1,61 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vnet_addressPrefixes": {
+            "type": "string"
+        },
+        "subnet_addressPrefix": {
+            "type": "string"
+        },
+        "adminUsername": {
+            "type": "string"
+        },
+        "adminPassword": {
+            "type": "securestring"
+        }
+    },
+    "variables": {
+        "link": "https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-4-2"
+    },
+    "resources": [
+        {
+            "apiVersion": "2017-05-10",
+            "name": "all-network",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('link'), '/all-network.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "vnet_addressPrefixes":{"value": "[parameters('vnet_addressPrefixes')]"},
+                    "subnet_addressPrefix":{"value": "[parameters('subnet_addressPrefix')]"}
+                }
+            }
+        },
+        {
+            "apiVersion": "2017-05-10",
+            "name": "vm-create",
+            "type": "Microsoft.Resources/deployments",
+            "dependsOn": [
+                "all-network"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('link'), '/vm-create.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "nic_name": {
+                        "value": "[reference('all-network').outputs.nic_name.value]"
+                    },
+                    "adminUsername":{"value": "[parameters('adminUsername')]"},
+                    "adminPassword":{"value": "[parameters('adminPassword')]"}
+                }
+            }
+        }
+    ]
+}

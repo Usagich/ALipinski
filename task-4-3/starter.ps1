@@ -13,4 +13,4 @@ if (!$resourceGroup) {
 
 $Template = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-4-3/main.json'
 $TemplatePar = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-4-3/main-parameters.json'
-New-AzureRmResourceGroupDeployment -ResourceGroupName TestRG5 -TemplateFile $Template -TemplateParameterFile $TemplatePar
+New-AzureRmResourceGroupDeployment -ResourceGroupName TestRG5 -TemplateUri $Template -TemplateParameterUri $TemplatePar

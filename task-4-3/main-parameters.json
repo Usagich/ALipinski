@@ -20,7 +20,7 @@
             "value": "10.0.0.0/24"
         },
         "DSC": {
-            "value": "https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-4-3/DSC.zip"
+            "value": "https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/raw/master/task-4-3/DSC.zip"
         },
         "DSCfunctions": {
             "value": "DSC.ps1\\Task"

@@ -10,7 +10,14 @@
         },
         "nic_name": {
             "type": "string"
+        },
+        "DSC": {
+            "type": "string"
+        },
+        "DSCfunctions": {
+            "type": "string"
         }
+
     },
     "variables": {
         "vm_name": "[concat('vm1-',resourceGroup().name)]",
@@ -71,7 +78,7 @@
                 "ModulesUrl": "[parameters('DSC')]",
                 "ConfigurationFunction": "[parameters('DSCfunctions')]",
                 "Properties": {
-                  "MachineName": "[parameters('virtualMachineName')]"
+                  "MachineName": "[variables('vm_name')]"
                 }
               },
               "protectedSettings": null

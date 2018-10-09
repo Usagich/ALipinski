@@ -57,9 +57,6 @@
                         "name": "[variables('subnet_name')]",
                         "properties": {
                             "addressPrefix": "[parameters('subnet_addressPrefix')]"
-                        },
-                        "networkSecurityGroup": {
-                            "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('nsg_name'))]"
                         }
                     }
                 ]
@@ -88,7 +85,10 @@
                             }
                         }
                     }
-                ]
+                ],
+                "networkSecurityGroup": {
+                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('nsg_name'))]"
+                }
             }
         }
     ],

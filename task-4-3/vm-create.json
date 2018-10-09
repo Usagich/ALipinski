@@ -32,7 +32,7 @@
             "location": "[resourceGroup().location]",
             "properties": {
                 "hardwareProfile": {
-                    "vmSize": "Standard_DS2_v2"
+                    "vmSize": "Standard_DS4_v3"
                 },
                 "osProfile": {
                     "computerName": "[variables('vm_name')]",

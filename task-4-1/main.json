@@ -36,6 +36,14 @@
                     "uri": "[concat(variables('link'), '/vnet-subnet-create-parameters.json')]",
                     "contentVersion": "1.0.0.0"
                 }
+            },
+            "dependsOn": [
+                "pubip-nsg-create"
+            ],
+            "parameters": {
+                "nsg_id": {
+                    "value": "[reference('pubip-nsg-create').outputs.resourceID.value]"
+                }
             }
         },
         {
@@ -53,11 +61,10 @@
                     "contentVersion": "1.0.0.0"
                 }
             },
-            "parameters": {
-                "NSGid": {
-                    "value": "[reference('nsg_name').outputs.resourceID.value]"
-                }
-            }
+            "dependsOn": [
+                "pubip-nsg-create",
+                "vnet-subnet-create"
+            ]
         }
     ]
 }

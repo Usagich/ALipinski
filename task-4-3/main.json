@@ -13,6 +13,12 @@
         },
         "adminPassword": {
             "type": "securestring"
+        },
+        "DSC": {
+            "type": "string"
+        },
+        "DSCfunctions": {
+            "type": "string"
         }
     },
     "variables": {
@@ -53,7 +59,9 @@
                         "value": "[reference('all-network').outputs.nic_name.value]"
                     },
                     "adminUsername":{"value": "[parameters('adminUsername')]"},
-                    "adminPassword":{"value": "[parameters('adminPassword')]"}
+                    "adminPassword":{"value": "[parameters('adminPassword')]"},
+                    "DSC":{"value":"[parameters('DSC')]"},
+                    "DSCfunctions":{"value":"[parameters('DSCfunctions')]"}
                 }
             }
         }

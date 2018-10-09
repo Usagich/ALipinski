@@ -47,15 +47,7 @@
             "dependsOn": [
                 "pubip-nsg-create",
                 "vnet-subnet-create"
-            ],
-            "parameters": {
-                "pubip_id": {
-                    "value":"[reference('pubip-nsg-create').outputs.pubip_id.value]"
-                },
-                "subnet_id": {
-                    "value": "[reference('vnet-subnet-create').outputs.subnet_id.value]"
-                }
-            }
+            ]
         }
     ]
 }

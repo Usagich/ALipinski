@@ -9,20 +9,20 @@
         "adminPassword": {
             "type": "securestring",
             "defaultValue": "ZEtyu7702954!"
-
         },
-        "pubip_id":{
-            "type": "string"
+        "pubip_id": {
+            "type": "string",
+            "value": "[reference('pubip-nsg-create').outputs.pubip_id.value]"
         },
-        "subnet_id":{
-            "type": "string"
+        "subnet_id": {
+            "type": "string",
+            "value": "[reference('vnet-subnet-create').outputs.subnet_id.value]"
         }
     },
     "variables": {
-        "vm_name":"[concat('vm1-',resourceGroup().name)]",
-        "nic_name":"[concat('nic1-',resourceGroup().name)]",
-        "disc_name":"[concat('disk1-',resourceGroup().name)]"
-
+        "vm_name": "[concat('vm1-',resourceGroup().name)]",
+        "nic_name": "[concat('nic1-',resourceGroup().name)]",
+        "disc_name": "[concat('disk1-',resourceGroup().name)]"
     },
     "resources": [
         {

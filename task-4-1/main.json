@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {},
     "variables": {
-        "link": "https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-4-1/"
+        "link": "https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-4-1"
     },
     "resources": [
         {

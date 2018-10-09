@@ -30,8 +30,8 @@
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
-                    "vnet_addressPrefixes": "[parameters('vnet_addressPrefixes')]",
-                    "subnet_addressPrefix": "[parameters('subnet_addressPrefix')]"
+                    "vnet_addressPrefixes":{"value": "[parameters('vnet_addressPrefixes')]"},
+                    "subnet_addressPrefix":{"value": "[parameters('subnet_addressPrefix')]"}
                 }
             }
         },
@@ -52,8 +52,8 @@
                     "nic_name": {
                         "value": "[reference('all-network').outputs.nic_name.value]"
                     },
-                    "adminUsername": "[parameters('adminUsername')]",
-                    "adminPassword": "[parameters('adminPassword')]"
+                    "adminUsername":{"value": "[parameters('adminUsername')]"},
+                    "adminPassword":{"value": "[parameters('adminPassword')]"}
                 }
             }
         }

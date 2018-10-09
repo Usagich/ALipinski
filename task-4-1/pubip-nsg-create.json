@@ -7,7 +7,7 @@
         }
     },
     "variables": {
-        "networkSecurityGroupName": "NSG-IIS"
+        "nsg_name":"NSG-IIS"
     },
     "resources": [
         {
@@ -22,12 +22,12 @@
         {
             "apiVersion": "2017-06-01",
             "type": "Microsoft.Network/networkSecurityGroups",
-            "name": "[variables('networkSecurityGroupName')]",
+            "name": "[variables('nsg_name')]",
             "location": "[resourceGroup().location]",
             "properties": {
                 "securityRules": [
                     {
-                        "name": "[variables('networkSecurityGroupName')]",
+                        "name": "[variables('nsg_name')]",
                         "properties": {
                             "description": "IIS rule TCP 8080",
                             "protocol": "Tcp",
@@ -44,5 +44,10 @@
             }
         }
     ],
-    "outputs": {}
+    "outputs": {
+        "resourceID": {
+            "type": "string",
+            "value": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('nsg_name'))]"
+        }
+    }
 }

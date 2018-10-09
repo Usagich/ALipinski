@@ -7,6 +7,9 @@
         },
         "subnet_addressPrefix": {
             "type": "string"
+        },
+        "networkSecurityGroupRules": {
+            "type": "array"
         }
     },
     "variables": {
@@ -32,22 +35,7 @@
             "name": "[variables('nsg_name')]",
             "location": "[resourceGroup().location]",
             "properties": {
-                "securityRules": [
-                    {
-                        "name": "[variables('nsg_name')]",
-                        "properties": {
-                            "description": "IIS rule TCP 8080",
-                            "protocol": "Tcp",
-                            "sourcePortRange": "*",
-                            "destinationPortRange": "8080",
-                            "sourceAddressPrefix": "*",
-                            "destinationAddressPrefix": "*",
-                            "access": "Allow",
-                            "priority": 123,
-                            "direction": "Inbound"
-                        }
-                    }
-                ]
+                "securityRules": "[parameters('networkSecurityGroupRules')]"
             }
         },
         {

@@ -19,6 +19,9 @@
         },
         "DSCfunctions": {
             "type": "string"
+        },
+        "networkSecurityGroupRules":{
+            "type": "array"
         }
     },
     "variables": {
@@ -37,7 +40,8 @@
                 },
                 "parameters": {
                     "vnet_addressPrefixes":{"value": "[parameters('vnet_addressPrefixes')]"},
-                    "subnet_addressPrefix":{"value": "[parameters('subnet_addressPrefix')]"}
+                    "subnet_addressPrefix":{"value": "[parameters('subnet_addressPrefix')]"},
+                    "networkSecurityGroupRules":{"value":"[parameters('networkSecurityGroupRules')]"}
                 }
             }
         },

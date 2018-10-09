@@ -20,8 +20,50 @@
         "DSCfunctions": {
             "type": "string"
         },
-        "networkSecurityGroupRules":{
+        "networkSecurityGroupRules": {
             "type": "array"
+        },
+        "KeyVautsName": {
+            "type": "string"
+        },
+        "sku": {
+            "type": "string",
+            "defaultValue": "Standard",
+            "allowedValues": [
+                "Standard",
+                "standard",
+                "Premium",
+                "premium"
+            ],
+            "metadata": {
+                "description": "SKU for the vault"
+            }
+        },
+        "accessPolicies": {
+            "type": "array",
+            "defaultValue": [],
+            "metadata": {
+                "description": "The access policies defined for this vault."
+            }
+        },
+        "tenant": {
+            "type": "string"
+        },
+        "enabledForDeployment": {
+            "type": "bool"
+        },
+        "enabledForTemplateDeployment": {
+            "type": "bool"
+        },
+        "enabledForDiskEncryption": {
+            "type": "bool"
+        },
+        "networkAcls": {
+            "type": "object"
+        },
+        "secretsObject": {
+            "type": "secureObject",
+            "defaultValue": "{}"
         }
     },
     "variables": {
@@ -39,9 +81,15 @@
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
-                    "vnet_addressPrefixes":{"value": "[parameters('vnet_addressPrefixes')]"},
-                    "subnet_addressPrefix":{"value": "[parameters('subnet_addressPrefix')]"},
-                    "networkSecurityGroupRules":{"value":"[parameters('networkSecurityGroupRules')]"}
+                    "vnet_addressPrefixes": {
+                        "value": "[parameters('vnet_addressPrefixes')]"
+                    },
+                    "subnet_addressPrefix": {
+                        "value": "[parameters('subnet_addressPrefix')]"
+                    },
+                    "networkSecurityGroupRules": {
+                        "value": "[parameters('networkSecurityGroupRules')]"
+                    }
                 }
             }
         },
@@ -62,10 +110,59 @@
                     "nic_name": {
                         "value": "[reference('all-network').outputs.nic_name.value]"
                     },
-                    "adminUsername":{"value": "[parameters('adminUsername')]"},
-                    "adminPassword":{"value": "[parameters('adminPassword')]"},
-                    "DSC":{"value":"[parameters('DSC')]"},
-                    "DSCfunctions":{"value":"[parameters('DSCfunctions')]"}
+                    "adminUsername": {
+                        "value": "[parameters('adminUsername')]"
+                    },
+                    "adminPassword": {
+                        "value": "[parameters('adminPassword')]"
+                    },
+                    "DSC": {
+                        "value": "[parameters('DSC')]"
+                    },
+                    "DSCfunctions": {
+                        "value": "[parameters('DSCfunctions')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2017-05-10",
+            "name": "linkedTemplateKeyVaunt",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "https://raw.githubusercontent.com/daniilkorytko/Task3.1/master/KeyVaunt.json",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "KeyVautsName": {
+                        "value": "[parameters('KeyVautsName')]"
+                    },
+                    "sku": {
+                        "value": "[parameters('sku')]"
+                    },
+                    "accessPolicies": {
+                        "value": "[parameters('accessPolicies')]"
+                    },
+                    "tenant": {
+                        "value": "[parameters('tenant')]"
+                    },
+                    "enabledForDeployment": {
+                        "value": "[parameters('enabledForDeployment')]"
+                    },
+                    "enabledForTemplateDeployment": {
+                        "value": "[parameters('enabledForTemplateDeployment')]"
+                    },
+                    "enabledForDiskEncryption": {
+                        "value": "[parameters('enabledForDiskEncryption')]"
+                    },
+                    "networkAcls": {
+                        "value": "[parameters('networkAcls')]"
+                    },
+                    "secretsObject": {
+                        "value": "[parameters('secretsObject')]"
+                    }
                 }
             }
         }

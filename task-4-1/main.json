@@ -42,7 +42,7 @@
             ],
             "parameters": {
                 "nsg_name": {
-                    "value":{"id" : "[reference('pubip-nsg-create').outputs.nsg_id.value]"}
+                    "value":"[reference('pubip-nsg-create').outputs.nsg_id.value]"
                 }
             }
         },
@@ -67,10 +67,10 @@
             ],
             "parameters": {
                 "pubIP_id": {
-                    "value":{"id" : "[reference('pubip-nsg-create').outputs.pubip_id.value]"}
+                    "value":"[reference('pubip-nsg-create').outputs.pubip_id.value]"
                 },
                 "subnet_id":{
-                    "value":{"id" : "[reference('vnet-subnet-create').outputs.subnet_id.value]"}
+                    "value":"[reference('vnet-subnet-create').outputs.subnet_id.value]"
                 }
             }
 

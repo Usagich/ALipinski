@@ -14,7 +14,7 @@
         "nic_name":{
             "type": "string"
         },
-        "pubIP_id":{
+        "pubip_id":{
             "type": "string"
         },
         "subnet_id":{
@@ -24,7 +24,6 @@
             "type": "string"
         }
     },
-    "variables": {},
     "resources": [
         {
             "apiVersion": "2016-03-30",
@@ -39,7 +38,7 @@
                         "properties": {
                             "privateIPAllocationMethod": "Dynamic",
                             "publicIPAddress": {
-                                "id": "[parameters('pubIP_id')]"
+                                "id": "[parameters('pubip_id')]"
                             },
                             "subnet": {
                                 "id": "[parameters('subnet_id')]"
@@ -79,13 +78,13 @@
                 "networkProfile": {
                     "networkInterfaces": [
                         {
-                            "id": "[resourceId('Microsoft.Network/networkInterfaces','myNic')]"
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces',parameters('nic_name'))]"
                         }
                     ]
                 }
             },
             "dependsOn": [
-                "[resourceId('Microsoft.Network/networkInterfaces/', 'myNic')]"
+                "[resourceId('Microsoft.Network/networkInterfaces/', parameters('nic_name'))]"
             ]
         }
     ],

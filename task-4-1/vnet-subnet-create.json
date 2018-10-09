@@ -9,7 +9,7 @@
             "type": "string"
         },
         "nsg_name": {
-            "type": "id"
+            "type": "string"
         }
     },
     "variables": {
@@ -43,9 +43,9 @@
         }
     ],
     "outputs": {
-        "subnet_id": {
+        "vnet_id": {
             "type": "string",
-            "value": "[resourceId('Microsoft.Network/virtualNetworks/subnets/', variables('subnet_name'))]"
+            "value": "[resourceId('Microsoft.Network/virtualNetworks/subnets/',variables('vnet_name'),'/', variables('subnet_name'))]"
         }
     }
 }

@@ -31,12 +31,7 @@
             },
             "dependsOn": [
                 "pubip-nsg-create"
-            ],
-            "parameters": {
-                "nsg_name": {
-                    "value": "[reference('pubip-nsg-create').outputs.pubip_id.value]"
-                }
-            }
+            ]
         },
         {
             "apiVersion": "2017-05-10",

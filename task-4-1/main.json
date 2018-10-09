@@ -41,8 +41,8 @@
                 "pubip-nsg-create"
             ],
             "parameters": {
-                "nsg_id": {
-                    "value": "[reference('pubip-nsg-create').outputs.resourceID.value]"
+                "nsg_name": {
+                    "value": "[reference('pubip-nsg-create').outputs.nsg_ID.value]"
                 }
             }
         },
@@ -64,7 +64,16 @@
             "dependsOn": [
                 "pubip-nsg-create",
                 "vnet-subnet-create"
-            ]
+            ],
+            "parameters": {
+                "pubIP_id": {
+                    "value": "[reference('pubip-nsg-create').outputs.pubip_id.value]"
+                },
+                "subnet_id":{
+                    "value": "[reference('vnet-subnet-create').outputs.subnet_id.value]"
+                }
+            }
+
         }
     ]
 }

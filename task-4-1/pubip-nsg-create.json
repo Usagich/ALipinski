@@ -2,7 +2,7 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "pubtIP_name": {
+        "pubIP_name": {
             "type": "string"
         }
     },
@@ -13,7 +13,7 @@
         {
             "apiVersion": "2016-03-30",
             "type": "Microsoft.Network/publicIPAddresses",
-            "name": "[parameters('pubtIP_name')]",
+            "name": "[parameters('pubIP_name')]",
             "location": "[resourceGroup().location]",
             "properties": {
                 "publicIPAllocationMethod": "Dynamic"
@@ -45,9 +45,13 @@
         }
     ],
     "outputs": {
-        "resourceID": {
+        "nsg_ID": {
             "type": "string",
             "value": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('nsg_name'))]"
+        },
+        "pubip_id":{
+            "type": "string",
+            "value": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('pubIP_name'))]"
         }
     }
 }

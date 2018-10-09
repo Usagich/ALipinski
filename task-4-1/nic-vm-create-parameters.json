@@ -18,6 +18,9 @@
         },
         "nic_name": {
             "value": "myNic"
+        },
+        "disc_name":{
+            "value": "managedDisc"
         }
     }
 }

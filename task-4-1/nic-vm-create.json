@@ -13,12 +13,18 @@
         },
         "nic_name":{
             "type": "string"
+        },
+        "pubIP_id":{
+            "type": "string"
+        },
+        "subnet_id":{
+            "type": "string"
+        },
+        "disc_name":{
+            "type": "string"
         }
     },
-    "variables": {
-        "vnetID": "[resourceId('Microsoft.Network/virtualNetworks','vnet-TestRG5')]",
-        "subnetRef": "[concat(variables('vnetID'),'/subnets/subnet-TestRG5')]"
-    },
+    "variables": {},
     "resources": [
         {
             "apiVersion": "2016-03-30",
@@ -33,10 +39,10 @@
                         "properties": {
                             "privateIPAllocationMethod": "Dynamic",
                             "publicIPAddress": {
-                                "id": "[resourceId('Microsoft.Network/publicIPAddresses','myPublicIPAddress')]"
+                                "id": "[parameters('pubIP_id')]"
                             },
                             "subnet": {
-                                "id": "[variables('subnetRef')]"
+                                "id": "[parameters('subnet_id')]"
                             }
                         }
                     }
@@ -65,7 +71,7 @@
                         "version": "latest"
                     },
                     "osDisk": {
-                        "name": "myManagedOSDisk",
+                        "name": "[parameters('disc_name')]",
                         "caching": "ReadWrite",
                         "createOption": "FromImage"
                     }

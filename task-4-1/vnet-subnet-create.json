@@ -8,13 +8,13 @@
         "subnet_addressPrefix": {
             "type": "string"
         },
-        "nsg_id":{
+        "nsg_name": {
             "type": "string"
         }
     },
     "variables": {
-        "vnet_name":"[concat('vnet-',resourceGroup().name)]",
-        "subnet_name":"[concat('subnet-',resourceGroup().name)]"
+        "vnet_name": "[concat('vnet-',resourceGroup().name)]",
+        "subnet_name": "[concat('subnet-',resourceGroup().name)]"
     },
     "resources": [
         {
@@ -35,12 +35,17 @@
                             "addressPrefix": "[parameters('subnet_addressPrefix')]"
                         },
                         "networkSecurityGroup": {
-                            "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsg_id'))]"
+                            "id": "[parameters('nsg_name')]"
                         }
                     }
                 ]
             }
         }
     ],
-    "outputs": {}
+    "outputs": {
+        "subnet_id": {
+            "type": "string",
+            "value": "[resourceId('Microsoft.Network/virtualNetworks/subnets/', variables('subnet_name'))]"
+        }
+    }
 }

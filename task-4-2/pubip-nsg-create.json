@@ -44,11 +44,11 @@
     "outputs": {
         "nsg_name": {
             "type": "string",
-            "value": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('nsg_name'))]"
+            "value": "[variables('nsg_name')]"
         },
         "pubip_name": {
             "type": "string",
-            "value": "[resourceId('Microsoft.Network/publicIPAddresses', variables('pubip_name'))]"
+            "value": "[variables('pubip_name')]"
         }
     }
 }

@@ -10,42 +10,15 @@
             "type": "securestring",
             "defaultValue": "ZEtyu7702954!"
         },
-        "pubip_name": {
-            "type": "string"
-        },
-        "subnet_name": {
+        "nic_name": {
             "type": "string"
         }
     },
     "variables": {
         "vm_name": "[concat('vm1-',resourceGroup().name)]",
-        "nic_name": "[concat('nic1-',resourceGroup().name)]",
         "disc_name": "[concat('disk1-',resourceGroup().name)]"
     },
     "resources": [
-        {
-            "apiVersion": "2016-03-30",
-            "type": "Microsoft.Network/networkInterfaces",
-            "name": "[variables('nic_name')]",
-            "location": "[resourceGroup().location]",
-            "dependsOn": [],
-            "properties": {
-                "ipConfigurations": [
-                    {
-                        "name": "ipconfig1",
-                        "properties": {
-                            "privateIPAllocationMethod": "Dynamic",
-                            "publicIPAddress": {
-                                "id": "[parameters('pubip_name')]"
-                            },
-                            "subnet": {
-                                "id": "[parameters('subnet_name')]"
-                            }
-                        }
-                    }
-                ]
-            }
-        },
         {
             "apiVersion": "2016-04-30-preview",
             "type": "Microsoft.Compute/virtualMachines",
@@ -76,15 +49,11 @@
                 "networkProfile": {
                     "networkInterfaces": [
                         {
-                            "id": "[resourceId('Microsoft.Network/networkInterfaces',variables('nic_name'))]"
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces',parameters('nic_name'))]"
                         }
                     ]
                 }
-            },
-            "dependsOn": [
-                "[resourceId('Microsoft.Network/networkInterfaces/', variables('nic_name'))]"
-            ]
+            }
         }
-    ],
-    "outputs": {}
+    ]
 }

@@ -10,6 +10,9 @@
         },
         "vm_name":{
             "type": "string"
+        },
+        "nic_name":{
+            "type": "string"
         }
     },
     "variables": {
@@ -20,7 +23,7 @@
         {
             "apiVersion": "2016-03-30",
             "type": "Microsoft.Network/networkInterfaces",
-            "name": "[parameters('vm_name')]",
+            "name": "[parameters('nic_name')]",
             "location": "[resourceGroup().location]",
             "dependsOn": [],
             "properties": {
@@ -43,14 +46,14 @@
         {
             "apiVersion": "2016-04-30-preview",
             "type": "Microsoft.Compute/virtualMachines",
-            "name": "myVM",
+            "name": "[parameters('vm_name')]",
             "location": "[resourceGroup().location]",
             "properties": {
                 "hardwareProfile": {
                     "vmSize": "Standard_DS2_v2"
                 },
                 "osProfile": {
-                    "computerName": "myVM",
+                    "computerName": "[parameters('vm_name')]",
                     "adminUsername": "[parameters('adminUsername')]",
                     "adminPassword": "[parameters('adminPassword')]"
                 },

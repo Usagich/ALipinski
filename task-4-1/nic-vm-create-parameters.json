@@ -15,6 +15,9 @@
         },
         "vm_name":{
             "value": "myVM"
+        },
+        "nic_name": {
+            "value": "myNic"
         }
     }
 }

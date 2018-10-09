@@ -37,7 +37,7 @@
                             "addressPrefix": "[parameters('subnet_addressPrefix')]"
                         },
                         "networkSecurityGroup": {
-                            "id": "[parameters('nsg_name')]"
+                            "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsg_name'))]"
                         }
                     }
                 ]

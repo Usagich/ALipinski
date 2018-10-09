@@ -9,7 +9,7 @@
             "type": "string"
         },
         "nsg_name": {
-            "type": "string"
+            "type": "id"
         }
     },
     "variables": {

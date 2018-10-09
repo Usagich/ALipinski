@@ -2,7 +2,7 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "pubIP_name": {
+        "pubip_name": {
             "type": "string"
         },
         "nsg_name": {
@@ -53,7 +53,7 @@
         },
         "pubip_id": {
             "type": "string",
-            "value": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('pubIP_name'))]"
+            "value": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('pubip_name'))]"
         }
     }
 }

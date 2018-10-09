@@ -42,7 +42,7 @@
             ],
             "parameters": {
                 "nsg_name": {
-                    "value": "[reference('pubip-nsg-create').outputs.nsg_ID.value]"
+                    "value": "[reference('pubip-nsg-create').outputs.nsg_id.value]"
                 }
             }
         },

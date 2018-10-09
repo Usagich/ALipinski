@@ -32,7 +32,9 @@
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
-                    "nsg_name": "[reference('pubip-nsg-create').outputs.nsg_id.value]"
+                    "nsg_name": {
+                        "id": "[reference('pubip-nsg-create').outputs.nsg_id.value]"
+                    }
                 }
             }
         },
@@ -52,10 +54,10 @@
                 },
                 "parameters": {
                     "pubip_id": {
-                        "value": "[reference('pubip-nsg-create').outputs.pubip_id.value]"
+                        "id": "[reference('pubip-nsg-create').outputs.pubip_id.value]"
                     },
                     "subnet_id": {
-                        "value": "[reference('vnet-subnet-create').outputs.subnet_id.value]"
+                        "id": "[reference('vnet-subnet-create').outputs.subnet_id.value]"
                     }
                 }
             }

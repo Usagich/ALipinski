@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {},
     "variables": {
-        "link": "https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-4-1"
+        "link": "https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-4-2"
     },
     "resources": [
         {
@@ -46,10 +46,6 @@
                 "mode": "Incremental",
                 "templateLink": {
                     "uri": "[concat(variables('link'), '/nic-vm-create.json')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parametersLink": {
-                    "uri": "[concat(variables('link'), '/nic-vm-create-parameters.json')]",
                     "contentVersion": "1.0.0.0"
                 }
             },

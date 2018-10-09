@@ -27,6 +27,9 @@
                 "templateLink": {
                     "uri": "[concat(variables('link'), '/vnet-subnet-create.json')]",
                     "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "nsg_name": "[reference('pubip-nsg-create').outputs.nsg_id.value]"
                 }
             },
             "dependsOn": [
@@ -42,7 +45,15 @@
                 "templateLink": {
                     "uri": "[concat(variables('link'), '/nic-vm-create.json')]",
                     "contentVersion": "1.0.0.0"
-                }
+                },
+                "parameters": {
+                    "pubip_id": {
+                        "value":"[reference('pubip-nsg-create').outputs.pubip_id.value]"
+                    },
+                    "subnet_id":{
+                        "value":"[reference('vnet-subnet-create').outputs.subnet_id.value]"
+                    }
+                }   
             },
             "dependsOn": [
                 "pubip-nsg-create",

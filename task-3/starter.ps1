@@ -12,4 +12,4 @@ if (!$resourceGroup) {
 }
 
 $templateFilePath = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-3/main.json' 
-New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName -TemplateFile $templateFilePath
+New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName -TemplateUri $templateFilePath

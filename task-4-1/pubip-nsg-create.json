@@ -4,11 +4,13 @@
     "parameters": {
         "pubIP_name": {
             "type": "string"
+        },
+        "nsg_name": {
+            "type": "string",
+            "defaultValue": "NSG-IIS"
         }
     },
-    "variables": {
-        "nsg_name":"NSG-IIS"
-    },
+    "variables": {},
     "resources": [
         {
             "apiVersion": "2016-03-30",
@@ -22,12 +24,12 @@
         {
             "apiVersion": "2017-06-01",
             "type": "Microsoft.Network/networkSecurityGroups",
-            "name": "[variables('nsg_name')]",
+            "name": "[parameters('nsg_name')]",
             "location": "[resourceGroup().location]",
             "properties": {
                 "securityRules": [
                     {
-                        "name": "[variables('nsg_name')]",
+                        "name": "[parameters('nsg_name')]",
                         "properties": {
                             "description": "IIS rule TCP 8080",
                             "protocol": "Tcp",
@@ -45,11 +47,11 @@
         }
     ],
     "outputs": {
-        "nsg_ID": {
+        "nsg_id": {
             "type": "string",
-            "value": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('nsg_name'))]"
+            "value": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsg_name'))]"
         },
-        "pubip_id":{
+        "pubip_id": {
             "type": "string",
             "value": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('pubIP_name'))]"
         }

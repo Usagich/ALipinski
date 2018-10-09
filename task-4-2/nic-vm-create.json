@@ -11,12 +11,10 @@
             "defaultValue": "ZEtyu7702954!"
         },
         "pubip_id": {
-            "type": "string",
-            "value": "[reference('pubip-nsg-create').outputs.pubip_id.value]"
+            "type": "string"
         },
         "subnet_id": {
-            "type": "string",
-            "value": "[reference('vnet-subnet-create').outputs.subnet_id.value]"
+            "type": "string"
         }
     },
     "variables": {

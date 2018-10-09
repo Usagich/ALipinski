@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {},
     "variables": {
-        "link":"https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-4-1/"
+        "link": "https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-4-1/"
     },
     "resources": [
         {
@@ -51,6 +51,11 @@
                 "parametersLink": {
                     "uri": "[concat(variables('link'), '/nic-vm-create-parameters.json')]",
                     "contentVersion": "1.0.0.0"
+                }
+            },
+            "parameters": {
+                "NSGid": {
+                    "value": "[reference('nsg_name').outputs.resourceID.value]"
                 }
             }
         }

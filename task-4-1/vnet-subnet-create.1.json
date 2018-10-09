@@ -7,9 +7,6 @@
         },
         "subnet_addressPrefix": {
             "type": "string"
-        },
-        "nsg_name": {
-            "type": "string"
         }
     },
     "variables": {

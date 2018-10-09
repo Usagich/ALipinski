@@ -11,8 +11,7 @@
             "defaultValue": "10.0.0.0/24"
         },
         "nsg_name": {
-            "type": "string",
-            "value": "[reference('pubip-nsg-create').outputs.pubip_id.value]"
+            "type": "string"
         }
     },
     "variables": {

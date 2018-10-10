@@ -6,7 +6,7 @@ Configuration Task
 
     Node $MachineName {
 
-        xFirewall WebSitePortIN {
+        xFirewall IIS_8080 {
             Name        = 'IIS'
             DisplayName = 'IIS'
             Action      = 'Allow'
@@ -17,14 +17,15 @@ Configuration Task
             Enabled     = 'True'
         }
 
-        WindowsFeature WebServer {
+        WindowsFeature IIS {
             Ensure = "Present"
             Name   = "Web-Server"
         }
 
         WindowsFeature ASP {
-            Ensure = "Present"
-            Name   = "Web-Asp-Net45"
+            Ensure    = "Present"
+            Name      = "Web-Asp-Net45"
+            DependsOn = '[WindowsFeature]IIS'
         }
 
         WindowsFeature WebServerManagementConsole {
@@ -45,7 +46,8 @@ Configuration Task
                     HostName  = 'localhost'
 
                 }
-            )   
+            )
+            DependsOn       = "[WindowsFeature]ASP"    
         }
     }
 }

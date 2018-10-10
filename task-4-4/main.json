@@ -142,7 +142,6 @@
                     },
                     "AdminPassword": {
                         "value": "[reference('Key').outputs.AdminPass.value]"
-                        }
                     },
                     "DSC": {
                         "value": "[parameters('DSC')]"

@@ -11,9 +11,6 @@
         "adminUsername": {
             "type": "string"
         },
-        "adminPassword": {
-            "type": "securestring"
-        },
         "DSC": {
             "type": "string"
         },

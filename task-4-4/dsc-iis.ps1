@@ -1,8 +1,6 @@
 Configuration Binding
 {
 
-$sitename = "Default Web Site" 
-
 Import-DSCResource -ModuleName PSDesiredStateConfiguration 
 
 Import-DscResource -ModuleName xWebAdministration -Name MSFT_xWebsite

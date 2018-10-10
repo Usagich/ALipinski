@@ -5,9 +5,6 @@
         "adminUsername": {
             "type": "string"
         },
-        "adminPassword": {
-            "type": "securestring"
-        },
         "nic_name": {
             "type": "string"
         },
@@ -16,6 +13,9 @@
         },
         "DSCfunctions": {
             "type": "string"
+        },
+        "adminPassword": {
+            "type": "securestring"
         }
     },
     "variables": {

@@ -12,7 +12,7 @@
             "value": "10.0.0.0/24"
         },
         "DSC": {
-            "value": "https://github.com/AzureLabDevOps/ALipinski/raw/master/task-4-3/DSC.zip"
+            "value": "https://andreilab.blob.core.windows.net/windows-powershell-dsc/dsc-all.ps1.zip?sp=r&st=2018-10-10T13:59:01Z&se=2018-10-10T21:59:01Z&spr=https&sv=2017-11-09&sig=%2BZz5eHgBlzSNQEqk974Kyq7F78uNV16wFRtJbNkPhmc%3D&sr=b"
         },
         "DSCfunctions": {
             "value": "DSC.ps1\\Task"

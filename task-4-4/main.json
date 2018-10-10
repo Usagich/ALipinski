@@ -104,8 +104,8 @@
                     },
                     "adminPassword": {
                         "reference": {
-                            "keyVault": {
-                                "id": "[reference('key').outputs.KeyVaunts.value]"
+                            "adminPass": {
+                                "id": "[reference('key').outputs.adminPass.value]"
                             },
                             "secretName": "Secret1"
                         }

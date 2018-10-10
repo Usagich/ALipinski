@@ -80,9 +80,9 @@
         }
     ],
     "outputs": {
-        "KeyVaunts": {
+        "adminPass": {
           "type": "string",
-          "value": "[resourceId(resourceGroup().name, 'Microsoft.KeyVault/vaults', variables('key_name'))]"
+          "value": "[parameters('secretsObject').secrets[0].secretValue]"
       }
     }
 }

@@ -38,7 +38,7 @@ Configuration Task
             Name            = 'Default Web Site'
             ApplicationPool = "DefaultAppPool" 
             State           = "Started"  
-            PhysicalPath    = "%SystemDrive%\inetpub\wwwroot\iisstart.htm"  
+            PhysicalPath    = 'C:\inetpub\wwwroot'  
             BindingInfo     = @(MSFT_xWebBindingInformation {
                     Protocol  = 'HTTP' 
                     Port      = '8080'

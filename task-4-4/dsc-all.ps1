@@ -43,8 +43,6 @@ Configuration Task
                     Protocol  = 'HTTP' 
                     Port      = '8080'
                     IPAddress = '*'
-                    HostName  = 'localhost'
-
                 }
             )
             DependsOn       = "[WindowsFeature]ASP"    

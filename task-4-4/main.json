@@ -83,47 +83,6 @@
         },
         {
             "apiVersion": "2017-05-10",
-            "name": "vm-create",
-            "type": "Microsoft.Resources/deployments",
-            "dependsOn": [
-                "all-network",
-                "key"
-            ],
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[concat(variables('link'), '/vm-create.json')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "nic_name": {
-                        "value": "[reference('all-network').outputs.nic_name.value]"
-                    },
-                    "adminUsername": {
-                        "value": "[parameters('adminUsername')]"
-                    },
-                    "adminPassword": {
-                        "reference": {
-                            "adminPass": {
-                                "id": "[reference('key').outputs.adminPass.value]"
-                            },
-                            "secretName": "Secret1"
-                        }
-                    },
-                    "DSC": {
-                        "value": "[parameters('DSC')]"
-                    },
-                    "DSCfunctions": {
-                        "value": "[parameters('DSCfunctions')]"
-                    },
-                    "secretsObject": {
-                        "value": "[parameters('secretsObject')]"
-                    }
-                }
-            }
-        },
-        {
-            "apiVersion": "2017-05-10",
             "name": "key",
             "type": "Microsoft.Resources/deployments",
             "properties": {
@@ -153,6 +112,43 @@
                     },
                     "networkAcls": {
                         "value": "[parameters('networkAcls')]"
+                    },
+                    "secretsObject": {
+                        "value": "[parameters('secretsObject')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2017-05-10",
+            "name": "vm-create",
+            "type": "Microsoft.Resources/deployments",
+            "dependsOn": [
+                "all-network",
+                "key"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('link'), '/vm-create.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "nic_name": {
+                        "value": "[reference('all-network').outputs.nic_name.value]"
+                    },
+                    "adminUsername": {
+                        "value": "[parameters('adminUsername')]"
+                    },
+                    "AdminPassword": {
+                        "value": "[reference('Key').outputs.AdminPass.value]"
+                        }
+                    },
+                    "DSC": {
+                        "value": "[parameters('DSC')]"
+                    },
+                    "DSCfunctions": {
+                        "value": "[parameters('DSCfunctions')]"
                     },
                     "secretsObject": {
                         "value": "[parameters('secretsObject')]"

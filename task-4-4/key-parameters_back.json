@@ -104,7 +104,7 @@
             "value": {
                 "secrets": [
                     {
-                        "secretName": "Secret1Task4",
+                        "secretName": "Secret1",
                         "secretValue": "secretValue4"
                     }
                 ]

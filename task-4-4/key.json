@@ -1,68 +1,82 @@
 {
+    "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
     "parameters": {
-        "name": {
-            "type": "string"
-        },
-        "hostingPlanName": {
-            "type": "string"
-        },
-        "hostingEnvironment": {
-            "type": "string"
-        },
-        "location": {
-            "type": "string"
-        },
         "sku": {
+            "type": "string",
+            "defaultValue": "Standard",
+            "allowedValues": [
+                "Standard",
+                "standard",
+                "Premium",
+                "premium"
+            ]
+        },
+        "accessPolicies": {
+            "type": "array",
+            "defaultValue": []
+        },
+        "tenant": {
             "type": "string"
         },
-        "skuCode": {
-            "type": "string"
+        "enabledForDeployment": {
+            "type": "bool"
         },
-        "workerSize": {
-            "type": "string"
+        "enabledForTemplateDeployment": {
+            "type": "bool"
         },
-        "serverFarmResourceGroup": {
-            "type": "string"
+        "enabledForDiskEncryption": {
+            "type": "bool"
         },
-        "subscriptionId": {
-            "type": "string"
+        "networkAcls": {
+            "type": "object"
+        },
+        "secretsObject": {
+            "type": "secureObject",
+            "defaultValue": "{}"
         }
+    },
+    "variables": {
+        "key_name":"[concat('key',resourceGroup().name)]"
     },
     "resources": [
         {
-            "apiVersion": "2016-03-01",
-            "name": "[parameters('name')]",
-            "type": "Microsoft.Web/sites",
+            "apiVersion": "2016-10-01",
+            "name": "[variables('key_name')]",
+            "location": "[resourceGroup().location]",
+            "type": "Microsoft.KeyVault/vaults",
             "properties": {
-                "name": "[parameters('name')]",
-                "siteConfig": {
-                    "appSettings": []
+                "enabledForDeployment": "[parameters('enabledForDeployment')]",
+                "enabledForTemplateDeployment": "[parameters('enabledForTemplateDeployment')]",
+                "enabledForDiskEncryption": "[parameters('enabledForDiskEncryption')]",
+                "accessPolicies": "[parameters('accessPolicies')]",
+                "tenantId": "[parameters('tenant')]",
+                "sku": {
+                    "name": "[parameters('sku')]",
+                    "family": "A"
                 },
-                "serverFarmId": "[concat('/subscriptions/', parameters('subscriptionId'),'/resourcegroups/', parameters('serverFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
-                "hostingEnvironment": "[parameters('hostingEnvironment')]"
-            },
-            "location": "[parameters('location')]",
-            "dependsOn": [
-                "[concat('Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]"
-            ]
+                "networkAcls": "[parameters('networkAcls')]"
+            }
         },
         {
-            "apiVersion": "2016-09-01",
-            "name": "[parameters('hostingPlanName')]",
-            "type": "Microsoft.Web/serverfarms",
-            "location": "[parameters('location')]",
+            "type": "Microsoft.KeyVault/vaults/secrets",
+            "name": "[concat(variables('key_name'), '/', parameters('secretsObject').secrets[copyIndex()].secretName)]",
+            "apiVersion": "2016-10-01",
+            "location": "[resourceGroup().location]",
+            "scale": null,
             "properties": {
-                "name": "[parameters('hostingPlanName')]",
-                "workerSizeId": "[parameters('workerSize')]",
-                "numberOfWorkers": "1",
-                "hostingEnvironment": "[parameters('hostingEnvironment')]"
+                "value": "[parameters('secretsObject').secrets[copyIndex()].secretValue]",
+                "attributes": {
+                    "enabled": true
+                }
             },
-            "sku": {
-                "Tier": "[parameters('sku')]",
-                "Name": "[parameters('skuCode')]"
-            }
+            "dependsOn": [
+                "[concat('Microsoft.KeyVault/vaults/', variables('key_name'))]"
+            ],
+            "copy": {
+                "name": "secretsCopy",
+                "count": "[length(parameters('secretsObject').secrets)]"
+              }
         }
-    ],
-    "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
-    "contentVersion": "1.0.0.0"
+    ]
 }

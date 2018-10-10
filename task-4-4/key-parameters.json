@@ -2,32 +2,113 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "name": {
-            "value": "task5FirstWebApp"
-        },
-        "hostingPlanName": {
-            "value": "task5FirstWebAppSP"
-        },
-        "hostingEnvironment": {
-            "value": ""
-        },
-        "location": {
-            "value": "West Europe"
-        },
         "sku": {
             "value": "Standard"
         },
-        "workerSize": {
-            "value": "0"
+        "accessPolicies": {
+            "value": [
+                {
+                    "objectId": "8199aa39-f241-4db3-893a-5f5df3bd2055",
+                    "tenantId": "b41b72d0-4e9f-4c26-8a69-f949f367c91d",
+                    "permissions": {
+                        "keys": [
+                            "Get",
+                            "List",
+                            "Update",
+                            "Create",
+                            "Import",
+                            "Delete",
+                            "Recover",
+                            "Backup",
+                            "Restore"
+                        ],
+                        "secrets": [
+                            "Get",
+                            "List",
+                            "Set",
+                            "Delete",
+                            "Recover",
+                            "Backup",
+                            "Restore"
+                        ],
+                        "certificates": [
+                            "Get",
+                            "List",
+                            "Update",
+                            "Create",
+                            "Import",
+                            "Delete",
+                            "Recover",
+                            "Backup",
+                            "Restore",
+                            "ManageContacts",
+                            "ManageIssuers",
+                            "GetIssuers",
+                            "ListIssuers",
+                            "SetIssuers",
+                            "DeleteIssuers"
+                        ]
+                    }
+                },
+                {
+                    "objectId": "83505ac6-e66d-492b-be8f-8b911314529b",
+                    "tenantId": "b41b72d0-4e9f-4c26-8a69-f949f367c91d",
+                    "permissions": {
+                        "keys": [
+                            "Get",
+                            "List",
+                            "Update",
+                            "Create",
+                            "Import",
+                            "Delete",
+                            "Recover",
+                            "Backup",
+                            "Restore"
+                        ],
+                        "secrets": [
+                            "Get",
+                            "List",
+                            "Set",
+                            "Delete",
+                            "Recover",
+                            "Backup",
+                            "Restore"
+                        ],
+                        "certificates": []
+                    },
+                    "applicationId": null
+                }
+            ]
         },
-        "serverFarmResourceGroup": {
-            "value": "TestRG5"
+        "tenant": {
+            "value": "b41b72d0-4e9f-4c26-8a69-f949f367c91d"
         },
-        "skuCode": {
-            "value": "S1"
+        "enabledForDeployment": {
+            "value": false
         },
-        "subscriptionId": {
-            "value": "1f1fe2e5-5f13-4687-aef3-063acc693dd3"
+        "enabledForTemplateDeployment": {
+            "value": false
+        },
+        "enabledForDiskEncryption": {
+            "value": false
+        },
+        "networkAcls": {
+            "value": {
+                "defaultAction": "Allow",
+                "bypass": "AzureServices",
+                "virtualNetworkRules": [],
+                "ipRules": []
+            }
+        },
+        "secretsObject": {
+            "value": {
+                "secrets": [
+                    {
+                        "secretName": "Secret1Task4",
+                        "secretValue": "secretValue4"
+                    }
+                ]
+            }
         }
     }
 }

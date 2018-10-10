@@ -50,8 +50,7 @@
             "type": "object"
         },
         "secretsObject": {
-            "type": "secureObject",
-            "defaultValue": "{}"
+            "type": "secureObject"
         }
     },
     "variables": {
@@ -148,12 +147,9 @@
                     },
                     "DSCfunctions": {
                         "value": "[parameters('DSCfunctions')]"
-                    },
-                    "secretsObject": {
-                        "value": "[parameters('secretsObject')]"
                     }
                 }
             }
-        }
+        }   
     ]
 }

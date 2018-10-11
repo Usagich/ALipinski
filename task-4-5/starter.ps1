@@ -9,6 +9,7 @@ $templateURI = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/maste
 $templateParametersURI = "https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-4-5/main-parameters.json"
 $ParametersFilePath = "$env:TEMP\main-parameters.json"
 
+#Download from URI to %temp%
 Invoke-WebRequest -Uri $templateParametersURI -OutFile $ParametersFilePath
 
 Select-AzureRmSubscription -Subscriptionid $Sub

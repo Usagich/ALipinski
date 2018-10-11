@@ -14,7 +14,7 @@
         "adminPassword": {
             "type": "securestring"
         },
-        "sastokenurl":{
+        "sastokenurl": {
             "type": "string"
         }
     },

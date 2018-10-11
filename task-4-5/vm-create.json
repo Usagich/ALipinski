@@ -14,7 +14,7 @@
         "adminPassword": {
             "type": "securestring"
         },
-        "sasurl":{
+        "sastokenurl":{
             "type": "string"
         }
     },
@@ -74,7 +74,7 @@
                 "typeHandlerVersion": "2.19",
                 "autoUpgradeMinorVersion": true,
                 "settings": {
-                    "ModulesUrl": "[parameters('sasurl')]",
+                    "ModulesUrl": "[parameters('sastokenurl')]",
                     "ConfigurationFunction": "[parameters('DSCfunctions')]",
                     "Properties": {
                         "MachineName": "[variables('vm_name')]"

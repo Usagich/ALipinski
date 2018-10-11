@@ -49,7 +49,7 @@
         "secretsObject": {
             "type": "secureObject"
         },
-        "sasurl":{
+        "sastokenurl":{
             "type": "string"
         }
     },
@@ -145,8 +145,8 @@
                     "DSCfunctions": {
                         "value": "[parameters('DSCfunctions')]"
                     },
-                    "sasurl":{
-                        "value": "[parameters('sasurl')]"
+                    "sastokenurl":{
+                        "value": "[parameters('sastokenurl')]"
                     }
                 }
             }

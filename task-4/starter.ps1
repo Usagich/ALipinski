@@ -1,3 +1,4 @@
+Clear-Host
 Param(
     [Parameter(Mandatory = $False)]
     [string]$resourceGroupName = 'TestRG5'

@@ -1,0 +1,46 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {},
+    "variables": {
+        "webapp_name": "[concat('webapp1-',resourceGroup().name)]",
+        "plan_name": "[concat('splan1-',resourceGroup().name)]"
+    },
+    "resources": [
+        {
+            "apiVersion": "2016-09-01",
+            "name": "[variables('plan_name')]",
+            "type": "Microsoft.Web/serverfarms",
+            "location": "[resourceGroup().location]",
+            "sku": {
+                "name": "F1",
+                "capacity": 1
+            },
+            "tags": {
+                "displayName": "[variables('plan_name')]"
+            },
+            "properties": {
+                "name": "[variables('plan_name')]"
+            }
+        },
+        {
+            "apiVersion": "2015-08-01",
+            "name": "[variables('webapp_name')]",
+            "type": "Microsoft.Web/sites",
+            "location": "[resourceGroup().location]",
+            "tags": {
+                "[concat('hidden-related:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/APP_SERVICE_PLAN_NAME')]": "Resource",
+                "displayName": "[variables('webapp_name')]"
+            },
+            "dependsOn": [
+                "[concat('Microsoft.Web/serverfarms/',variables('plan_name'))]"
+            ],
+            "properties": {
+                "name": "[variables('webapp_name')]",
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms/', variables('plan_name'))]"
+            }
+        }
+    
+    ],
+    "outputs": {}
+}

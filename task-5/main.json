@@ -1,0 +1,155 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vnet_addressPrefixes": {
+            "type": "string"
+        },
+        "subnet_addressPrefix": {
+            "type": "string"
+        },
+        "adminUsername": {
+            "type": "string"
+        },
+        "DSCfunctions": {
+            "type": "string"
+        },
+        "networkSecurityGroupRules": {
+            "type": "array"
+        },
+        "sku": {
+            "type": "string",
+            "defaultValue": "Standard",
+            "allowedValues": [
+                "Standard",
+                "standard",
+                "Premium",
+                "premium"
+            ]
+        },
+        "accessPolicies": {
+            "type": "array",
+            "defaultValue": []
+        },
+        "tenant": {
+            "type": "string"
+        },
+        "enabledForDeployment": {
+            "type": "bool"
+        },
+        "enabledForTemplateDeployment": {
+            "type": "bool"
+        },
+        "enabledForDiskEncryption": {
+            "type": "bool"
+        },
+        "networkAcls": {
+            "type": "object"
+        },
+        "secretsObject": {
+            "type": "secureObject"
+        },
+        "sastokenurl":{
+            "type": "string"
+        }
+    },
+    "variables": {
+        "link": "https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-4-5"
+    },
+    "resources": [
+        {
+            "apiVersion": "2017-05-10",
+            "name": "all-network",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('link'), '/all-network.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "vnet_addressPrefixes": {
+                        "value": "[parameters('vnet_addressPrefixes')]"
+                    },
+                    "subnet_addressPrefix": {
+                        "value": "[parameters('subnet_addressPrefix')]"
+                    },
+                    "networkSecurityGroupRules": {
+                        "value": "[parameters('networkSecurityGroupRules')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2017-05-10",
+            "name": "key",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('link'), '/key.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "sku": {
+                        "value": "[parameters('sku')]"
+                    },
+                    "accessPolicies": {
+                        "value": "[parameters('accessPolicies')]"
+                    },
+                    "tenant": {
+                        "value": "[parameters('tenant')]"
+                    },
+                    "enabledForDeployment": {
+                        "value": "[parameters('enabledForDeployment')]"
+                    },
+                    "enabledForTemplateDeployment": {
+                        "value": "[parameters('enabledForTemplateDeployment')]"
+                    },
+                    "enabledForDiskEncryption": {
+                        "value": "[parameters('enabledForDiskEncryption')]"
+                    },
+                    "networkAcls": {
+                        "value": "[parameters('networkAcls')]"
+                    },
+                    "secretsObject": {
+                        "value": "[parameters('secretsObject')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2017-05-10",
+            "name": "vm-create",
+            "type": "Microsoft.Resources/deployments",
+            "dependsOn": [
+                "all-network",
+                "key"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('link'), '/vm-create.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "nic_name": {
+                        "value": "[reference('all-network').outputs.nic_name.value]"
+                    },
+                    "adminUsername": {
+                        "value": "[parameters('adminUsername')]"
+                    },
+                    "AdminPassword": {
+                        "value": "[reference('Key').outputs.AdminPass.value]"
+                    },
+                    "DSCfunctions": {
+                        "value": "[parameters('DSCfunctions')]"
+                    },
+                    "sastokenurl":{
+                        "value": "[parameters('sastokenurl')]"
+                    }
+                }
+            }
+        }   
+    ]
+}

@@ -10,3 +10,7 @@ $resourceGroup = Get-AzureRmResourceGroup -Name $resourceGroupName -ErrorAction 
 if (!$resourceGroup) {
     New-AzureRmResourceGroup -Name $resourceGroupName -Location 'West US'
 }
+
+$Template = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-5/main.json'
+$TemplatePar = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-5/main-parameters.json'
+New-AzureRmResourceGroupDeployment -ResourceGroupName TestRG5 -TemplateUri $Template -TemplateParameterUri $TemplatePar

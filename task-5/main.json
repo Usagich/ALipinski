@@ -73,6 +73,12 @@
                     },
                     "webapp2_name": {
                         "value": "[reference('second-webapp-create').outputs.webapp2_name.value]"
+                    },
+                    "location1": {
+                        "value": "[parameters('location1')]"
+                    },
+                    "location2": {
+                        "value": "[parameters('location1')]"
                     }
                 }
             }

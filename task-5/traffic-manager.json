@@ -10,6 +10,12 @@
         },
         "webapp2_name":{
             "type": "string"
+        },
+        "location1":{
+            "type": "string"
+        },
+        "location2":{
+            "type": "string"
         }
     },
     "variables": {
@@ -43,7 +49,7 @@
                             "targetResourceId": "[resourceId('Microsoft.Web/sites', parameters('webapp1_name'))]",
                             "weight": 1,
                             "priority": 1,
-                            "endpointLocation": "west us"
+                            "endpointLocation": "[parameters('location1')]"
                         }
                     },
                     {
@@ -54,7 +60,7 @@
                             "targetResourceId": "[resourceId('Microsoft.Web/sites', parameters('webapp2_name'))]",
                             "weight": 1,
                             "priority": 2,
-                            "endpointLocation": "west europe"
+                            "endpointLocation": "[parameters('location2')]"
                         }
                     }
                 ]

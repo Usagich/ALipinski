@@ -19,4 +19,4 @@ $accountKeys = Get-AzureRmStorageAccountKey -ResourceGroupName "$ResourceGroupNa
 $storageContext = New-AzureStorageContext -StorageAccountName $StorageAccountName -StorageAccountKey $accountKeys[0].Value
 $sasurl = New-AzureStorageBlobSASToken -Container "windows-powershell-dsc" -Blob $dscName -Permission rwl -StartTime (Get-Date).AddHours(-1) -ExpiryTime (get-date).AddMonths(1) -FullUri -Context $storageContext
 
-New-AzureRmResourceGroupDeployment -TemplateUri $templateURI -ResourceGroupName $resourceGroupName -sastokenurl $sasurl -TemplateParameterFile $ParametersFilePath
+New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName -TemplateUri $templateURI -sasurl $sasurl -TemplateParameterFile $ParametersFilePath

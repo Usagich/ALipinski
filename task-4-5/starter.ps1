@@ -3,6 +3,10 @@ Param(
     [string]$resourceGroupName = 'TestRG5'
 )
 $Sub = "1f1fe2e5-5f13-4687-aef3-063acc693dd3"
+$storageAccountName = 'andreilab'
+$dscName = 'dsc-all.ps1.zip'
+$templateURI = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-4-5/main.json'
+$ParametersFilePath = 'C:\git\ALipinski\task-4-5\main-parameters.json'
 
 Select-AzureRmSubscription -Subscriptionid $Sub
 
@@ -11,6 +15,8 @@ if (!$resourceGroup) {
     New-AzureRmResourceGroup -Name $resourceGroupName -Location 'West Europe'
 }
 
-$Template = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-4-3/main.json'
-$TemplatePar = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-4-3/main-parameters.json'
-New-AzureRmResourceGroupDeployment -ResourceGroupName TestRG5 -TemplateUri $Template -TemplateParameterUri $TemplatePar
+$accountKeys = Get-AzureRmStorageAccountKey -ResourceGroupName "$ResourceGroupName" -Name "$StorageAccountName"
+$storageContext = New-AzureStorageContext -StorageAccountName $StorageAccountName -StorageAccountKey $accountKeys[0].Value
+$sasurl = New-AzureStorageBlobSASToken -Container "windows-powershell-dsc" -Blob $dscName -Permission rwl -StartTime (Get-Date).AddHours(-1) -ExpiryTime (get-date).AddMonths(1) -FullUri -Context $storageContext
+
+New-AzureRmResourceGroupDeployment -TemplateUri $templateURI -ResourceGroupName $resourceGroupName -sastokenurl $sasurl -TemplateParameterFile $ParametersFilePath

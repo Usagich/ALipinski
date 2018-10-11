@@ -8,16 +8,13 @@
         "nic_name": {
             "type": "string"
         },
-        "DSC": {
-            "type": "string"
-        },
         "DSCfunctions": {
             "type": "string"
         },
         "adminPassword": {
             "type": "securestring"
         },
-        "sastokenurl":{
+        "sasurl":{
             "type": "string"
         }
     },
@@ -77,7 +74,7 @@
                 "typeHandlerVersion": "2.19",
                 "autoUpgradeMinorVersion": true,
                 "settings": {
-                    "ModulesUrl": "[parameters('sastokenurl')]",
+                    "ModulesUrl": "[parameters('sasurl')]",
                     "ConfigurationFunction": "[parameters('DSCfunctions')]",
                     "Properties": {
                         "MachineName": "[variables('vm_name')]"

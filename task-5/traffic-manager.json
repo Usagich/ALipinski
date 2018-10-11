@@ -1,0 +1,68 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "trafficRoutingMethod": {
+            "type": "string",
+            "defaultValue": "Performance",
+            "allowedValues": [
+                "Performance",
+                "Weighted",
+                "Priority",
+                "Geographic",
+                "MultiValue",
+                "Subnet"
+            ]
+        }
+      
+    },
+    "resources": [
+        {
+            "apiVersion": "2018-04-01",
+            "type": "Microsoft.Network/trafficmanagerprofiles",
+            "name": "tm1profiletask5",
+            "location": "global",
+            
+            "properties": {
+                "trafficRoutingMethod": "[parameters('trafficRoutingMethod')]",
+                "dnsConfig": {
+                    "relativeName": "tm1profiletask5",
+                    "ttl": 70
+                },
+              
+             
+                "monitorConfig": {
+                    "protocol": "http",
+                    "port": "80",
+                    "path": "/"
+                },
+                "endpoints": [
+                    {
+                        "name": "WestEuropeEndpoint",
+                        "type": "Microsoft.Network/trafficManagerProfiles/azureEndpoints",
+                        "properties": {
+                            "endpointStatus": "Enabled",
+                            "targetResourceId": "[resourceId('Microsoft.Web/sites', 'task4app1')]",
+                            "weight": 1,
+                            "priority": 1,
+                            "endpointLocation": "west europe"
+                        }
+                        },
+                        {
+                        "name": "NorthEuropeEndpoint",
+                        "type": "Microsoft.Network/trafficManagerProfiles/azureEndpoints",
+                        "properties": {
+                            "endpointStatus": "Enabled",
+                            "targetResourceId": "[resourceId('Microsoft.Web/sites', 'task4app2')]",
+                            "weight": 1,
+                            "priority": 2,
+                            "endpointLocation": "north europe"}
+                        
+                    }
+                ]
+                
+            }
+        
+        }
+    ]
+}

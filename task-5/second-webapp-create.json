@@ -7,8 +7,8 @@
         }
     },
     "variables": {
-        "webapp_name": "[concat('webapp-2-',resourceGroup().name)]",
-        "plan_name": "[concat('splan-2-',resourceGroup().name)]"
+        "webapp_name": "[concat('webapp2-',resourceGroup().name)]",
+        "plan_name": "[concat('splan2-',resourceGroup().name)]"
     },
     "resources": [
         {

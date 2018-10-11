@@ -11,9 +11,6 @@
         "adminUsername": {
             "type": "string"
         },
-        "DSC": {
-            "type": "string"
-        },
         "DSCfunctions": {
             "type": "string"
         },
@@ -144,9 +141,6 @@
                     },
                     "AdminPassword": {
                         "value": "[reference('Key').outputs.AdminPass.value]"
-                    },
-                    "DSC": {
-                        "value": "[parameters('DSC')]"
                     },
                     "DSCfunctions": {
                         "value": "[parameters('DSCfunctions')]"

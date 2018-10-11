@@ -1,8 +1,8 @@
-Clear-Host
 Param(
     [Parameter(Mandatory = $False)]
     [string]$resourceGroupName = 'TestRG5'
 )
+Clear-Host
 $Sub = "1f1fe2e5-5f13-4687-aef3-063acc693dd3"
 $storageAccountName = 'andreilab'
 $dscName = 'dsc-all.ps1.zip'

@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "location1": {
-            "value": "northeurope"
+            "value": "westus"
         },
         "location2": {
             "value": "westeurope"

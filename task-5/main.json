@@ -8,17 +8,9 @@
         "location2": {
             "type": "string"
         },
-        "trafficRoutingMethod":{
-            "type": "string"
-        },
-        "webapp1_name":{
-            "type": "string"
-        },
-        "webapp2_name":{
+        "trafficRoutingMethod": {
             "type": "string"
         }
-
-
     },
     "variables": {
         "link": "https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-5"
@@ -62,6 +54,10 @@
             "apiVersion": "2017-05-10",
             "name": "traffic-manager",
             "type": "Microsoft.Resources/deployments",
+            "dependsOn": [
+                "fisrt-webapp-create",
+                "second-webapp-create"
+            ],
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {

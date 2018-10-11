@@ -4,12 +4,18 @@
     "parameters": {
         "trafficRoutingMethod": {
             "type": "string"
-        }     
+        },
+        "webapp1_name":{
+            "type": "string"
+        },
+        "webapp2_name":{
+            "type": "string"
+        }
     },
     "variables": {
-        "tm_name":"[concat(resourceGroup().name,uniqueString(resourceGroup().id))]",
-        "endpoint1_name":"[concat('endpoint1-', resourceGroup().name)]",
-        "endpoint2_name":"[concat('endpoint2-', resourceGroup().name)]"
+        "tm_name": "[concat(resourceGroup().name,uniqueString(resourceGroup().id))]",
+        "endpoint1_name": "[concat('endpoint1-', resourceGroup().name)]",
+        "endpoint2_name": "[concat('endpoint2-', resourceGroup().name)]"
     },
     "resources": [
         {
@@ -17,15 +23,12 @@
             "type": "Microsoft.Network/trafficmanagerprofiles",
             "name": "[variables('tm_name')]",
             "location": "global",
-            
             "properties": {
                 "trafficRoutingMethod": "[parameters('trafficRoutingMethod')]",
                 "dnsConfig": {
                     "relativeName": "[variables('tm_name')]",
                     "ttl": 70
                 },
-              
-             
                 "monitorConfig": {
                     "protocol": "http",
                     "port": "80",
@@ -37,27 +40,25 @@
                         "type": "Microsoft.Network/trafficManagerProfiles/azureEndpoints",
                         "properties": {
                             "endpointStatus": "Enabled",
-                            "targetResourceId": "[resourceId('Microsoft.Web/sites', 'webapp1-TestRG5')]",
+                            "targetResourceId": "[resourceId('Microsoft.Web/sites', parameters('webapp1_name'))]",
                             "weight": 1,
                             "priority": 1,
                             "endpointLocation": "west us"
                         }
-                        },
-                        {
+                    },
+                    {
                         "name": "[variables('endpoint2_name')]",
                         "type": "Microsoft.Network/trafficManagerProfiles/azureEndpoints",
                         "properties": {
                             "endpointStatus": "Enabled",
-                            "targetResourceId": "[resourceId('Microsoft.Web/sites', 'webapp2-TestRG5')]",
+                            "targetResourceId": "[resourceId('Microsoft.Web/sites', parameters('webapp2_name'))]",
                             "weight": 1,
                             "priority": 2,
-                            "endpointLocation": "west europe"}
-                        
+                            "endpointLocation": "west europe"
+                        }
                     }
                 ]
-                
             }
-        
         }
     ]
 }

@@ -7,6 +7,9 @@
         },
         "location2": {
             "value": "westeurope"
+        },
+        "trafficRoutingMethod":{
+            "value": "Performance"
         }
     }
 }

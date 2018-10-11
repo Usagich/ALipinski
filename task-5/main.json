@@ -7,6 +7,9 @@
         },
         "location2": {
             "type": "string"
+        },
+        "trafficRoutingMethod":{
+            "type": "string"
         }
     },
     "variables": {
@@ -43,6 +46,23 @@
                 "parameters": {
                     "location2": {
                         "value": "[parameters('location2')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2017-05-10",
+            "name": "traffic-manager",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('link'), '/traffic-manager.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "trafficRoutingMethod": {
+                        "value": "[parameters('trafficRoutingMethod')]"
                     }
                 }
             }

@@ -10,7 +10,15 @@
         },
         "trafficRoutingMethod":{
             "type": "string"
+        },
+        "webapp1_name":{
+            "type": "string"
+        },
+        "webapp2_name":{
+            "type": "string"
         }
+
+
     },
     "variables": {
         "link": "https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-5"
@@ -63,6 +71,12 @@
                 "parameters": {
                     "trafficRoutingMethod": {
                         "value": "[parameters('trafficRoutingMethod')]"
+                    },
+                    "webapp1_name": {
+                        "value": "[reference('fisrt-webapp-create').outputs.webapp1_name.value]"
+                    },
+                    "webapp2_name": {
+                        "value": "[reference('second-webapp-create').outputs.webapp2_name.value]"
                     }
                 }
             }

@@ -1,5 +1,5 @@
 Param(
-    [Parameter(Mandatory=$False)]
+    [Parameter(Mandatory = $False)]
     [string]$resourceGroupName = 'TestRG5'
 )
 $Sub = "1f1fe2e5-5f13-4687-aef3-063acc693dd3"
@@ -24,3 +24,5 @@ $storageContext = New-AzureStorageContext -StorageAccountName $StorageAccountNam
 $sastokenurl = New-AzureStorageBlobSASToken -Container "windows-powershell-dsc" -Blob $dscName -Permission rwl -StartTime (Get-Date).AddHours(-1) -ExpiryTime (get-date).AddMonths(1) -FullUri -Context $storageContext
 
 New-AzureRmResourceGroupDeployment -TemplateUri $templateURI -ResourceGroupName $resourceGroupName -sastokenurl $sastokenurl -TemplateParameterFile $ParametersFilePath
+
+Remove-Item $ParametersFilePath

@@ -32,7 +32,7 @@
         },
         {
             "apiVersion": "2017-05-10",
-            "name": "fisrt-webapp-create",
+            "name": "second-webapp-create",
             "type": "Microsoft.Resources/deployments",
             "properties": {
                 "mode": "Incremental",

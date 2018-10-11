@@ -3,8 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "location1":{
-            "type": "string",
-            "defaultValue": "West Europe"
+            "type": "string"
         }
     },
     "variables": {

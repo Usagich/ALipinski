@@ -3,10 +3,10 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "location1": {
-            "value": "westus"
+            "value": "koreasouth"
         },
         "location2": {
-            "value": "westeurope"
+            "value": "japanwest"
         },
         "trafficRoutingMethod":{
             "value": "Performance"

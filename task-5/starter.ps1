@@ -14,3 +14,4 @@ if (!$resourceGroup) {
 $Template = 'C:\git\ALipinski\task-5\main.json'
 $TemplatePar = 'C:\git\ALipinski\task-5\main-parameters.json'
 New-AzureRmResourceGroupDeployment -ResourceGroupName TestRG5 -TemplateFile $Template -TemplateParameterFile $TemplatePar
+

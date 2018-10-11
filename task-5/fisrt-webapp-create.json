@@ -17,7 +17,7 @@
             "type": "Microsoft.Web/serverfarms",
             "location": "[parameters('location1')]",
             "sku": {
-                "name": "F1",
+                "name": "S1",
                 "capacity": 1
             },
             "properties": {
@@ -34,7 +34,8 @@
             ],
             "properties": {
                 "name": "[variables('webapp_name')]",
-                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms/', variables('plan_name'))]"
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms/', variables('plan_name'))]",
+                "alwaysOn": true
             }
         }
     

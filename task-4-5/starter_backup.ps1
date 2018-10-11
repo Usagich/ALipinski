@@ -6,10 +6,7 @@ $Sub = "1f1fe2e5-5f13-4687-aef3-063acc693dd3"
 $storageAccountName = 'andreilab'
 $dscName = 'dsc-all.ps1.zip'
 $templateURI = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-4-5/main.json'
-$templateParametersURI = "https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-4-5/main-parameters.json"
-$ParametersFilePath = "$env:TEMP\main-parameters.json"
-
-Invoke-WebRequest -Uri $templateParametersURI -OutFile $ParametersFilePath
+$ParametersFilePath = 'C:\git\ALipinski\task-4-5\main-parameters.json'
 
 Select-AzureRmSubscription -Subscriptionid $Sub
 

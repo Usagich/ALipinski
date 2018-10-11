@@ -3,10 +3,10 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "location-1": {
-            "value": "string"
+            "value": "West US"
         },
         "location-2": {
-            "value": "string"
+            "value": "West Europe"
         }
     }
 }

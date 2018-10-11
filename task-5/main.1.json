@@ -24,6 +24,9 @@
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
+                    "location1": {
+                        "value": "[parameters('location1')]"
+                    }
                 }
             }
         },
@@ -38,6 +41,9 @@
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
+                    "location2": {
+                        "value": "[parameters('location2')]"
+                    }
                 }
             }
         }

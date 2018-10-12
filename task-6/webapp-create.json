@@ -2,9 +2,6 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "location1": {
-            "type": "string"
-        },
         "alwaysOn": {
             "type": "string"
         },
@@ -13,15 +10,15 @@
         }
     },
     "variables": {
-        "webapp_name": "[concat('webapp1-',resourceGroup().name)]",
-        "plan_name": "[concat('splan1-',resourceGroup().name)]"
+        "webapp_name": "[concat('webappSQL-',variables('plan_name'),'-',resourceGroup().name)]",
+        "plan_name": "[concat('splanSQL-',resourceGroup().name)]"
     },
     "resources": [
         {
             "apiVersion": "2016-09-01",
             "name": "[variables('plan_name')]",
             "type": "Microsoft.Web/serverfarms",
-            "location": "[parameters('location1')]",
+            "location": "[resourceGroup().name]",
             "sku": {
                 "name": "[parameters('sku_name')]",
                 "capacity": 1
@@ -34,7 +31,7 @@
             "apiVersion": "2015-08-01",
             "name": "[variables('webapp_name')]",
             "type": "Microsoft.Web/sites",
-            "location": "[parameters('location1')]",
+            "location": "[resourceGroup().name]",
             "dependsOn": [
                 "[concat('Microsoft.Web/serverfarms/',variables('plan_name'))]"
             ],

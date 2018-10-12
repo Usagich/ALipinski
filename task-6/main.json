@@ -2,9 +2,6 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "location1": {
-            "type": "string"
-        },
         "alwaysOn": {
             "type": "string"
         },
@@ -59,9 +56,6 @@
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
-                    "location1": {
-                        "value": "[parameters('location1')]"
-                    },
                     "alwaysOn": {
                         "value": "[parameters('alwaysOn')]"
                     },

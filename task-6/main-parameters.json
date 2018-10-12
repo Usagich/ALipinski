@@ -110,14 +110,11 @@
             "value": {
                 "secrets": [
                     {
-                        "secretName": "SQLsecret",
+                        "secretName": "adminsa",
                         "secretValue": "ZEtyu7702954!"
                     }
                 ]
             }
-        },
-        "adminUserName": {
-            "value": "azuresa"
         },
         "collation": {
             "value": "SQL_Latin1_General_CP1_CI_AS"

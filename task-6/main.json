@@ -52,7 +52,7 @@
         "maxSizeBytes": {
             "type": "int"
         },
-        "AdminName":{
+        "AdminName": {
             "type": "string"
         }
     },

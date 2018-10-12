@@ -2,10 +2,10 @@
     "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "administratorLogin": {
+        "AdminName": {
             "type": "string"
         },
-        "administratorLoginPassword": {
+        "adminPass": {
             "type": "securestring"
         },
         "collation": {
@@ -20,6 +20,7 @@
         "maxSizeBytes": {
             "type": "int"
         }
+
     },
     "variables": {
         "sql_name": "[concat('sql',resourceGroup().name)]",
@@ -33,8 +34,8 @@
             "location": "[resourceGroup().location]",
             "name": "[variables('sql_name')]",
             "properties": {
-                "administratorLogin": "[parameters('administratorLogin')]",
-                "administratorLoginPassword": "[parameters('administratorLoginPassword')]",
+                "administratorLogin": "[parameters('AdminName')]",
+                "administratorLoginPassword": "[parameters('adminPass')]",
                 "version": "12.0"
             },
             "resources": [

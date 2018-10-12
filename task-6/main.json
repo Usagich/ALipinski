@@ -129,9 +129,6 @@
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
-                    "AdminPassword": {
-                        "value": "[reference('Key').outputs.AdminPass.value]"
-                    },
                     "networkAcls": {
                         "value": "[parameters('networkAcls')]"
                     },
@@ -146,6 +143,12 @@
                     },
                     "maxSizeBytes": {
                         "value": "[parameters('maxSizeBytes')]"
+                    },
+                    "adminPass": {
+                        "value": "[reference('Key').outputs.adminPass.value]"
+                    },
+                    "AdminName": {
+                        "value": "[reference('Key').outputs.AdminName.value]"
                     }
                 }
             }

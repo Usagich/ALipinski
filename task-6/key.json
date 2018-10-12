@@ -81,8 +81,12 @@
     ],
     "outputs": {
         "adminPass": {
-          "type": "string",
-          "value": "[parameters('secretsObject').secrets[0].secretValue]"
-      }
+            "type": "string",
+            "value": "[parameters('secretsObject').secrets[0].secretValue]"
+        },
+        "AdminPassword": {
+            "type": "string",
+            "value": "[parameters('secretsObject').secrets[0].secretName]"
+        }
     }
 }

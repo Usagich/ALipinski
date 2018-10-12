@@ -18,7 +18,7 @@
             "apiVersion": "2016-09-01",
             "name": "[variables('plan_name')]",
             "type": "Microsoft.Web/serverfarms",
-            "location": "[resourceGroup().name]",
+            "location": "[resourceGroup().location]",
             "sku": {
                 "name": "[parameters('sku_name')]",
                 "capacity": 1
@@ -31,7 +31,7 @@
             "apiVersion": "2015-08-01",
             "name": "[variables('webapp_name')]",
             "type": "Microsoft.Web/sites",
-            "location": "[resourceGroup().name]",
+            "location": "[resourceGroup().location]",
             "dependsOn": [
                 "[concat('Microsoft.Web/serverfarms/',variables('plan_name'))]"
             ],

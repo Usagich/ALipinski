@@ -39,6 +39,9 @@
         },
         "secretsObject": {
             "type": "secureObject"
+        },
+        "adminUserName": {
+            "type": "string"
         }
     },
     "variables": {

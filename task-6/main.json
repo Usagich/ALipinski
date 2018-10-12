@@ -1,0 +1,113 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location1": {
+            "type": "string"
+        },
+        "alwaysOn": {
+            "type": "string"
+        },
+        "sku_name": {
+            "type": "string"
+        },
+        "sku": {
+            "type": "string",
+            "defaultValue": "Standard",
+            "allowedValues": [
+                "Standard",
+                "standard",
+                "Premium",
+                "premium"
+            ]
+        },
+        "accessPolicies": {
+            "type": "array",
+            "defaultValue": []
+        },
+        "tenant": {
+            "type": "string"
+        },
+        "enabledForDeployment": {
+            "type": "bool"
+        },
+        "enabledForTemplateDeployment": {
+            "type": "bool"
+        },
+        "enabledForDiskEncryption": {
+            "type": "bool"
+        },
+        "networkAcls": {
+            "type": "object"
+        },
+        "secretsObject": {
+            "type": "secureObject"
+        }
+    },
+    "variables": {
+        "link": "https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-5"
+    },
+    "resources": [
+        {
+            "apiVersion": "2017-05-10",
+            "name": "fisrt-webapp-create",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('link'), '/fisrt-webapp-create.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "location1": {
+                        "value": "[parameters('location1')]"
+                    },
+                    "alwaysOn": {
+                        "value": "[parameters('alwaysOn')]"
+                    },
+                    "sku_name": {
+                        "value": "[parameters('sku_name')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2017-05-10",
+            "name": "key",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('link'), '/key.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "sku": {
+                        "value": "[parameters('sku')]"
+                    },
+                    "accessPolicies": {
+                        "value": "[parameters('accessPolicies')]"
+                    },
+                    "tenant": {
+                        "value": "[parameters('tenant')]"
+                    },
+                    "enabledForDeployment": {
+                        "value": "[parameters('enabledForDeployment')]"
+                    },
+                    "enabledForTemplateDeployment": {
+                        "value": "[parameters('enabledForTemplateDeployment')]"
+                    },
+                    "enabledForDiskEncryption": {
+                        "value": "[parameters('enabledForDiskEncryption')]"
+                    },
+                    "networkAcls": {
+                        "value": "[parameters('networkAcls')]"
+                    },
+                    "secretsObject": {
+                        "value": "[parameters('secretsObject')]"
+                    }
+                }
+            }
+        }
+    ]
+}

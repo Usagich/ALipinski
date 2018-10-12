@@ -1,0 +1,54 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location1": {
+            "type": "string"
+        },
+        "alwaysOn": {
+            "type": "string"
+        },
+        "sku_name": {
+            "type": "string"
+        }
+    },
+    "variables": {
+        "webapp_name": "[concat('webapp1-',resourceGroup().name)]",
+        "plan_name": "[concat('splan1-',resourceGroup().name)]"
+    },
+    "resources": [
+        {
+            "apiVersion": "2016-09-01",
+            "name": "[variables('plan_name')]",
+            "type": "Microsoft.Web/serverfarms",
+            "location": "[parameters('location1')]",
+            "sku": {
+                "name": "[parameters('sku_name')]",
+                "capacity": 1
+            },
+            "properties": {
+                "name": "[variables('plan_name')]"
+            }
+        },
+        {
+            "apiVersion": "2015-08-01",
+            "name": "[variables('webapp_name')]",
+            "type": "Microsoft.Web/sites",
+            "location": "[parameters('location1')]",
+            "dependsOn": [
+                "[concat('Microsoft.Web/serverfarms/',variables('plan_name'))]"
+            ],
+            "properties": {
+                "name": "[variables('webapp_name')]",
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms/', variables('plan_name'))]",
+                "alwaysOn": "[parameters('alwaysOn')]"
+            }
+        }
+    ],
+    "outputs": {
+        "webapp1_name": {
+            "type": "string",
+            "value": "[variables('webapp_name')]"
+        }
+    }
+}

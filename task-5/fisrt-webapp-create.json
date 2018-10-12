@@ -4,6 +4,12 @@
     "parameters": {
         "location1":{
             "type": "string"
+        },
+        "alwaysOn":{
+            "type": "bool"
+        },
+        "sku": {
+            "type": "array"
         }
     },
     "variables": {
@@ -16,10 +22,7 @@
             "name": "[variables('plan_name')]",
             "type": "Microsoft.Web/serverfarms",
             "location": "[parameters('location1')]",
-            "sku": {
-                "name": "S1",
-                "capacity": 1
-            },
+            "sku":"[parameters('sku')]",
             "properties": {
                 "name": "[variables('plan_name')]"
             }
@@ -35,7 +38,7 @@
             "properties": {
                 "name": "[variables('webapp_name')]",
                 "serverFarmId": "[resourceId('Microsoft.Web/serverfarms/', variables('plan_name'))]",
-                "alwaysOn": true
+                "alwaysOn": "[parameters('alwaysOn')]"
             }
         }
     

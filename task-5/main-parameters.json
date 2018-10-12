@@ -8,8 +8,19 @@
         "location2": {
             "value": "japanwest"
         },
-        "trafficRoutingMethod":{
+        "trafficRoutingMethod": {
             "value": "Performance"
+        },
+        "alwaysOn": {
+            "value": "true"
+        },
+        "sku": {
+            "value": [
+                {
+                    "name": "S1",
+                    "capacity": 1
+                }
+            ]
         }
     }
 }

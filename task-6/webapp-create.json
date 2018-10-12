@@ -55,7 +55,7 @@
             "type": "Microsoft.Web/sites",
             "location": "[resourceGroup().location]",
             "dependsOn": [
-                "[concat('Microsoft.Web/serverfarms/',variables('plan_name'))]"
+                "[variables('plan_name')]"
             ],
             "properties": {
                 "name": "[variables('webapp_name')]",

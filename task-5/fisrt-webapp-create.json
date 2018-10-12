@@ -2,14 +2,14 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "location1":{
+        "location1": {
             "type": "string"
         },
-        "alwaysOn":{
+        "alwaysOn": {
             "type": "string"
         },
-        "sku": {
-            "type": "array"
+        "sku_name": {
+            "type": "string"
         }
     },
     "variables": {
@@ -22,7 +22,10 @@
             "name": "[variables('plan_name')]",
             "type": "Microsoft.Web/serverfarms",
             "location": "[parameters('location1')]",
-            "sku":"[parameters('sku')]",
+            "sku": {
+                "name": "[parameters('sku_name')]",
+                "capacity": 1
+            },
             "properties": {
                 "name": "[variables('plan_name')]"
             }
@@ -41,7 +44,6 @@
                 "alwaysOn": "[parameters('alwaysOn')]"
             }
         }
-    
     ],
     "outputs": {
         "webapp1_name": {

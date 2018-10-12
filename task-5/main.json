@@ -11,11 +11,11 @@
         "trafficRoutingMethod": {
             "type": "string"
         },
-        "alwaysOn":{
+        "alwaysOn": {
             "type": "string"
         },
-        "sku": {
-            "type": "array"
+        "sku_name": {
+            "type": "string"
         }
     },
     "variables": {
@@ -36,11 +36,11 @@
                     "location1": {
                         "value": "[parameters('location1')]"
                     },
-                    "alwaysOn":{
+                    "alwaysOn": {
                         "value": "[parameters('alwaysOn')]"
                     },
-                    "sku":{
-                        "value": "[parameters('sku')]"
+                    "sku_name": {
+                        "value": "[parameters('sku_name')]"
                     }
                 }
             }
@@ -59,11 +59,11 @@
                     "location2": {
                         "value": "[parameters('location2')]"
                     },
-                    "alwaysOn":{
+                    "alwaysOn": {
                         "value": "[parameters('alwaysOn')]"
                     },
-                    "sku":{
-                        "value": "[parameters('sku')]"
+                    "sku_name": {
+                        "value": "[parameters('sku_name')]"
                     }
                 }
             }

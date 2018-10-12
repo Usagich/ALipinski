@@ -14,13 +14,8 @@
         "alwaysOn": {
             "value": "true"
         },
-        "sku": {
-            "value": [
-                {
-                    "name": "S1",
-                    "capacity": 1
-                }
-            ]
+        "sku_name": {
+            "value": "S1"
         }
     }
 }

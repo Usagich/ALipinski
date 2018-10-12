@@ -51,6 +51,9 @@
         },
         "maxSizeBytes": {
             "type": "int"
+        },
+        "AdminName":{
+            "type": "string"
         }
     },
     "variables": {
@@ -145,7 +148,7 @@
                         "value": "[reference('Key').outputs.adminPass.value]"
                     },
                     "AdminName": {
-                        "value": "[reference('Key').outputs.AdminName.value]"
+                        "value": "[parameters('AdminName')]"
                     }
                 }
             }

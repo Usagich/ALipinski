@@ -1,0 +1,89 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "administratorLogin": {
+            "type": "string"
+        },
+        "administratorLoginPassword": {
+            "type": "securestring"
+        },
+        "collation": {
+            "type": "string"
+        },
+        "tier": {
+            "type": "string"
+        },
+        "skuName": {
+            "type": "string"
+        },
+        "maxSizeBytes": {
+            "type": "int"
+        }
+    },
+    "variables": {
+        "sql_name": "[concat('sql',resourceGroup().name)]",
+        "db_name": "[concat('db',variables('sql_name'))]",
+        "sec_ruls": "[[concat('secruls',variables('sql_name'))]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Sql/servers",
+            "apiVersion": "2015-05-01-preview",
+            "location": "[resourceGroup().location]",
+            "name": "[variables('sql_name')]",
+            "properties": {
+                "administratorLogin": "[parameters('administratorLogin')]",
+                "administratorLoginPassword": "[parameters('administratorLoginPassword')]",
+                "version": "12.0"
+            },
+            "resources": [
+                {
+                    "apiVersion": "2017-10-01-preview",
+                    "dependsOn": [
+                        "[concat('Microsoft.Sql/servers/', variables('sql_name'))]"
+                    ],
+                    "location": "[resourceGroup().location]",
+                    "name": "[variables('db_name')]",
+                    "properties": {
+                        "collation": "[parameters('collation')]",
+                        "maxSizeBytes": "[parameters('maxSizeBytes')]"
+                    },
+                    "sku": {
+                        "name": "[parameters('skuName')]",
+                        "tier": "[parameters('tier')]"
+                    },
+                    "type": "databases"
+                },
+                {
+                    "apiVersion": "2014-04-01-preview",
+                    "dependsOn": [
+                        "[concat('Microsoft.Sql/servers/', variables('sql_name'))]"
+                    ],
+                    "location": "[resourceGroup().location]",
+                    "name": "[variables('sec_ruls')]",
+                    "properties": {
+                        "endIpAddress": "0.0.0.0",
+                        "startIpAddress": "0.0.0.0"
+                    },
+                    "type": "firewallrules"
+                },
+                {
+                    "apiVersion": "2017-03-01-preview",
+                    "type": "securityAlertPolicies",
+                    "name": "Default",
+                    "dependsOn": [
+                        "[concat('Microsoft.Sql/servers/', variables('sql_name'))]",
+                        "[concat('Microsoft.Sql/servers/', variables('sql_name'), '/databases/', variables('db_name'))]"
+                    ],
+                    "properties": {
+                        "state": "Enabled",
+                        "disabledAlerts": [],
+                        "emailAddresses": [],
+                        "emailAccountAdmins": true
+                    }
+                }
+            ]
+        }
+    ]
+}

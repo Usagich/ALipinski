@@ -40,7 +40,7 @@
         "secretsObject": {
             "type": "secureObject"
         },
-        "adminUserName": {
+        "adminUsername": {
             "type": "string"
         },
         "collation": {
@@ -129,11 +129,23 @@
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
+                    "AdminPassword": {
+                        "value": "[reference('Key').outputs.AdminPass.value]"
+                    },
                     "networkAcls": {
                         "value": "[parameters('networkAcls')]"
                     },
-                    "secretsObject": {
-                        "value": "[parameters('secretsObject')]"
+                    "collation": {
+                        "value": "[parameters('collation')]"
+                    },
+                    "tier": {
+                        "value": "[parameters('tier')]"
+                    },
+                    "skuName": {
+                        "value": "[parameters('skuName')]"
+                    },
+                    "maxSizeBytes": {
+                        "value": "[parameters('maxSizeBytes')]"
                     }
                 }
             }

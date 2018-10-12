@@ -17,14 +17,23 @@
         "secretsObject": {
             "type": "secureObject",
             "defaultValue": "{}"
+        },
+        "adminLogin": {
+            "type": "string",
+            "defaultValue": "qwert"
+        },
+        "adminPass": {
+            "type": "string",
+            "defaultValue": "ZEtyu7702954!"
         }
+
 
         
     },
     "variables": {
         "webapp_name": "[concat('webappSQL-',variables('plan_name'))]",
         "plan_name": "[concat('splanSQL-',resourceGroup().name)]",
-        "ConnectionString": "[concat('Data Source=tcp:' , parameters('sql_name'), '.database.windows.net' , ',1433;Initial Catalog=', parameters('db_name'),';User Id=', parameters('secretsObject').secrets[0].secretName,'@',  parameters('sql_name'),'.database.windows.net',';Password=',parameters('secretsObject').secrets[0].secretValue)]"
+        "ConnectionString": "[concat('Data Source=tcp:' , parameters('sql_name'), '.database.windows.net' , ',1433;Initial Catalog=', parameters('db_name'),';User Id=', parameters('adminLogin'),'@',  parameters('sql_name'),'.database.windows.net',';Password=',parameters('adminPass'))]"
     },
     "resources": [
         {

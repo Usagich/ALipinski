@@ -17,6 +17,14 @@
         "secretsObject": {
             "type": "secureObject",
             "defaultValue": "{}"
+        },
+        "adminLogin": {
+            "type": "string",
+            "defaultValue": "qwert"
+        },
+        "adminPass": {
+            "type": "string",
+            "defaultValue": "ZEtyu7702954!"
         }
 
     },
@@ -32,8 +40,8 @@
             "location": "[resourceGroup().location]",
             "name": "[variables('sql_name')]",
             "properties": {
-                "administratorLogin": "[parameters('secretsObject').secrets[0].secretName]",
-                "administratorLoginPassword": "[parameters('secretsObject').secrets[0].secretValue]",
+                "administratorLogin": "[parameters('adminLogin')]",
+                "administratorLoginPassword": "[parameters('adminPass')]",
                 "version": "12.0"
             },
             "resources": [

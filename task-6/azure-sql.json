@@ -40,8 +40,8 @@
             "location": "[resourceGroup().location]",
             "name": "[variables('sql_name')]",
             "properties": {
-                "administratorLogin": "[parameters('adminLogin')]",
-                "administratorLoginPassword": "[parameters('adminPass')]",
+                "administratorLogin": "[parameters('secretsObject').secrets[0].secretName]",
+                "administratorLoginPassword": "[parameters('secretsObject').secrets[0].secretValue]",
                 "version": "12.0"
             },
             "resources": [

@@ -32,8 +32,7 @@
             "type": "object"
         },
         "secretsObject": {
-            "type": "secureObject",
-            "defaultValue": "{}"
+            "type": "secureObject"
         }
     },
     "variables": {

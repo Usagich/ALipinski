@@ -15,18 +15,8 @@
             "type": "int"
         },
         "secretsObject": {
-            "type": "secureObject",
-            "defaultValue": "{}"
-        },
-        "adminLogin": {
-            "type": "string",
-            "defaultValue": "Qasgfhg12342142"
-        },
-        "adminPass": {
-            "type": "string",
-            "defaultValue": "ZEtyu7702954!"
+            "type": "secureObject"
         }
-
     },
     "variables": {
         "sql_name": "[concat('sql',resourceGroup().name)]",
@@ -92,5 +82,15 @@
                 }
             ]
         }
-    ]
+    ],
+    "outputs": {
+        "sql_name": {
+            "type": "string",
+            "value": "[variables('sql_name')]"
+        },
+        "db_name": {
+            "type": "string",
+            "value": "[variables('db_name')]"
+        }
+    }
 }

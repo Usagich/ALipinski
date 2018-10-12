@@ -155,9 +155,6 @@
                     "maxSizeBytes": {
                         "value": "[parameters('maxSizeBytes')]"
                     },
-                    "adminPass": {
-                        "value": "[reference('Key').outputs.adminPass.value]"
-                    },
                     "secretsObject": {
                         "value": "[parameters('secretsObject')]"
                     }

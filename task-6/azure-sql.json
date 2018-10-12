@@ -20,7 +20,7 @@
         },
         "adminLogin": {
             "type": "string",
-            "defaultValue": "qwert12342142"
+            "defaultValue": "Qasgfhg12342142"
         },
         "adminPass": {
             "type": "string",

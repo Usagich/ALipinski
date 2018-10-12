@@ -10,7 +10,7 @@
         }
     },
     "variables": {
-        "webapp_name": "[concat('webappSQL-',variables('plan_name'),'-',resourceGroup().name)]",
+        "webapp_name": "[concat('webappSQL-',variables('plan_name'))]",
         "plan_name": "[concat('splanSQL-',resourceGroup().name)]"
     },
     "resources": [

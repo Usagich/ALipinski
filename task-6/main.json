@@ -80,7 +80,17 @@
                     },
                     "sku_name": {
                         "value": "[parameters('sku_name')]"
+                    },
+                    "sql_name": {
+                        "value": "[reference('azure-sql').outputs.sql_name.value]"
+                    },
+                    "db_name": {
+                        "value": "[reference('azure-sql').outputs.db_name.value]"
+                    },
+                    "secretsObject": {
+                        "value": "[parameters('secretsObject')]"
                     }
+
                 }
             }
         },
@@ -151,8 +161,8 @@
                     "adminPass": {
                         "value": "[reference('Key').outputs.adminPass.value]"
                     },
-                    "AdminName": {
-                        "value": "[parameters('AdminName')]"
+                    "secretsObject": {
+                        "value": "[parameters('secretsObject')]"
                     }
                 }
             }

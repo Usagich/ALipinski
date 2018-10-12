@@ -7,11 +7,24 @@
         },
         "sku_name": {
             "type": "string"
+        },
+        "sql_name":{
+            "type": "string"
+        },
+        "db_name":{
+            "type": "string"
+        },
+        "secretsObject": {
+            "type": "secureObject",
+            "defaultValue": "{}"
         }
+
+        
     },
     "variables": {
         "webapp_name": "[concat('webappSQL-',variables('plan_name'))]",
-        "plan_name": "[concat('splanSQL-',resourceGroup().name)]"
+        "plan_name": "[concat('splanSQL-',resourceGroup().name)]",
+        "ConnectionString": "[concat('Data Source=tcp:' , parameters('sql_name'), '.database.windows.net' , ',1433;Initial Catalog=', parameters('db_name'),';User Id=', parameters('secretsObject').secrets[0].secretName,'@',  parameters('sql_name'),'.database.windows.net',';Password=',parameters('secretsObject').secrets[0].secretValue)]"
     },
     "resources": [
         {
@@ -38,7 +51,17 @@
             "properties": {
                 "name": "[variables('webapp_name')]",
                 "serverFarmId": "[resourceId('Microsoft.Web/serverfarms/', variables('plan_name'))]",
-                "alwaysOn": "[parameters('alwaysOn')]"
+                "alwaysOn": "[parameters('alwaysOn')]",
+                "siteConfig": {
+                    "connectionStrings": [
+                        {
+                            "name": "defaultConnection",
+                            "ConnectionString": "[variables('ConnectionString')]",
+                            "type": "SQLAzure"
+                        }
+                    ],
+                    "appSettings": []
+                }
             }
         }
     ],

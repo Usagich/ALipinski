@@ -40,9 +40,6 @@
         "secretsObject": {
             "type": "secureObject"
         },
-        "adminUsername": {
-            "type": "string"
-        },
         "collation": {
             "type": "string"
         },

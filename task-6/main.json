@@ -64,6 +64,10 @@
             "apiVersion": "2017-05-10",
             "name": "webapp-create",
             "type": "Microsoft.Resources/deployments",
+            "dependsOn": [
+                "azure-sql",
+                "key"
+            ],
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
@@ -120,8 +124,11 @@
         },
         {
             "apiVersion": "2017-05-10",
-            "name": "key",
+            "name": "azure-sql",
             "type": "Microsoft.Resources/deployments",
+            "dependsOn": [
+                "key"
+            ],
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {

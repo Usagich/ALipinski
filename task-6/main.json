@@ -45,17 +45,17 @@
         }
     },
     "variables": {
-        "link": "https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-5"
+        "link": "https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-6"
     },
     "resources": [
         {
             "apiVersion": "2017-05-10",
-            "name": "fisrt-webapp-create",
+            "name": "webapp-create",
             "type": "Microsoft.Resources/deployments",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(variables('link'), '/fisrt-webapp-create.json')]",
+                    "uri": "[concat(variables('link'), '/webapp-create.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {

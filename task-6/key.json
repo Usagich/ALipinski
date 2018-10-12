@@ -37,7 +37,7 @@
         }
     },
     "variables": {
-        "key_name": "[concat('keySQL-',resourceGroup().name)]"
+        "key_name": "[concat('key',resourceGroup().name)]"
     },
     "resources": [
         {

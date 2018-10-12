@@ -127,9 +127,6 @@
         },
         "maxSizeBytes": {
             "value": 268435456000
-        },
-        "AdminName":{
-            "value": "adminsql"
         }
     }
 }

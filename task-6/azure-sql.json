@@ -84,16 +84,5 @@
                 }
             ]
         }
-    ],
-    "outputs": {
-        "sql_name": {
-            "type": "string",
-            "value": "[variables('sql_name')]"
-        },
-        "db_name": {
-            "type": "string",
-            "value": "[variables('db_name')]"
-        }
-    }
-
+    ]
 }

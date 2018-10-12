@@ -51,9 +51,6 @@
         },
         "maxSizeBytes": {
             "type": "int"
-        },
-        "AdminName": {
-            "type": "string"
         }
     },
     "variables": {

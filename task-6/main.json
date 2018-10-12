@@ -136,9 +136,6 @@
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
-                    "networkAcls": {
-                        "value": "[parameters('networkAcls')]"
-                    },
                     "collation": {
                         "value": "[parameters('collation')]"
                     },

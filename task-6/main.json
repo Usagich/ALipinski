@@ -87,7 +87,6 @@
                     "secretsObject": {
                         "value": "[parameters('secretsObject')]"
                     }
-
                 }
             }
         },

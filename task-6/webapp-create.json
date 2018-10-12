@@ -8,16 +8,16 @@
         "sku_name": {
             "type": "string"
         },
-        "sql_name":{
+        "sql_name": {
             "type": "string"
         },
-        "db_name":{
+        "db_name": {
             "type": "string"
         },
         "secretsObject": {
             "type": "secureObject",
             "defaultValue": "{}"
-        } 
+        }
     },
     "variables": {
         "webapp_name": "[concat('webapp',variables('plan_name'))]",

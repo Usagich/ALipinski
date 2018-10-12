@@ -62,11 +62,5 @@
                 }
             }
         }
-    ],
-    "outputs": {
-        "webapp1_name": {
-            "type": "string",
-            "value": "[variables('webapp_name')]"
-        }
-    }
+    ]
 }

@@ -8,9 +8,6 @@
         "sku_name": {
             "value": "S1"
         },
-        "sku": {
-            "value": "Standard"
-        },
         "accessPolicies": {
             "value": [
                 {

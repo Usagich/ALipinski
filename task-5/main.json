@@ -12,7 +12,7 @@
             "type": "string"
         },
         "alwaysOn":{
-            "type": "bool"
+            "type": "string"
         },
         "sku": {
             "type": "array"

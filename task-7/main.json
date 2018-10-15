@@ -11,9 +11,6 @@
         "adminUsername": {
             "type": "string"
         },
-        "networkSecurityGroupRules": {
-            "type": "array"
-        },
         "sku": {
             "type": "string",
             "defaultValue": "Standard",
@@ -67,9 +64,6 @@
                     },
                     "subnet_addressPrefix": {
                         "value": "[parameters('subnet_addressPrefix')]"
-                    },
-                    "networkSecurityGroupRules": {
-                        "value": "[parameters('networkSecurityGroupRules')]"
                     }
                 }
             }

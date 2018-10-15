@@ -45,6 +45,7 @@
                     "osDisk": {
                         "name": "[variables('disk1_name')]",
                         "caching": "ReadWrite",
+                        "diskSizeGB": "[parameters('disk_size')]",
                         "createOption": "FromImage"
                     },
                     "dataDisks": [
@@ -65,5 +66,11 @@
                 }
             }
         }
-    ]
+    ],
+    "outputs": {
+        "vm_name": {
+            "type": "string",
+            "value": "[variables('vm_name')]"
+        }
+    }
 }

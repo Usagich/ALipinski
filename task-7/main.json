@@ -73,6 +73,26 @@
         },
         {
             "apiVersion": "2017-05-10",
+            "name": "backup",
+            "dependsOn": [
+                "vm-create"
+            ],
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('link'), '/backup.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "vm_name": {
+                        "value": "[reference('vm-create').outputs.vm_name.value]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2017-05-10",
             "name": "key",
             "type": "Microsoft.Resources/deployments",
             "properties": {

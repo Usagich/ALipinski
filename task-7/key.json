@@ -31,6 +31,9 @@
         "networkAcls": {
             "type": "object"
         },
+        "login":{
+            "type": "string"
+        },
         "password": {
             "type": "securestring"
         }
@@ -59,7 +62,7 @@
         },
         {
             "type": "Microsoft.KeyVault/vaults/secrets",
-            "name": "[concat('secret', resourceGroup().name)]",
+            "name": "[concat(variables('key_name'), '/', parameters('login'))]",
             "apiVersion": "2016-10-01",
             "location": "[resourceGroup().location]",
             "scale": null,

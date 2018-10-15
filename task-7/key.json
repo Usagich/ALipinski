@@ -32,7 +32,7 @@
             "type": "object"
         },
         "login": {
-            "type": "securestring"
+            "type": "string"
         },
         "password": {
             "type": "securestring"

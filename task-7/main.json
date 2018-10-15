@@ -100,9 +100,6 @@
                     "networkAcls": {
                         "value": "[parameters('networkAcls')]"
                     },
-                    "login": {
-                        "value": "[parameters('login')]"
-                    },
                     "password": {
                         "value": "[parameters('password')]"
                     }

@@ -75,7 +75,8 @@
             "apiVersion": "2017-05-10",
             "name": "backup",
             "dependsOn": [
-                "vm-create"
+                "vm-create",
+                "all-network"
             ],
             "type": "Microsoft.Resources/deployments",
             "properties": {

@@ -15,4 +15,3 @@ $Template = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/t
 $TemplatePar = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-6/main-parameters.json'
 
 New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName -TemplateUri $Template -TemplateParameterUri $TemplatePar
-

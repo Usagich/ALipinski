@@ -39,7 +39,7 @@
         }
     },
     "variables": {
-        "key_name": "[concat('key',resourceGroup().id)]"
+        "key_name": "[concat('key',resourceGroup().name)]"
     },
     "resources": [
         {

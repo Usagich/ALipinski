@@ -4,7 +4,7 @@
     "parameters": {},
     "variables": {
       "vmName": "vm1-task7",
-      "vaultName": "MyRSVault",
+      "vaultName": "MyRSVault770",
       "backupFabric": "Azure",
       "backupPolicyName": "DefaultPolicy",
       "protectionContainer": "[concat('iaasvmcontainer;iaasvmcontainerv2;', resourceGroup().name, ';', variables('vmName'))]",

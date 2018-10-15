@@ -8,6 +8,9 @@ $templateURI = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/maste
 $templateParametersURI = "https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-7/main-parameters.json"
 
 Write-Host "Please enter password for VM: "
+$login = Read-Host
+
+Write-Host "Please enter password for VM: "
 $password = Read-Host -AsSecureString
 
 $ParametersFilePath = "$env:TEMP\main-parameters.json"
@@ -26,3 +29,4 @@ New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName `
                                    -TemplateUri $templateURI `
                                    -TemplateParameterFile $ParametersFilePath `
                                    -password $password
+                                   -login $login

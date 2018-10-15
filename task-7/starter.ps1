@@ -26,7 +26,8 @@ if (!$resourceGroup) {
 }
 
 New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName `
-                                   -TemplateUri $templateURI `
-                                   -TemplateParameterFile $ParametersFilePath `
-                                   -password $password
-                                   -login $login
+                                    -password $password
+                                    -login $login
+                                    -TemplateUri $templateURI `
+                                    -TemplateParameterFile $ParametersFilePath `
+                                    -Verbose

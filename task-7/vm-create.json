@@ -28,8 +28,8 @@
                 },
                 "osProfile": {
                     "computerName": "[variables('vm_name')]",
-                    "login": "[parameters('login')]",
-                    "password": "[parameters('password')]"
+                    "adminUsername": "[parameters('login')]",
+                    "adminPassword": "[parameters('password')]"
                 },
                 "storageProfile": {
                     "imageReference": {

@@ -2,16 +2,13 @@
     "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "login": {
-            "type": "securestring"
-        },
-        "password": {
-            "type": "securestring"
-        },
         "vnet_addressPrefixes": {
             "type": "string"
         },
         "subnet_addressPrefix": {
+            "type": "string"
+        },
+        "adminUsername": {
             "type": "string"
         },
         "sku": {
@@ -42,6 +39,9 @@
         },
         "networkAcls": {
             "type": "object"
+        },
+        "secretsObject": {
+            "type": "secureObject"
         }
     },
     "variables": {
@@ -100,11 +100,8 @@
                     "networkAcls": {
                         "value": "[parameters('networkAcls')]"
                     },
-                    "login": {
-                        "value": "[parameters('login')]"
-                    },
-                    "password": {
-                        "value": "[parameters('password')]"
+                    "secretsObject": {
+                        "value": "[parameters('secretsObject')]"
                     }
                 }
             }
@@ -128,10 +125,10 @@
                         "value": "[reference('all-network').outputs.nic_name.value]"
                     },
                     "adminUsername": {
-                        "value": "[parameters('login')]"
+                        "value": "[parameters('adminUsername')]"
                     },
                     "AdminPassword": {
-                        "value": "[parameters('password')]"
+                        "value": "[reference('Key').outputs.AdminPass.value]"
                     }
                 }
             }

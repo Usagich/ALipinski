@@ -31,11 +31,9 @@
         "networkAcls": {
             "type": "object"
         },
-        "login": {
-            "type": "securestring"
-        },
-        "password": {
-            "type": "securestring"
+        "secretsObject": {
+            "type": "secureObject",
+            "defaultValue": "{}"
         }
     },
     "variables": {
@@ -62,19 +60,29 @@
         },
         {
             "type": "Microsoft.KeyVault/vaults/secrets",
-            "name": "[parameters('login')]",
+            "name": "[concat(variables('key_name'), '/', parameters('secretsObject').secrets[copyIndex()].secretName)]",
             "apiVersion": "2016-10-01",
             "location": "[resourceGroup().location]",
             "scale": null,
             "properties": {
-                "value": "[parameters('password')]",
+                "value": "[parameters('secretsObject').secrets[copyIndex()].secretValue]",
                 "attributes": {
                     "enabled": true
                 }
             },
             "dependsOn": [
                 "[concat('Microsoft.KeyVault/vaults/', variables('key_name'))]"
-            ]
+            ],
+            "copy": {
+                "name": "secretsCopy",
+                "count": "[length(parameters('secretsObject').secrets)]"
+            }
         }
-    ]
+    ],
+    "outputs": {
+        "adminPass": {
+            "type": "string",
+            "value": "[parameters('secretsObject').secrets[0].secretValue]"
+        }
+    }
 }

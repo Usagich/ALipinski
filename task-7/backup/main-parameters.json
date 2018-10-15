@@ -108,6 +108,16 @@
                 "virtualNetworkRules": [],
                 "ipRules": []
             }
+        },
+        "secretsObject": {
+            "value": {
+                "secrets": [
+                    {
+                        "secretName": "Secret1",
+                        "secretValue": "ZEtyu7702954!"
+                    }
+                ]
+            }
         }
     }
 }

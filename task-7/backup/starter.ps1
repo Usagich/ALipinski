@@ -7,14 +7,6 @@ $Sub = "1f1fe2e5-5f13-4687-aef3-063acc693dd3"
 $templateURI = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-7/main.json'
 $templateParametersURI = "https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-7/main-parameters.json"
 
-$login = Read-Host -AsSecureString
-$password = Read-Host -AsSecureString
-
-$ParametersFilePath = "$env:TEMP\main-parameters.json"
-
-#Download from URI to %temp%
-Invoke-WebRequest -Uri $templateParametersURI -OutFile $ParametersFilePath
-
 Select-AzureRmSubscription -Subscriptionid $Sub
 
 $resourceGroup = Get-AzureRmResourceGroup -Name $resourceGroupName -ErrorAction SilentlyContinue
@@ -22,8 +14,4 @@ if (!$resourceGroup) {
     New-AzureRmResourceGroup -Name $resourceGroupName -Location 'West Europe'
 }
 
-New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName `
-                                   -TemplateUri $templateURI `
-                                   -TemplateParameterFile $ParametersFilePath `
-                                   -login $login `
-                                   -password $password
+New-AzureRmResourceGroupDeployment -TemplateUri $templateURI -ResourceGroupName $resourceGroupName -TemplateParameterUri $templateParametersURI

@@ -2,6 +2,12 @@
     "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "login":{
+            "type": "string"
+        },
+        "password": {
+            "type": "securestring"
+        },
         "sku": {
             "type": "string",
             "defaultValue": "Standard",
@@ -30,12 +36,6 @@
         },
         "networkAcls": {
             "type": "object"
-        },
-        "login":{
-            "type": "string"
-        },
-        "password": {
-            "type": "securestring"
         }
     },
     "variables": {

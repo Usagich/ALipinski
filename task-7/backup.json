@@ -3,7 +3,8 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "vm_name": {
-            "type": "string"
+            "type": "string",
+            "defaultValue": "vm1-task7"
         }
     },
     "variables": {

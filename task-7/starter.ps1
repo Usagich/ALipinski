@@ -29,4 +29,5 @@ New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName `
                                     -TemplateUri $templateURI `
                                     -login $login `
                                     -password $password `
-                                    -TemplateParameterFile $ParametersFilePath
+                                    -TemplateParameterFile $ParametersFilePath `
+                                    -Verbose

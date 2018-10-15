@@ -31,9 +31,6 @@
         "networkAcls": {
             "type": "object"
         },
-        "login": {
-            "type": "string"
-        },
         "password": {
             "type": "securestring"
         }

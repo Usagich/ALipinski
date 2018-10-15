@@ -7,7 +7,7 @@
         }
     },
     "variables": {
-        "vaultName": "MyRSVault770",
+        "vaultName": "MyRSVault80",
         "backupFabric": "Azure",
         "backupPolicyName": "DefaultPolicy",
         "protectionContainer": "[concat('iaasvmcontainer;iaasvmcontainerv2;', resourceGroup().name, ';', parameters('vm_name'))]",

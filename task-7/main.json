@@ -127,10 +127,10 @@
                     "nic_name": {
                         "value": "[reference('all-network').outputs.nic_name.value]"
                     },
-                    "adminUsername": {
+                    "login": {
                         "value": "[parameters('login')]"
                     },
-                    "AdminPassword": {
+                    "password": {
                         "value": "[parameters('password')]"
                     }
                 }

@@ -7,7 +7,9 @@ $Sub = "1f1fe2e5-5f13-4687-aef3-063acc693dd3"
 $templateURI = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-7/main.json'
 $templateParametersURI = "https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-7/main-parameters.json"
 
+Write-Host "Please enter login name for VM: "
 $login = Read-Host -AsSecureString
+Write-Host "Please enter password for VM: "
 $password = Read-Host -AsSecureString
 
 $ParametersFilePath = "$env:TEMP\main-parameters.json"

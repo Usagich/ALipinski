@@ -7,7 +7,7 @@ $Sub = "1f1fe2e5-5f13-4687-aef3-063acc693dd3"
 $templateURI = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-7/main.json'
 $templateParametersURI = "https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-7/main-parameters.json"
 
-Write-Host "Please enter password for VM: "
+Write-Host "Please enter name VM: "
 $login = Read-Host
 
 Write-Host "Please enter password for VM: "
@@ -26,8 +26,7 @@ if (!$resourceGroup) {
 }
 
 New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName `
-                                    -password $password
-                                    -login $login
                                     -TemplateUri $templateURI `
-                                    -TemplateParameterFile $ParametersFilePath `
-                                    -Verbose
+                                    -password $password `
+                                    -login $login `
+                                    -TemplateParameterFile $ParametersFilePath

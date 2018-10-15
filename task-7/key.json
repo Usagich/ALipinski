@@ -59,7 +59,7 @@
         },
         {
             "type": "Microsoft.KeyVault/vaults/secrets",
-            "name": "[concat('secret',variables('key_name'))]",
+            "name": "[concat('secret', resourceGroup().name)]",
             "apiVersion": "2016-10-01",
             "location": "[resourceGroup().location]",
             "scale": null,

@@ -62,7 +62,7 @@
         },
         {
             "type": "Microsoft.KeyVault/vaults/secrets",
-            "name": "[parameters('login')]",
+            "name": "[concat('secret',variables('key_name'))]",
             "apiVersion": "2016-10-01",
             "location": "[resourceGroup().location]",
             "scale": null,

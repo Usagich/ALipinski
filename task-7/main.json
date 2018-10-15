@@ -42,6 +42,9 @@
         },
         "networkAcls": {
             "type": "object"
+        },
+        "disk_size": {
+            "type": "string"
         }
     },
     "variables": {
@@ -132,6 +135,9 @@
                     },
                     "password": {
                         "value": "[parameters('password')]"
+                    },
+                    "disk_size": {
+                        "value": "[parameters('disk_size')]"
                     }
                 }
             }

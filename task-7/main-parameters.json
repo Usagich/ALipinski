@@ -11,6 +11,9 @@
         "sku": {
             "value": "Standard"
         },
+        "disk_size": {
+            "value": "40"
+        },
         "accessPolicies": {
             "value": [
                 {

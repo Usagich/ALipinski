@@ -10,11 +10,15 @@
         },
         "password": {
             "type": "securestring"
+        },
+        "disk_size": {
+            "type": "string"
         }
     },
     "variables": {
         "vm_name": "[concat('vm1-',resourceGroup().name)]",
-        "disc_name": "[concat('disk1-',resourceGroup().name)]"
+        "disk1_name": "[concat('disk1-',resourceGroup().name)]",
+        "disk2_name": "[concat('disk2-',resourceGroup().name)]"
     },
     "resources": [
         {
@@ -39,10 +43,18 @@
                         "version": "latest"
                     },
                     "osDisk": {
-                        "name": "[variables('disc_name')]",
+                        "name": "[variables('disk1_name')]",
                         "caching": "ReadWrite",
                         "createOption": "FromImage"
-                    }
+                    },
+                    "dataDisks": [
+                        {
+                            "name": "[variables('disk2_name')]",
+                            "diskSizeGB": "[parameters('disk_size')]",
+                            "lun": 0,
+                            "createOption": "Empty"
+                        }
+                    ]
                 },
                 "networkProfile": {
                     "networkInterfaces": [

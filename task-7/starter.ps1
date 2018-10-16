@@ -47,7 +47,7 @@ New-AzureRmResourceGroupDeployment `
 #remove min-parameters file from temp folder
 Remove-Item $ParametersFilePath
 
-<#$vm = Get-AzureRmVM -ResourceGroupName $resourceGroupName
+$vm = Get-AzureRmVM -ResourceGroupName $resourceGroupName
 $vault = get-AzureRmRecoveryServicesVault -ResourceGroupName $resourceGroupName
 
 
@@ -62,4 +62,6 @@ $namedContainer = Get-AzureRmRecoveryServicesBackupContainer `
 $item = Get-AzureRmRecoveryServicesBackupItem -Container $namedContainer `
     -WorkloadType "AzureVM"
 
-Backup-AzureRmRecoveryServicesBackupItem -Item $item -WhatIf#>
+Backup-AzureRmRecoveryServicesBackupItem -Item $item
+
+Get-AzureRmRecoveryservicesBackupJob

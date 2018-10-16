@@ -10,10 +10,10 @@
         }
     },
     "variables": {
-        "vnet_name": "[concat('vnet-',resourceGroup().name)]",
-        "nic_name": "[concat('nic1-',resourceGroup().name)]",
-        "pubip_name": "[concat('pub_ip-',resourceGroup().name)]",
-        "subnet_name": "[concat('subnet-',resourceGroup().name)]"
+        "vnet_name": "[concat('vnet2-',resourceGroup().name)]",
+        "nic_name": "[concat('nic2-',resourceGroup().name)]",
+        "pubip_name": "[concat('pub_ip2-',resourceGroup().name)]",
+        "subnet_name": "[concat('subnet2-',resourceGroup().name)]"
     },
     "resources": [
         {

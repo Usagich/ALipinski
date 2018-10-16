@@ -2,16 +2,7 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "login": {
-            "type": "string"
-        },
         "nic_name": {
-            "type": "string"
-        },
-        "password": {
-            "type": "securestring"
-        },
-        "disk_size": {
             "type": "string"
         }
     },
@@ -31,9 +22,7 @@
                     "vmSize": "Standard_D2S_v3"
                 },
                 "osProfile": {
-                    "computerName": "[variables('vm_name')]",
-                    "adminUsername": "[parameters('login')]",
-                    "adminPassword": "[parameters('password')]"
+                    "computerName": "[variables('vm_name')]"
                 },
                 "storageProfile": {
                     "imageReference": {
@@ -50,7 +39,6 @@
                     "dataDisks": [
                         {
                             "name": "[variables('disk2_name')]",
-                            "diskSizeGB": "[parameters('disk_size')]",
                             "lun": 0,
                             "createOption": "Empty"
                         }

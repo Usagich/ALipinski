@@ -1,0 +1,83 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vnet_addressPrefixes": {
+            "type": "string"
+        },
+        "subnet_addressPrefix": {
+            "type": "string"
+        }
+    },
+    "variables": {
+        "vnet_name": "[concat('vnet-',resourceGroup().name)]",
+        "nic_name": "[concat('nic1-',resourceGroup().name)]",
+        "pubip_name": "[concat('pub_ip-',resourceGroup().name)]",
+        "subnet_name": "[concat('subnet-',resourceGroup().name)]"
+    },
+    "resources": [
+        {
+            "apiVersion": "2016-03-30",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "name": "[variables('pubip_name')]",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "publicIPAllocationMethod": "Dynamic"
+            }
+        },
+        {
+            "apiVersion": "2016-03-30",
+            "type": "Microsoft.Network/virtualNetworks",
+            "name": "[variables('vnet_name')]",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "dependsOn": [],
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "[parameters('vnet_addressPrefixes')]"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "[variables('subnet_name')]",
+                        "properties": {
+                            "addressPrefix": "[parameters('subnet_addressPrefix')]"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "apiVersion": "2016-03-30",
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[variables('nic_name')]",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses/', variables('pubip_name'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks/', variables('vnet_name'))]"
+            ],
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('pubip_name'))]"
+                            },
+                            "subnet": {
+                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks',variables('vnet_name')),'/subnets/',variables('subnet_name'))]"
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    ],
+    "outputs": {
+        "nic_name": {
+            "type": "string",
+            "value": "[variables('nic_name')]"
+        }
+    }
+}

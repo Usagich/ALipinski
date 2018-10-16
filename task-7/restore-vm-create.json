@@ -21,16 +21,7 @@
                 "hardwareProfile": {
                     "vmSize": "Standard_D2S_v3"
                 },
-                "osProfile": {
-                    "computerName": "[variables('vm_name')]"
-                },
                 "storageProfile": {
-                    "imageReference": {
-                        "publisher": "MicrosoftWindowsServer",
-                        "offer": "WindowsServer",
-                        "sku": "2012-R2-Datacenter",
-                        "version": "latest"
-                    },
                     "osDisk": {
                         "name": "[variables('disk1_name')]",
                         "caching": "ReadWrite",

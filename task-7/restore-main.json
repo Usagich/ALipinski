@@ -22,7 +22,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(variables('link'), '/all-network.json')]",
+                    "uri": "[concat(variables('link'), '/restore-all-network.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -45,7 +45,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(variables('link'), '/vm-create.json')]",
+                    "uri": "[concat(variables('link'), '/restore-vm-create.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {

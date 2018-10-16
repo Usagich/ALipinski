@@ -20,15 +20,6 @@ if (!$storage) {
         -SkuName $skuName
 }
 
-
-# Create the storage account.
-$storageAccount = New-AzureRmStorageAccount -ResourceGroupName $resourceGroupName `
-    -Name $storageAccountName `
-    -Location $location `
-    -SkuName $skuName
-
-
-
 $vault = Get-AzureRmRecoveryServicesVault
 Set-AzureRmRecoveryServicesVaultContext -Vault $vault
 

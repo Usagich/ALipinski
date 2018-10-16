@@ -6,8 +6,6 @@ Clear-Host
 $Sub = "1f1fe2e5-5f13-4687-aef3-063acc693dd3"
 $templateURI = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-7/main.json'
 $templateParametersURI = "https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-7/main-parameters.json"
-$vm = Get-AzureRmVM -ResourceGroupName $resourceGroupName
-$vault = get-AzureRmRecoveryServicesVault -ResourceGroupName $resourceGroupName
 $StorageAccountName = 'task7storage'
 #Generate random number for backup vault name
 $UTCNow = (Get-Date).ToUniversalTime()
@@ -50,6 +48,9 @@ New-AzureRmResourceGroupDeployment `
 #remove min-parameters file from temp folder
 Remove-Item $ParametersFilePath
 
+$vm = Get-AzureRmVM -ResourceGroupName $resourceGroupName
+$vault = get-AzureRmRecoveryServicesVault -ResourceGroupName $resourceGroupName
+
 #Start backup
 Set-AzureRmRecoveryServicesVaultContext -Vault $vault
 $namedContainer = Get-AzureRmRecoveryServicesBackupContainer `
@@ -61,3 +62,4 @@ $item = Get-AzureRmRecoveryServicesBackupItem -Container $namedContainer `
     -WorkloadType "AzureVM"
 
 $job = Backup-AzureRmRecoveryServicesBackupItem -Item $item
+

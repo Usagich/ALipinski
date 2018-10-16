@@ -87,10 +87,7 @@
                 "autoUpgradeMinorVersion": true,
                 "settings": {
                     "ModulesUrl": "[parameters('dscurl')]",
-                    "ConfigurationFunction": "[parameters('DSCfunctions')]",
-                    "Properties": {
-                        "MachineName": "[variables('vm_name')]"
-                    }
+                    "ConfigurationFunction": "[parameters('DSCfunctions')]"
                 },
                 "protectedSettings": null
             }

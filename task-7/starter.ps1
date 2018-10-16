@@ -10,6 +10,9 @@ $templateParametersURI = "https://raw.githubusercontent.com/AzureLabDevOps/ALipi
 Write-Host "Please enter login name for VM: "
 $login = Read-Host
 
+$UTCNow = (Get-Date).ToUniversalTime()
+$random = $UTCNow.Millisecond
+
 Write-Host "Please enter password for VM: "
 $password = Read-Host -AsSecureString
 
@@ -29,5 +32,6 @@ New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName `
                                     -TemplateUri $templateURI `
                                     -login $login `
                                     -password $password `
+                                    -random $random `
                                     -TemplateParameterFile $ParametersFilePath `
                                     -Verbose

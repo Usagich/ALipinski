@@ -4,10 +4,13 @@
     "parameters": {
         "vm_name": {
             "type": "string"
+        },
+        "random": {
+            "type": "string"
         }
     },
     "variables": {
-        "vaultName": "[concat('backup_vault', substring(uniqueString(resourceGroup().id),0,3))]",
+        "vaultName": "[concat('vault',parameters('random'))]",
         "backupFabric": "Azure",
         "backupPolicyName": "DefaultPolicy",
         "protectionContainer": "[concat('iaasvmcontainer;iaasvmcontainerv2;', resourceGroup().name, ';', parameters('vm_name'))]",

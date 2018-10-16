@@ -19,10 +19,11 @@ Configuration DataDisk
         }
  	File FileDemo 
 	{
-	    DependsOn = "FVolume"
+	    DependsOn = "[xDisk]FVolume"
             DestinationPath = 'F:\folder\hello.txt'
             Ensure = "Present"
             Contents = 'hello world'
         }
+
     }
 }

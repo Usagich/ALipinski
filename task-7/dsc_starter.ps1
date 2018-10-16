@@ -6,13 +6,13 @@ Clear-Host
 $StorageAccountName = 'task7storage'
 #Generate random number for backup vault name
 
-New-AzureRmStorageAccount -ResourceGroupName $resourceGroup `
+New-AzureRmStorageAccount -ResourceGroupName $resourceGroupName `
     -Name $StorageAccountName `
     -Location $location `
     -SkuName Standard_LRS `
     -Kind StorageV2 
 
-Publish-AzureRmVMDscConfiguration -ConfigurationPath "C:\git\ALipinski\Help\DSC\dsc.ps1" -ResourceGroupName TestRG5 -StorageAccountName $StorageAccountName
+Publish-AzureRmVMDscConfiguration -ConfigurationPath "https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-7/dsc.ps1" -ResourceGroupName TestRG5 -StorageAccountName $StorageAccountName
 
 #Check resource group name
 $resourceGroup = Get-AzureRmResourceGroup -Name $resourceGroupName -ErrorAction SilentlyContinue

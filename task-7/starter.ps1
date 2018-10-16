@@ -13,6 +13,7 @@ $StorageAccountName = 'task7storage'
 $UTCNow = (Get-Date).ToUniversalTime()
 $random = $UTCNow.Millisecond
 $dscName = 'dsc.ps1.zip'
+Select-AzureRmSubscription -Subscriptionid $Sub
 
 #Enter login name
 Write-Host "Please enter login name for VM: "
@@ -34,7 +35,6 @@ $ParametersFilePath = "$env:TEMP\main-parameters.json"
 #Download from URI to %temp%
 Invoke-WebRequest -Uri $templateParametersURI -OutFile $ParametersFilePath
 
-Select-AzureRmSubscription -Subscriptionid $Sub
 
 #Check resource group name
 $resourceGroup = Get-AzureRmResourceGroup -Name $resourceGroupName -ErrorAction SilentlyContinue

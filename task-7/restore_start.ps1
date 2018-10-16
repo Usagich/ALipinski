@@ -5,7 +5,7 @@ Param(
 
 Clear-Host
 $Sub = "1f1fe2e5-5f13-4687-aef3-063acc693dd3"
-$templateURI = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-7/main.json'
+$templateURI = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-7/restore-main.json'
 $location = 'West Europe'
 
 Select-AzureRmSubscription -Subscriptionid $Sub

@@ -17,7 +17,7 @@
         "DSCfunctions": {
             "type": "string"
         },
-        "sastokenurl": {
+        "dscurl": {
             "type": "string"
         }
     },
@@ -86,7 +86,7 @@
                 "typeHandlerVersion": "2.19",
                 "autoUpgradeMinorVersion": true,
                 "settings": {
-                    "ModulesUrl": "[parameters('sastokenurl')]",
+                    "ModulesUrl": "[parameters('dscurl')]",
                     "ConfigurationFunction": "[parameters('DSCfunctions')]",
                     "Properties": {
                         "MachineName": "[variables('vm_name')]"

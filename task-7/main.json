@@ -49,7 +49,7 @@
         "random": {
             "type": "string"
         },
-        "sastokenurl":{
+        "dscurl":{
             "type": "string"
         },
         "DSCfunctions": {
@@ -175,8 +175,8 @@
                     "DSCfunctions": {
                         "value": "[parameters('DSCfunctions')]"
                     },
-                    "sastokenurl":{
-                        "value": "[parameters('sastokenurl')]"
+                    "dscurl":{
+                        "value": "[parameters('dscurl')]"
                     }
                 }
             }

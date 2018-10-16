@@ -31,25 +31,25 @@ if (!$resourceGroup) {
     New-AzureRmResourceGroup -Name $resourceGroupName -Location 'West Europe'
 }
 
-New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName `
-                                    -TemplateUri $templateURI `
-                                    -login $login `
-                                    -password $password `
-                                    -random $random `
-                                    -TemplateParameterFile $ParametersFilePath `
-                                    -Verbose
+New-AzureRmResourceGroupDeployment `
+    -ResourceGroupName $resourceGroupName `
+    -TemplateUri $templateURI `
+    -login $login `
+    -password $password `
+    -random $random `
+    -TemplateParameterFile $ParametersFilePath `
+    -Verbose
 
 
  
 Set-AzureRmRecoveryServicesVaultContext -Vault $vault
 
-$namedContainer = Get-AzureRmRecoveryServicesBackupContainer -ContainerType "AzureVM" `
-                                                            -Status "Registered" `
-                                                            -FriendlyName $vm.Name
+$namedContainer = Get-AzureRmRecoveryServicesBackupContainer `
+    -ContainerType "AzureVM" `
+    -Status "Registered" `
+    -FriendlyName $vm.Name
 
 $item = Get-AzureRmRecoveryServicesBackupItem -Container $namedContainer `
-                                                -WorkloadType "AzureVM"
+    -WorkloadType "AzureVM"
 
 $job = Backup-AzureRmRecoveryServicesBackupItem -Item $item
-
-

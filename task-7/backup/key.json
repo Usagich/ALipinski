@@ -2,6 +2,12 @@
     "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "login":{
+            "type": "string"
+        },
+        "password": {
+            "type": "securestring"
+        },
         "sku": {
             "type": "string",
             "defaultValue": "Standard",
@@ -30,10 +36,6 @@
         },
         "networkAcls": {
             "type": "object"
-        },
-        "secretsObject": {
-            "type": "secureObject",
-            "defaultValue": "{}"
         }
     },
     "variables": {
@@ -60,29 +62,19 @@
         },
         {
             "type": "Microsoft.KeyVault/vaults/secrets",
-            "name": "[concat(variables('key_name'), '/', parameters('secretsObject').secrets[copyIndex()].secretName)]",
+            "name": "[concat(variables('key_name'), '/', parameters('login'))]",
             "apiVersion": "2016-10-01",
             "location": "[resourceGroup().location]",
             "scale": null,
             "properties": {
-                "value": "[parameters('secretsObject').secrets[copyIndex()].secretValue]",
+                "value": "[parameters('password')]",
                 "attributes": {
                     "enabled": true
                 }
             },
             "dependsOn": [
                 "[concat('Microsoft.KeyVault/vaults/', variables('key_name'))]"
-            ],
-            "copy": {
-                "name": "secretsCopy",
-                "count": "[length(parameters('secretsObject').secrets)]"
-            }
+            ]
         }
-    ],
-    "outputs": {
-        "adminPass": {
-            "type": "string",
-            "value": "[parameters('secretsObject').secrets[0].secretValue]"
-        }
-    }
+    ]
 }

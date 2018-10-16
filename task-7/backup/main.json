@@ -2,13 +2,16 @@
     "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "login": {
+            "type": "string"
+        },
+        "password": {
+            "type": "securestring"
+        },
         "vnet_addressPrefixes": {
             "type": "string"
         },
         "subnet_addressPrefix": {
-            "type": "string"
-        },
-        "adminUsername": {
             "type": "string"
         },
         "sku": {
@@ -40,8 +43,11 @@
         "networkAcls": {
             "type": "object"
         },
-        "secretsObject": {
-            "type": "secureObject"
+        "disk_size": {
+            "type": "string"
+        },
+        "random": {
+            "type": "string"
         }
     },
     "variables": {
@@ -64,6 +70,30 @@
                     },
                     "subnet_addressPrefix": {
                         "value": "[parameters('subnet_addressPrefix')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2017-05-10",
+            "name": "backup",
+            "dependsOn": [
+                "vm-create",
+                "all-network"
+            ],
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('link'), '/backup.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "vm_name": {
+                        "value": "[reference('vm-create').outputs.vm_name.value]"
+                    },
+                    "random": {
+                        "value": "[parameters('random')]"
                     }
                 }
             }
@@ -100,8 +130,11 @@
                     "networkAcls": {
                         "value": "[parameters('networkAcls')]"
                     },
-                    "secretsObject": {
-                        "value": "[parameters('secretsObject')]"
+                    "login": {
+                        "value": "[parameters('login')]"
+                    },
+                    "password": {
+                        "value": "[parameters('password')]"
                     }
                 }
             }
@@ -124,14 +157,17 @@
                     "nic_name": {
                         "value": "[reference('all-network').outputs.nic_name.value]"
                     },
-                    "adminUsername": {
-                        "value": "[parameters('adminUsername')]"
+                    "login": {
+                        "value": "[parameters('login')]"
                     },
-                    "AdminPassword": {
-                        "value": "[reference('Key').outputs.AdminPass.value]"
+                    "password": {
+                        "value": "[parameters('password')]"
+                    },
+                    "disk_size": {
+                        "value": "[parameters('disk_size')]"
                     }
                 }
             }
-        }   
+        }
     ]
 }

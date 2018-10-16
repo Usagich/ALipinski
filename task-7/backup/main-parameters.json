@@ -11,6 +11,9 @@
         "sku": {
             "value": "Standard"
         },
+        "disk_size": {
+            "value": "1"
+        },
         "accessPolicies": {
             "value": [
                 {
@@ -104,16 +107,6 @@
                 "bypass": "AzureServices",
                 "virtualNetworkRules": [],
                 "ipRules": []
-            }
-        },
-        "secretsObject": {
-            "value": {
-                "secrets": [
-                    {
-                        "secretName": "Secret1",
-                        "secretValue": "ZEtyu7702954!"
-                    }
-                ]
             }
         }
     }

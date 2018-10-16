@@ -13,8 +13,7 @@
         "vnet_name": "[concat('vnet-',resourceGroup().name)]",
         "nic_name": "[concat('nic1-',resourceGroup().name)]",
         "pubip_name": "[concat('pub_ip-',resourceGroup().name)]",
-        "subnet_name": "[concat('subnet-',resourceGroup().name)]",
-        "nsg_name": "[concat('nsg-',resourceGroup().name)]"
+        "subnet_name": "[concat('subnet-',resourceGroup().name)]"
     },
     "resources": [
         {
@@ -32,9 +31,7 @@
             "name": "[variables('vnet_name')]",
             "location": "[resourceGroup().location]",
             "properties": {
-                "dependsOn": [
-                    "[concat('Microsoft.Network/networkSecurityGroups/', variables('nsg_name'))]"
-                ],
+                "dependsOn": [],
                 "addressSpace": {
                     "addressPrefixes": [
                         "[parameters('vnet_addressPrefixes')]"

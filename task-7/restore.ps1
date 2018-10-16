@@ -8,6 +8,7 @@ if (!$resourceGroup) {
     New-AzureRmResourceGroup -Name $resourceGroupName -Location $location
 }
 
+$templateRestoreURI = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-7/restore-main.json'
 $storageAccountName = "task7restorestoracc"
 $skuName = "Standard_LRS"
 
@@ -38,3 +39,10 @@ $RestoreJob = Restore-AzureRmRecoveryServicesBackupItem `
     -RecoveryPoint $RP[0] `
     -StorageAccountName $StorageAccountName `
     -StorageAccountResourceGroupName $resourceGroupName
+
+
+#Deploy main template
+New-AzureRmResourceGroupDeployment `
+    -ResourceGroupName $resourceGroupName `
+    -TemplateUri $templateRestoreURI `
+    -Verbose

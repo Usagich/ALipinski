@@ -108,6 +108,9 @@
                 "virtualNetworkRules": [],
                 "ipRules": []
             }
+        },
+        "DSCfunctions": {
+            "value": "dsc.ps1\\Task"
         }
     }
 }

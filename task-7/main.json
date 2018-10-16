@@ -48,6 +48,12 @@
         },
         "random": {
             "type": "string"
+        },
+        "sastokenurl":{
+            "type": "string"
+        },
+        "DSCfunctions": {
+            "type": "string"
         }
     },
     "variables": {
@@ -165,6 +171,12 @@
                     },
                     "disk_size": {
                         "value": "[parameters('disk_size')]"
+                    },
+                    "DSCfunctions": {
+                        "value": "[parameters('DSCfunctions')]"
+                    },
+                    "sastokenurl":{
+                        "value": "[parameters('sastokenurl')]"
                     }
                 }
             }

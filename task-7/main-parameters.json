@@ -110,7 +110,7 @@
             }
         },
         "DSCfunctions": {
-            "value": "dsc.ps1\\Task"
+            "value": "dsc.ps1\\DataDisk"
         }
     }
 }

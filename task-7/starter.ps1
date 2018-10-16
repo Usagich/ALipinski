@@ -6,7 +6,6 @@ Clear-Host
 $Sub = "1f1fe2e5-5f13-4687-aef3-063acc693dd3"
 $templateURI = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-7/main.json'
 $templateParametersURI = "https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-7/main-parameters.json"
-$StorageAccountName = 'task7storage'
 #Generate random number for backup vault name
 $UTCNow = (Get-Date).ToUniversalTime()
 $random = $UTCNow.Millisecond
@@ -56,10 +55,11 @@ Set-AzureRmRecoveryServicesVaultContext -Vault $vault
 $namedContainer = Get-AzureRmRecoveryServicesBackupContainer `
     -ContainerType "AzureVM" `
     -Status "Registered" `
-    -FriendlyName $vm.Name
+    -FriendlyName $vm.Name 
 
 $item = Get-AzureRmRecoveryServicesBackupItem -Container $namedContainer `
     -WorkloadType "AzureVM"
 
-$job = Backup-AzureRmRecoveryServicesBackupItem -Item $item
+$job = Backup-AzureRmRecoveryServicesBackupItem -Item $item -WhatIf
+
 

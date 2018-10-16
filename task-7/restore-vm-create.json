@@ -7,9 +7,7 @@
         }
     },
     "variables": {
-        "vm_name": "[concat('vm1-',resourceGroup().name)]",
-        "disk1_name": "[concat('disk1-',resourceGroup().name)]",
-        "disk2_name": "[concat('disk2-',resourceGroup().name)]"
+        "vm_name": "[concat('vm1-',resourceGroup().name)]"
     },
     "resources": [
         {
@@ -22,19 +20,28 @@
                     "vmSize": "Standard_D2S_v3"
                 },
                 "storageProfile": {
+      
                     "osDisk": {
-                        "name": "[variables('disk1_name')]",
-                        "caching": "ReadWrite",
-                        "createOption": "FromImage"
+                      "name": "VmRestored_Osdisk",
+                      "caching": "ReadWrite",
+                      "osType": "Windows",
+                      "createOption": "Attach",
+                      "vhd": {
+                        "uri": "https://task7restorestoracc.blob.core.windows.net/vm1task7-9d5b5bbc928e44d7b4b91d172893e2ab/vm1task7-osdisk-20181016-162349.vhd"
+                      }
                     },
                     "dataDisks": [
-                        {
-                            "name": "[variables('disk2_name')]",
-                            "lun": 0,
-                            "createOption": "Empty"
+                      {
+                        "name": "VmRestored_Datadisk",
+                        "diskSizeGB": 1,
+                        "lun": 0,
+                        "createOption": "Attach",
+                        "vhd": {
+                          "uri": "https://task7restorestoracc.blob.core.windows.net/vm1task7-9d5b5bbc928e44d7b4b91d172893e2ab/vm1task7-datadisk-000-20181016-162349.vhd"
                         }
+                      }
                     ]
-                },
+                  },
                 "networkProfile": {
                     "networkInterfaces": [
                         {
@@ -44,11 +51,5 @@
                 }
             }
         }
-    ],
-    "outputs": {
-        "vm_name": {
-            "type": "string",
-            "value": "[variables('vm_name')]"
-        }
-    }
+    ]
 }

@@ -13,7 +13,7 @@ $StorageAccountName = 'task7storage'
 $UTCNow = (Get-Date).ToUniversalTime()
 $random = $UTCNow.Millisecond
 $location = 'West Europe'
-$dscurl = "https://github.com/AzureLabDevOps/ALipinski/raw/master/task-7/DSC.zip"
+$dscurl = "https://github.com/AzureLabDevOps/ALipinski/raw/master/task-7/dsc.ps1.zip"
 
 Select-AzureRmSubscription -Subscriptionid $Sub
 

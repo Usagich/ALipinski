@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "ClientId": {
-            "type": "string"
+            "type": "securestring"
         },
         "secret": {
             "type": "securestring"
@@ -20,8 +20,8 @@
         "networkPlugin":"kubenet",
         "dnsPrefix":"[concat(resourceGroup().name,parameters('random'))]",
         "kubernetesVersion":"1.11.3",
-        "osDiskSizeGB":"30",
-        "maxPods":"30"
+        "osDiskSizeGB":30,
+        "maxPods":30
     },
     "resources": [
         {

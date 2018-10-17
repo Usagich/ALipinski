@@ -19,7 +19,7 @@ if (!$resourceGroup) {
 $storageAccount = get-AzureRmStorageAccount -ResourceGroupName $resourceGroupName
 $ctx = $storageAccount.Context
 $container = Get-AzureRmStorageContainer -ResourceGroupName $resourceGroupName -StorageAccountName $storageAccount.StorageAccountName
-
+$vm_links = (Get-AzureStorageBlob -Container ($container.Name) -Context $ctx).ICloudBlob.Uri.AbsoluteUri
 foreach ($item in $vm_links) {
     if (($item -like '*vhd') -and ($item -like '*osdisk*')) {
         $osDisk = $item 
@@ -28,8 +28,6 @@ foreach ($item in $vm_links) {
         $dataDisk = $item     
     }
 }
-
-$vm_links = (Get-AzureStorageBlob -Container ($container.Name) -Context $ctx).ICloudBlob.Uri.AbsoluteUri
 
 #Deploy main template
 New-AzureRmResourceGroupDeployment `

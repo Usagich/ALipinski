@@ -19,7 +19,9 @@
         "osType": "Linux",
         "networkPlugin":"kubenet",
         "dnsPrefix":"[concat(resourceGroup().name,parameters('random'))]",
-        "kubernetesVersion":"1.11.3"
+        "kubernetesVersion":"1.11.3",
+        "osDiskSizeGB":"30",
+        "maxPods":"30"
     },
     "resources": [
         {
@@ -35,8 +37,8 @@
                         "name": "node",
                         "count": "[variables('NodeCount')]",
                         "vmSize": "[variables('vmSize')]",
-                        "osDiskSizeGB": 30,
-                        "maxPods": 30,
+                        "osDiskSizeGB": "[variables('osDiskSizeGB')]",
+                        "maxPods": "[variables('maxPods')]",
                         "osType": "[variables('osType')]"
                     }
                 ],

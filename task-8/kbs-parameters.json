@@ -17,12 +17,6 @@
         "agentVMSize": {
             "value": "Standard_F1s"
         },
-        "servicePrincipalClientId": {
-            "value": "9e339214-5997-4f6b-9472-a1228d40a3a4"
-        },
-        "servicePrincipalClientSecret": {
-            "value": "4qusGT/Xkgo1Gef8UBXs4YwU7Ojd7XUuptFN/f1JnZM="
-        },
         "kubernetesVersion": {
             "value": "1.11.3"
         },

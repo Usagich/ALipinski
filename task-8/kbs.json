@@ -2,6 +2,55 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "resourceName": {
+            "type": "string"
+        },
+        "location": {
+            "type": "string"
+        },
+        "dnsPrefix": {
+            "type": "string"
+        },
+        "osDiskSizeGB": {
+            "type": "int",
+            "defaultValue": 1,
+            "minValue": 0,
+            "maxValue": 1023
+        },
+        "agentCount": {
+            "type": "int",
+            "defaultValue": 3
+        },
+        "agentVMSize": {
+            "type": "string",
+            "defaultValue": "Standard_DS1_v2"
+        },
+        "osType": {
+            "type": "string",
+            "defaultValue": "Linux",
+            "allowedValues": [
+                "Linux"
+            ]
+        },
+        "kubernetesVersion": {
+            "type": "string",
+            "defaultValue": "1.7.7"
+        },
+        "enableHttpApplicationRouting": {
+            "type": "bool",
+            "defaultValue": true
+        },
+        "networkPlugin": {
+            "type": "string",
+            "allowedValues": [
+                "azure",
+                "kubenet"
+            ]
+        },
+        "enableRBAC": {
+            "type": "bool",
+            "defaultValue": true
+        },
         "appid": {
             "type": "string"
         },
@@ -9,38 +58,47 @@
             "type": "securestring"
         }
     },
-    "variables": {
-        "cluster_name": "[concat('kbs-',resourceGroup().name)]"
-    },
     "resources": [
         {
-            "name": "[variables('cluster_name')]",
-            "type": "Microsoft.ContainerService/managedClusters",
             "apiVersion": "2018-03-31",
-            "location": "[resourceGroup().location]",
+            "dependsOn": [],
+            "type": "Microsoft.ContainerService/managedClusters",
+            "location": "[parameters('location')]",
+            "name": "[parameters('resourceName')]",
             "properties": {
-                "kubernetesVersion": "1.11.3",
-                "dnsPrefix": "string",
+                "kubernetesVersion": "[parameters('kubernetesVersion')]",
+                "enableRBAC": "[parameters('enableRBAC')]",
+                "dnsPrefix": "[parameters('dnsPrefix')]",
+                "addonProfiles": {
+                    "httpApplicationRouting": {
+                        "enabled": "[parameters('enableHttpApplicationRouting')]"
+                    }
+                },
                 "agentPoolProfiles": [
                     {
                         "name": "agentpool",
-                        "count": 3,
-                        "vmSize": "Standard_DS1_v2",
-                        "osDiskSizeGB": 3,
-                        "maxPods": 30,
-                        "osType": "Linux"
+                        "osDiskSizeGB": "[parameters('osDiskSizeGB')]",
+                        "count": "[parameters('agentCount')]",
+                        "vmSize": "[parameters('agentVMSize')]",
+                        "osType": "[parameters('osType')]",
+                        "storageProfile": "ManagedDisks"
                     }
                 ],
-                "servicePrincipalProfile": {
-                    "clientId": "[parameters('appid')]",
-                    "secret": "[parameters('apppass')]"
+                 "servicePrincipalProfile": {
+                    "ClientId": "[parameters('appid')]",
+                    "Secret": "[parameters('apppass')]"
                 },
-                "addonProfiles": {},
-                "enableRBAC": true,
                 "networkProfile": {
-                    "networkPlugin": "kubenet"
+                    "networkPlugin": "[parameters('networkPlugin')]"
                 }
-            }
+            },
+            "tags": {}
         }
-    ]
+    ],
+    "outputs": {
+        "controlPlaneFQDN": {
+            "type": "string",
+            "value": "[reference(concat('Microsoft.ContainerService/managedClusters/', parameters('resourceName'))).fqdn]"
+        }
+    }
 }

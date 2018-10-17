@@ -125,7 +125,7 @@
                         "storageProfile": "ManagedDisks"
                     }
                 ],
-                "servicePrincipalProfile": {
+                 "servicePrincipalProfile": {
                     "ClientId": "[parameters('servicePrincipalClientId')]",
                     "Secret": "[parameters('servicePrincipalClientSecret')]"
                 },

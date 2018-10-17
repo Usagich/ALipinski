@@ -7,11 +7,19 @@
         },
         "secret": {
             "type": "securestring"
+        },
+        "random": {
+            "type": "string"
         }
     },
     "variables": {
         "NodeCount": 3,
-        "kbs_name": "[concat('kbs',resourceGroup().name)]"
+        "kbs_name": "[concat('kbs',resourceGroup().name)]",
+        "vmSize" : "Standard_DS1_v2",
+        "osType": "Linux",
+        "networkPlugin":"kubenet",
+        "dnsPrefix":"[concat(resourceGroup().name,parameters('random'))]",
+        "kubernetesVersion":"1.11.3"
     },
     "resources": [
         {
@@ -20,16 +28,16 @@
             "apiVersion": "2018-03-31",
             "location": "[resourceGroup().location]",
             "properties": {
-                "kubernetesVersion": "1.11.3",
-                "dnsPrefix": "string",
+                "kubernetesVersion": "[variables('kubernetesVersion')]",
+                "dnsPrefix": "[variables('dnsPrefix')]",
                 "agentPoolProfiles": [
                     {
                         "name": "node",
                         "count": "[variables('NodeCount')]",
-                        "vmSize": "Standard_DS1_v2",
+                        "vmSize": "[variables('vmSize')]",
                         "osDiskSizeGB": 30,
                         "maxPods": 30,
-                        "osType": "Linux"
+                        "osType": "[variables('osType')]"
                     }
                 ],
                 "servicePrincipalProfile": {
@@ -39,7 +47,7 @@
                 "addonProfiles": {},
                 "enableRBAC": true,
                 "networkProfile": {
-                    "networkPlugin": "kubenet"
+                    "networkPlugin": "[variables('networkPlugin')]"
                 }
             }
         }

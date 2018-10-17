@@ -9,6 +9,9 @@ $template = "C:\git\ALipinski\task-8\aks.json"
 #Select subscription
 Select-AzureRmSubscription -Subscriptionid $Sub
 
+$UTCNow = (Get-Date).ToUniversalTime()
+$random = $UTCNow.Millisecond
+
 #Check resource group name
 $resourceGroup = Get-AzureRmResourceGroup -Name $resourceGroupName -ErrorAction SilentlyContinue
 if (!$resourceGroup) {
@@ -21,9 +24,9 @@ $KeyVault = (Get-AzureRmKeyVault | where {$_.VaultName -like '*task8'}).VaultNam
 $ClientId = (Get-AzureKeyVaultSecret -VaultName $KeyVault -Name ClientId).SecretValue
 $secret = (Get-AzureKeyVaultSecret -VaultName $KeyVault -Name secret).SecretValue
 
-
 New-AzureRmResourceGroupDeployment `
     -ResourceGroupName $resourceGroupName `
     -TemplateFile $template `
     -ClientId $ClientId `
-    -secret $secret 
+    -secret $secret `
+    -random $random

@@ -2,6 +2,13 @@ Param(
     [Parameter(Mandatory = $False)]
     [string]$resourceGroupName = 'task8'
 )
+$location = 'West europe'
+#Check resource group name
+$resourceGroup = Get-AzureRmResourceGroup -Name $resourceGroupName -ErrorAction SilentlyContinue
+if (!$resourceGroup) {
+    New-AzureRmResourceGroup -Name $resourceGroupName -Location $location
+}
+
 Clear-Host
 $Sub = "1f1fe2e5-5f13-4687-aef3-063acc693dd3"
 $templateURI = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-8/main.json'
@@ -25,11 +32,7 @@ $password = Read-Host -AsSecureString
 # Invoke-WebRequest -Uri $templateParametersURI -OutFile $ParametersFilePath
 
 
-#Check resource group name
-$resourceGroup = Get-AzureRmResourceGroup -Name $resourceGroupName -ErrorAction SilentlyContinue
-if (!$resourceGroup) {
-    New-AzureRmResourceGroup -Name $resourceGroupName -Location $location
-}
+
 
 #Deploy main template
 New-AzureRmResourceGroupDeployment `

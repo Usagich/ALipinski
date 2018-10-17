@@ -1,0 +1,48 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "resourceName": {
+            "value": "kubernetestask8"
+        },
+        "location": {
+            "value": "westeurope"
+        },
+        "dnsPrefix": {
+            "value": "kubernetestask8"
+        },
+        "agentCount": {
+            "value": 3
+        },
+        "agentVMSize": {
+            "value": "Standard_F1s"
+        },
+        "servicePrincipalClientId": {
+            "value": null
+        },
+        "servicePrincipalClientSecret": {
+            "value": null
+        },
+        "kubernetesVersion": {
+            "value": "1.11.3"
+        },
+        "workspaceName": {
+            "value": "DefaultWorkspace-1f1fe2e5-5f13-4687-aef3-063acc693dd3-WEU"
+        },
+        "omsWorkspaceId": {
+            "value": "/subscriptions/1f1fe2e5-5f13-4687-aef3-063acc693dd3/resourceGroups/DefaultResourceGroup-WEU/providers/Microsoft.OperationalInsights/workspaces/DefaultWorkspace-1f1fe2e5-5f13-4687-aef3-063acc693dd3-WEU"
+        },
+        "workspaceRegion": {
+            "value": "westeurope"
+        },
+        "enableHttpApplicationRouting": {
+            "value": true
+        },
+        "networkPlugin": {
+            "value": "kubenet"
+        },
+        "enableRBAC": {
+            "value": false
+        }
+    }
+}

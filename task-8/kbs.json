@@ -40,7 +40,7 @@
         },
         "agentVMSize": {
             "type": "string",
-            "defaultValue": "Standard_D2_v2",
+            "defaultValue": "Standard_DS1_v2",
             "metadata": {
                 "description": "The size of the Virtual Machine."
             }
@@ -74,44 +74,6 @@
                 "description": "The version of Kubernetes."
             }
         },
-        "enableOmsAgent": {
-            "type": "bool",
-            "defaultValue": true,
-            "metadata": {
-                "description": "boolean flag to turn on and off of omsagent addon"
-            }
-        },
-        "workspaceRegion": {
-            "type": "string",
-            "defaultValue": "East US",
-            "metadata": {
-                "description": "Specify the region for your OMS workspace"
-            }
-        },
-        "workspaceName": {
-            "type": "string",
-            "metadata": {
-                "description": "Specify the name of the OMS workspace"
-            }
-        },
-        "omsWorkspaceId": {
-            "type": "string",
-            "metadata": {
-                "description": "Specify the resource id of the OMS workspace"
-            }
-        },
-        "omsSku": {
-            "type": "string",
-            "defaultValue": "standalone",
-            "allowedValues": [
-                "free",
-                "standalone",
-                "pernode"
-            ],
-            "metadata": {
-                "description": "Select the SKU for your workspace"
-            }
-        },
         "enableHttpApplicationRouting": {
             "type": "bool",
             "defaultValue": true,
@@ -127,13 +89,6 @@
             ],
             "metadata": {
                 "description": "Network plugin used for building Kubernetes network."
-            }
-        },
-        "maxPods": {
-            "type": "int",
-            "defaultValue": 30,
-            "metadata": {
-                "description": "Maximum number of pods that can run on a node."
             }
         },
         "enableRBAC": {

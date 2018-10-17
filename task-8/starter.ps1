@@ -32,8 +32,6 @@ $password = Read-Host -AsSecureString
 # Invoke-WebRequest -Uri $templateParametersURI -OutFile $ParametersFilePath
 
 
-
-
 #Deploy main template
 New-AzureRmResourceGroupDeployment `
     -ResourceGroupName $resourceGroupName `

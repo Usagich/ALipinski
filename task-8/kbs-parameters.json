@@ -18,22 +18,13 @@
             "value": "Standard_F1s"
         },
         "servicePrincipalClientId": {
-            "value": null
+            "value": "9e339214-5997-4f6b-9472-a1228d40a3a4"
         },
         "servicePrincipalClientSecret": {
-            "value": null
+            "value": "4qusGT/Xkgo1Gef8UBXs4YwU7Ojd7XUuptFN/f1JnZM="
         },
         "kubernetesVersion": {
             "value": "1.11.3"
-        },
-        "workspaceName": {
-            "value": "DefaultWorkspace-1f1fe2e5-5f13-4687-aef3-063acc693dd3-WEU"
-        },
-        "omsWorkspaceId": {
-            "value": "/subscriptions/1f1fe2e5-5f13-4687-aef3-063acc693dd3/resourceGroups/DefaultResourceGroup-WEU/providers/Microsoft.OperationalInsights/workspaces/DefaultWorkspace-1f1fe2e5-5f13-4687-aef3-063acc693dd3-WEU"
-        },
-        "workspaceRegion": {
-            "value": "westeurope"
         },
         "enableHttpApplicationRouting": {
             "value": true

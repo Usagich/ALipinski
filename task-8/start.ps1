@@ -4,7 +4,7 @@ Param(
 )
 $location = 'West europe'
 $Sub = "1f1fe2e5-5f13-4687-aef3-063acc693dd3"
-$template = "C:\git\ALipinski\task-8\aks.json"
+$template = "https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-8/start.ps1"
 
 #Select subscription
 Select-AzureRmSubscription -Subscriptionid $Sub
@@ -26,7 +26,7 @@ $secret = (Get-AzureKeyVaultSecret -VaultName $KeyVault -Name secret).SecretValu
 
 New-AzureRmResourceGroupDeployment `
     -ResourceGroupName $resourceGroupName `
-    -TemplateFile $template `
+    -TemplateUri $template `
     -ClientId $ClientId `
     -secret $secret `
     -random $random

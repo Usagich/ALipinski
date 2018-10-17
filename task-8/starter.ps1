@@ -1,6 +1,6 @@
 Param(
     [Parameter(Mandatory = $False)]
-    [string]$resourceGroupName = 'task7'
+    [string]$resourceGroupName = 'task8'
 )
 Clear-Host
 $Sub = "1f1fe2e5-5f13-4687-aef3-063acc693dd3"

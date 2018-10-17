@@ -7,7 +7,7 @@
         }
     },
     "variables": {
-        "vm_name": "[concat('vm1-',resourceGroup().name)]"
+        "vm_name": "[concat('restored-vm1-',resourceGroup().name)]"
     },
     "resources": [
         {

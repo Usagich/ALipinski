@@ -2,108 +2,45 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "resourceName": {
+        "appid": {
             "type": "string"
         },
-        "location": {
-            "type": "string"
-        },
-        "dnsPrefix": {
-            "type": "string",
-            "metadata": {
-            }
-        },
-        "osDiskSizeGB": {
-            "type": "int",
-            "defaultValue": 1,
-            "minValue": 0,
-            "maxValue": 1023
-        },
-        "agentCount": {
-            "type": "int",
-            "defaultValue": 3
-        },
-        "agentVMSize": {
-            "type": "string",
-            "defaultValue": "Standard_DS1_v2"
-        },
-        "servicePrincipalClientId": {
+        "apppass": {
             "type": "securestring"
-        },
-        "servicePrincipalClientSecret": {
-            "metadata": {
-                "description": "The Service Principal Client Secret."
-            },
-            "type": "securestring"
-        },
-        "osType": {
-            "type": "string",
-            "defaultValue": "Linux",
-            "allowedValues": [
-                "Linux"
-            ]
-        },
-        "kubernetesVersion": {
-            "type": "string",
-            "defaultValue": "1.7.7"
-        },
-        "enableHttpApplicationRouting": {
-            "type": "bool",
-            "defaultValue": true
-        },
-        "networkPlugin": {
-            "type": "string",
-            "allowedValues": [
-                "azure",
-                "kubenet"
-            ]
-        },
-        "enableRBAC": {
-            "type": "bool",
-            "defaultValue": true
         }
+    },
+    "variables": {
+        "cluster_name": "[concat('kbs-',resourceGroup().name)]"
     },
     "resources": [
         {
-            "apiVersion": "2018-03-31",
-            "dependsOn": [],
+            "name": "[variables('cluster_name')]",
             "type": "Microsoft.ContainerService/managedClusters",
-            "location": "[parameters('location')]",
-            "name": "[parameters('resourceName')]",
+            "apiVersion": "2018-03-31",
+            "location": "[resourceGroup().location]",
             "properties": {
-                "kubernetesVersion": "[parameters('kubernetesVersion')]",
-                "enableRBAC": "[parameters('enableRBAC')]",
-                "dnsPrefix": "[parameters('dnsPrefix')]",
-                "addonProfiles": {
-                    "httpApplicationRouting": {
-                        "enabled": "[parameters('enableHttpApplicationRouting')]"
-                    }
-                },
+                "kubernetesVersion": "1.11.3",
+                "dnsPrefix": "string",
                 "agentPoolProfiles": [
                     {
                         "name": "agentpool",
-                        "osDiskSizeGB": "[parameters('osDiskSizeGB')]",
-                        "count": "[parameters('agentCount')]",
-                        "vmSize": "[parameters('agentVMSize')]",
-                        "osType": "[parameters('osType')]",
-                        "storageProfile": "ManagedDisks"
+                        "count": 3,
+                        "vmSize": "Standard_DS1_v2",
+                        "osDiskSizeGB": 3,
+                        "maxPods": 30,
+                        "osType": "Linux"
                     }
                 ],
-                 "servicePrincipalProfile": {
-                    "ClientId": "[parameters('servicePrincipalClientId')]",
-                    "Secret": "[parameters('servicePrincipalClientSecret')]"
+                "servicePrincipalProfile": {
+                    "clientId": "[parameters('appid')]",
+                    "secret": "[parameters('apppass')]"
                 },
+                "addonProfiles": {},
+                "enableRBAC": true,
                 "networkProfile": {
-                    "networkPlugin": "[parameters('networkPlugin')]"
+                    "networkPlugin": "kubenet"
                 }
-            },
-            "tags": {}
+            }
         }
-    ],
-    "outputs": {
-        "controlPlaneFQDN": {
-            "type": "string",
-            "value": "[reference(concat('Microsoft.ContainerService/managedClusters/', parameters('resourceName'))).fqdn]"
-        }
-    }
+    ]
 }

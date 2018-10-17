@@ -8,13 +8,14 @@ $resourceGroup = Get-AzureRmResourceGroup -Name $resourceGroupName -ErrorAction 
 if (!$resourceGroup) {
     New-AzureRmResourceGroup -Name $resourceGroupName -Location $location
 }
-
+$appid = 'bfcb2a07-de28-4b77-b704-e2d5eb5395a1'
+$apppass = (Get-AzureKeyVaultSecret -VaultName keytask8 -Name apppass).SecretValueText
 $template = "C:\git\ALipinski\task-8\kbs.json"
-$templateParameters = "C:\git\ALipinski\task-8\kbs-parameters.json"
 
 
 New-AzureRmResourceGroupDeployment `
     -ResourceGroupName $resourceGroupName `
     -TemplateFile $template `
-    -TemplateParameterFile $templateParameters `
+    -appid $appid `
+    -apppass $apppass `
     -Verbose

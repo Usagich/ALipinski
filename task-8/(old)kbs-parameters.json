@@ -12,7 +12,7 @@
             "value": "kubernetestask8"
         },
         "agentCount": {
-            "value": 2
+            "value": 3
         },
         "agentVMSize": {
             "value": "Standard_F1s"

@@ -2,38 +2,39 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "appid": {
+        "ClientId": {
             "type": "string"
         },
-        "apppass": {
+        "secret": {
             "type": "securestring"
         }
     },
     "variables": {
-        "cluster_name": "[concat('kbs-',resourceGroup().name)]"
+        "NodeCount": 3,
+        "kbs_name": "[concat('kbs',resourceGroup().name)]"
     },
     "resources": [
         {
-            "name": "[variables('cluster_name')]",
+            "name": "[variables('kbs_name')]",
             "type": "Microsoft.ContainerService/managedClusters",
             "apiVersion": "2018-03-31",
             "location": "[resourceGroup().location]",
             "properties": {
                 "kubernetesVersion": "1.11.3",
-                "dnsPrefix": "kubernetestask8",
+                "dnsPrefix": "string",
                 "agentPoolProfiles": [
                     {
-                        "name": "agentpool",
-                        "count": 3,
+                        "name": "node",
+                        "count": "[variables('NodeCount')]",
                         "vmSize": "Standard_DS1_v2",
-                        "osDiskSizeGB": 3,
+                        "osDiskSizeGB": 30,
                         "maxPods": 30,
                         "osType": "Linux"
                     }
                 ],
                 "servicePrincipalProfile": {
-                    "clientId": "[parameters('appid')]",
-                    "secret": "[parameters('apppass')]"
+                    "clientId": "[parameters('clientId')]",
+                    "secret": "[parameters('secret')]"
                 },
                 "addonProfiles": {},
                 "enableRBAC": true,

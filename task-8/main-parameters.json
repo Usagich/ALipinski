@@ -2,11 +2,8 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "alwaysOn": {
-            "value": "true"
-        },
-        "sku_name": {
-            "value": "S1"
+        "sku": {
+            "value": "Standard"
         },
         "accessPolicies": {
             "value": [
@@ -102,28 +99,6 @@
                 "virtualNetworkRules": [],
                 "ipRules": []
             }
-        },
-        "secretsObject": {
-            "value": {
-                "secrets": [
-                    {
-                        "secretName": "asddffg",
-                        "secretValue": "ZEtyu7702954!"
-                    }
-                ]
-            }
-        },
-        "collation": {
-            "value": "SQL_Latin1_General_CP1_CI_AS"
-        },
-        "tier": {
-            "value": "Standard"
-        },
-        "skuName": {
-            "value": "S0"
-        },
-        "maxSizeBytes": {
-            "value": 268435456000
         }
     }
 }

@@ -4,6 +4,12 @@
     "parameters": {
         "nic_name": {
             "type": "string"
+        },
+        "osDisk": {
+            "type": "string"
+        },
+        "dataDisk": {
+            "type": "string"
         }
     },
     "variables": {
@@ -27,7 +33,7 @@
                       "osType": "Windows",
                       "createOption": "Attach",
                       "vhd": {
-                        "uri": "https://task7restorestoracc.blob.core.windows.net/vm1task7-9d5b5bbc928e44d7b4b91d172893e2ab/vm1task7-osdisk-20181016-162349.vhd"
+                        "uri": "[parameters('osDisk')]"
                       }
                     },
                     "dataDisks": [
@@ -37,7 +43,7 @@
                         "lun": 0,
                         "createOption": "Attach",
                         "vhd": {
-                          "uri": "https://task7restorestoracc.blob.core.windows.net/vm1task7-9d5b5bbc928e44d7b4b91d172893e2ab/vm1task7-datadisk-000-20181016-162349.vhd"
+                          "uri": "[parameters('dataDisk')]"
                         }
                       }
                     ]

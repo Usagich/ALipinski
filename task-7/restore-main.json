@@ -1,6 +1,14 @@
 {
     "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
+    "parameters": {
+        "osDisk": {
+            "type": "string"
+        },
+        "dataDisk": {
+            "type": "string"
+        }
+    },
     "variables": {
         "link": "https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-7"
     },
@@ -33,6 +41,12 @@
                 "parameters": {
                     "nic_name": {
                         "value": "[reference('all-network').outputs.nic_name.value]"
+                    },
+                    "osDisk": {
+                        "value": "[parameters('osDisk')]"
+                    },
+                    "dataDisk": {
+                        "value": "[parameters('dataDisk')]"
                     }
                 }
             }

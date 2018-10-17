@@ -1,19 +1,14 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {
-        "vnet_addressPrefixes": {
-            "type": "string"
-        },
-        "subnet_addressPrefix": {
-            "type": "string"
-        }
-    },
     "variables": {
         "vnet_name": "[concat('vnet2-',resourceGroup().name)]",
         "nic_name": "[concat('nic2-',resourceGroup().name)]",
         "pubip_name": "[concat('pub_ip2-',resourceGroup().name)]",
-        "subnet_name": "[concat('subnet2-',resourceGroup().name)]"
+        "subnet_name": "[concat('subnet2-',resourceGroup().name)]",
+        "vnet_addressPrefixes":"10.1.0.0/16",
+        "subnet_addressPrefix":"10.1.0.0/24"
+
     },
     "resources": [
         {
@@ -34,14 +29,14 @@
                 "dependsOn": [],
                 "addressSpace": {
                     "addressPrefixes": [
-                        "[parameters('vnet_addressPrefixes')]"
+                        "[variables('vnet_addressPrefixes')]"
                     ]
                 },
                 "subnets": [
                     {
                         "name": "[variables('subnet_name')]",
                         "properties": {
-                            "addressPrefix": "[parameters('subnet_addressPrefix')]"
+                            "addressPrefix": "[variables('subnet_addressPrefix')]"
                         }
                     }
                 ]

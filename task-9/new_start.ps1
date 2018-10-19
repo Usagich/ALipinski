@@ -22,6 +22,7 @@ Write-Host "Please enter password for VM: "
 $vm_passwd = Read-Host -AsSecureString
 
 #Enter password for app registration secret
+Write-Host "Enter password for app registration secret: "
 $app_pass = Read-Host -AsSecureString
 
 #Download from URI to %temp%
@@ -31,15 +32,15 @@ $resourceGroup = Get-AzureRmResourceGroup `
     -Name $resourceGroupName `
     -ErrorAction SilentlyContinue
 
-$storageAccount = Get-AzureRmStorageAccount `
-    -ResourceGroupName $resourceGroupName `
-    -Name $storageAccountName 
-
 if (!$resourceGroup) {
     New-AzureRmResourceGroup `
         -Name $resourceGroupName `
         -Location 'West Europe'
 }
+
+$storageAccount = Get-AzureRmStorageAccount `
+    -ResourceGroupName $resourceGroupName `
+    -Name $storageAccountName 
 
 if (!$storageAccount) {
     New-AzureRmStorageAccount `

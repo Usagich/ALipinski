@@ -1,9 +1,9 @@
 workflow Shutdown-ARM-VMs-Parallel
 {
 
-	$SubscriptionId         = ""
-    $TenantID               = ""
-    $CredentialAssetName    = ""
+	$SubscriptionId         = "1f1fe2e5-5f13-4687-aef3-063acc693dd3"
+    $TenantID               = "b41b72d0-4e9f-4c26-8a69-f949f367c91d"
+    $CredentialAssetName    = "DefaultAzureCredential"
    
 
 

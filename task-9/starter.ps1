@@ -12,7 +12,7 @@ Select-AzureRmSubscription -Subscriptionid $Sub
 # #Enter login name
 # Write-Host "Please enter login name for VM: "
 # $login = Read-Host
-# #Enter password for VM
+# #Enter password for VMc
 # Write-Host "Please enter password for VM: "
 # $password = Read-Host -AsSecureString
 

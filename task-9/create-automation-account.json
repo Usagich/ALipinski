@@ -35,8 +35,8 @@
         }
     },
     "variables": {
-        "runbookName": "Get-AzureVMTutorial",
-        "scriptUri": "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/101-automation-runbook-getvms/Runbooks/Get-AzureVMTutorial.ps1",
+        "runbookName": "Shutdown-ARM-VMs-Parallel",
+        "scriptUri": "https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-9/Workflow_Stop-AzureVM.ps1",
         "runbookDescription": "Authenticates to Azure and lists all the Azure V1 VMs",
         "sku": "Free"
     },

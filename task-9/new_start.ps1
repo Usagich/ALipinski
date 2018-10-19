@@ -57,7 +57,7 @@ if (!$storageAccount) {
 $application = Get-AzureRmADApplication | `
     Where-Object {$_.HomePage -like "http://task9.com"}
     
-$obj_id = $application.ObjectId
+$obj_id = ($application.ObjectId).Guid
 
 $app_key = Get-AzureRmADAppCredential `
     -ObjectId $obj_id `
@@ -97,9 +97,9 @@ New-AzureRmResourceGroupDeployment `
     -obj_id $obj_id `
     -app_pass $app_pass `
     -jobid $jobid `
-    -Verbose
 
-    # -sastokenurl $sastokenurl `
+
+# -sastokenurl $sastokenurl `
 
 
 # Remove-Item $ParametersFilePath

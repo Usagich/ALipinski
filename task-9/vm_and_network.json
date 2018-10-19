@@ -10,24 +10,47 @@
       "type": "securestring",
       "defaultValue": "ZEtyu7702954!"
     },
-    "vm_count": {
-      "type": "int"
+    "vm_pref": {
+      "type": "string",
+      "defaultValue": "vm"
+    },
+    "res_count": {
+      "type": "int",
+      "defaultValue": 2
+    },
+    "dnsPrefixForPublicIP": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 14,
+      "defaultValue": "[uniqueString(resourceGroup().id)]"
     }
-  },
+  }, 
   "variables": {
-    "pubip_name":"[concat('pubip-',variables('vm_name'), copyIndex(1),resourceGroup().name)]",
-    "nic_name":"[concat(variables('vm_name'), copyIndex(1),resourceGroup().name)]",
-    "vm_size":"Standard_DS1_v2",
-    "vnet": "[concat('vnet-',resourceGroup().name)]",
-    "vm_name":"vm",
+    "vnet_name": "[concat('vnet_',resourceGroup().name)]",
     "vnet_pref": "10.10.0.0/16",
-    "subnet": "[concat('subnet-',variables('vnet'))]",
+    "subnet_name": "Subnet1",
     "subnet_pref": "10.10.0.0/24",
-    "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('vnet'),  variables('subnet'))]"
+    "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('vnet_name'),  variables('subnet_name'))]"
   },
   "resources": [
     {
-      "name": "[variables('vnet')]",
+      "apiVersion": "2016-03-30",
+      "type": "Microsoft.Network/publicIPAddresses",
+      "name": "[concat(parameters('vm_pref'), copyIndex(1))]",
+      "location": "[resourceGroup().location]",
+      "copy": {
+        "name": "PIPCopy",
+        "count": "[parameters('res_count')]"
+      },
+      "properties": {
+        "publicIPAllocationMethod": "Dynamic",
+        "dnsSettings": {
+          "domainNameLabel": "[concat(parameters('dnsPrefixForPublicIP'), copyIndex(1))]"
+        }
+      }
+    },
+    {
+      "name": "[variables('vnet_name')]",
       "type": "Microsoft.Network/virtualNetworks",
       "location": "[resourceGroup().location]",
       "apiVersion": "2016-03-30",
@@ -40,7 +63,7 @@
         },
         "subnets": [
           {
-            "name": "[variables('subnet')]",
+            "name": "[variables('subnet_name')]",
             "properties": {
               "addressPrefix": "[variables('subnet_pref')]"
             }
@@ -49,63 +72,13 @@
       }
     },
     {
-      "type": "Microsoft.Compute/virtualMachines",
-      "name": "[concat(variables('vm_name'), copyIndex(1),resourceGroup().name)]",
-      "apiVersion": "2017-03-30",
-      "location": "[resourceGroup().location]",
-      "copy": {
-        "name": "VMcopy",
-        "count": "[parameters('vm_count')]"
-      },
-      "properties": {
-        "hardwareProfile": {
-          "vmSize": "[variables('vm_size')]"
-        },
-        "storageProfile": {
-          "imageReference": {
-            "publisher": "MicrosoftWindowsServer",
-            "offer": "WindowsServer",
-            "sku": "2012-R2-Datacenter",
-            "version": "latest"
-          },
-          "osDisk": {
-            "name": "[concat(variables('vm_name'),copyIndex(1),resourceGroup().name)]",
-            "createOption": "FromImage",
-            "managedDisk": {
-              "storageAccountType": "Premium_LRS"
-            },
-            "caching": "ReadWrite"
-          }
-        },
-        "osProfile": {
-          "computerName": "[concat(variables('vm_name'),copyIndex(1),resourceGroup().name)]",
-          "adminUsername": "[parameters('vm_login')]",
-          "windowsConfiguration": {
-            "provisionVMAgent": true
-          },
-          "secrets": [],
-          "adminPassword": "[parameters('vm_passwd')]"
-        },
-        "networkProfile": {
-          "networkInterfaces": [
-            {
-              "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(variables('vm_name'), copyIndex(1)))]"
-            }
-          ]
-        }
-      },
-      "dependsOn": [
-        "[resourceId('Microsoft.Network/networkInterfaces', concat(variables('vm_name'), copyIndex(1)))]"
-      ]
-    },
-    {
       "type": "Microsoft.Network/networkInterfaces",
-      "name": "[variables('nic_name')]",
+      "name": "[concat(parameters('vm_pref'), copyIndex(1))]",
       "apiVersion": "2016-03-30",
       "location": "[resourceGroup().location]",
       "copy": {
         "name": "NICCopy",
-        "count": "[parameters('vm_count')]"
+        "count": "[parameters('res_count')]"
       },
       "properties": {
         "ipConfigurations": [
@@ -114,7 +87,7 @@
             "properties": {
               "privateIPAllocationMethod": "Dynamic",
               "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses', concat(variables('vm_name'), copyIndex(1)))]"
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', concat(parameters('vm_pref'), copyIndex(1)))]"
               },
               "subnet": {
                 "id": "[variables('subnetRef')]"
@@ -128,22 +101,59 @@
         "enableIPForwarding": false
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Network/publicIPAddresses', concat(variables('vm_name'), copyIndex(1)))]",
-        "[resourceId('Microsoft.Network/virtualNetworks/', variables('vnet'))]"
+        "[resourceId('Microsoft.Network/publicIPAddresses', concat(parameters('vm_pref'), copyIndex(1)))]",
+        "[resourceId('Microsoft.Network/virtualNetworks/', variables('vnet_name'))]"
       ]
     },
     {
-      "apiVersion": "2016-03-30",
-      "type": "Microsoft.Network/publicIPAddresses",
-      "name": "[variables('pubip_name')]",
+      "type": "Microsoft.Compute/virtualMachines",
+      "name": "[concat(parameters('vm_pref'), copyIndex(1))]",
+      "apiVersion": "2017-03-30",
       "location": "[resourceGroup().location]",
       "copy": {
-        "name": "PIPCopy",
-        "count": "[parameters('vm_count')]"
+        "name": "VMcopy",
+        "count": "[parameters('res_count')]"
       },
       "properties": {
-        "publicIPAllocationMethod": "Dynamic"
-      }
+        "hardwareProfile": {
+          "vmSize": "Standard_D2s_v3"
+        },
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "MicrosoftWindowsServer",
+            "offer": "WindowsServer",
+            "sku": "2012-R2-Datacenter",
+            "version": "latest"
+          },
+          "osDisk": {
+            "name": "[concat(parameters('vm_pref'),copyIndex(1))]",
+            "createOption": "FromImage",
+            "managedDisk": {
+              "storageAccountType": "Premium_LRS"
+            },
+            "caching": "ReadWrite"
+          }
+        },
+        "osProfile": {
+          "computerName": "[concat(parameters('vm_pref'),copyIndex(1))]",
+          "adminUsername": "[parameters('vm_login')]",
+          "windowsConfiguration": {
+            "provisionVMAgent": true
+          },
+          "secrets": [],
+          "adminPassword": "[parameters('vm_passwd')]"
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('vm_pref'), copyIndex(1)))]"
+            }
+          ]
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('vm_pref'), copyIndex(1)))]"
+      ]
     }
   ],
   "outputs": {}

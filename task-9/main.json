@@ -8,7 +8,7 @@
         "vm_passwd": {
             "type": "securestring"
         },
-        "obj_id": {
+        "app_id": {
             "type": "string"
         },
         "app_pass": {
@@ -56,8 +56,8 @@
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
-                    "obj_id": {
-                        "value": "[parameters('obj_id')]"
+                    "app_id": {
+                        "value": "[parameters('app_id')]"
                     },
                     "app_pass": {
                         "value": "[parameters('app_pass')]"

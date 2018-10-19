@@ -2,7 +2,7 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "obj_id": {
+    "app_id": {
       "type": "string"
     },
     "app_pass": {
@@ -62,7 +62,7 @@
           ],
           "tags": {},
           "properties": {
-            "userName": "[parameters('obj_id')]",
+            "userName": "[parameters('app_id')]",
             "password": "[parameters('app_pass')]"
           }
         },

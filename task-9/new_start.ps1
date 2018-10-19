@@ -59,6 +59,8 @@ $application = Get-AzureRmADApplication | `
     
 $obj_id = ($application.ObjectId).Guid
 
+$app_id = ($application.ApplicationId).Guid
+
 $app_key = Get-AzureRmADAppCredential `
     -ObjectId $obj_id `
     -ErrorAction SilentlyContinue
@@ -94,7 +96,7 @@ New-AzureRmResourceGroupDeployment `
     -ResourceGroupName $resourceGroupName `
     -vm_login $vm_login `
     -vm_passwd $vm_passwd `
-    -obj_id $obj_id `
+    -app_id $app_id `
     -app_pass $app_pass `
     -jobid $jobid
 

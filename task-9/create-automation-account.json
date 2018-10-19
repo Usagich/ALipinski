@@ -21,7 +21,7 @@
     {
       "name": "[variables('accountName')]",
       "type": "Microsoft.Automation/automationAccounts",
-      "apiVersion": "2015-01-01-preview",
+      "apiVersion": "2015-10-31",
       "location": "[resourceGroup().location]",
       "dependsOn": [],
       "tags": {},
@@ -34,7 +34,7 @@
         {
           "name": "[variables('runbookName')]",
           "type": "runbooks",
-          "apiVersion": "2015-01-01-preview",
+          "apiVersion": "2015-10-31",
           "location": "[resourceGroup().location]",
           "dependsOn": [
             "[concat('Microsoft.Automation/automationAccounts/', variables('accountName'))]"
@@ -54,7 +54,7 @@
         {
           "name": "[variables('credentialName')]",
           "type": "credentials",
-          "apiVersion": "2015-01-01-preview",
+          "apiVersion": "2015-10-31",
           "location": "[resourceGroup().location]",
           "dependsOn": [
             "[concat('Microsoft.Automation/automationAccounts/', variables('accountName'))]"
@@ -68,7 +68,7 @@
         {
           "name": "[variables('job_name')]",
           "type": "jobs",
-          "apiVersion": "2015-01-01-preview",
+          "apiVersion": "2015-10-31",
           "location": "[resourceGroup().location]",
           "dependsOn": [
             "[concat('Microsoft.Automation/automationAccounts/', variables('accountName'))]",

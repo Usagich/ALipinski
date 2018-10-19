@@ -10,11 +10,13 @@
     },
     "jobid": {
       "type": "string"
+    },
+    "sastokenurl": {
+      "type": "securestring"
     }
   },
   "variables": {
     "runbookName": "Shutdown-ARM-VMs-Parallel",
-    "scriptUri": "https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-9/Workflow_Stop-AzureVM.ps1",
     "sku": "Free",
     "accountName": "task9automationaccount",
     "credentialName": "DefaultAzureCredential"
@@ -47,7 +49,7 @@
             "logProgress": "false",
             "logVerbose": "false",
             "publishContentLink": {
-              "uri": "[variables('scriptUri')]",
+              "uri": "[parameters('sastokenurl')]",
               "version": "1.0.0.0"
             }
           }

@@ -16,6 +16,9 @@
         },
         "jobid": {
             "type": "string"
+        },
+        "sastokenurl": {
+            "type": "securestring"
         }
     },
     "variables": {
@@ -64,6 +67,9 @@
                     },
                     "jobid": {
                         "value": "[parameters('jobid')]"
+                    },
+                    "sastokenurl": {
+                        "value": "[parameters('sastokenurl')]"
                     }
                 }
             }

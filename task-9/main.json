@@ -31,7 +31,7 @@
                 },
                 "parameters": {
                     "vm_login": {
-                        "value": "[parameters('vm_login')]",
+                        "value": "[parameters('vm_login')]"
                     },
                     "vm_passwd": {
                         "value": "[parameters('vm_passwd')]"

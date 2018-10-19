@@ -3,12 +3,10 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "vm_login": {
-      "type": "string",
-      "defaultValue": "azureuser"
+      "type": "string"
     },
     "vm_passwd": {
-      "type": "securestring",
-      "defaultValue": "ZEtyu7702954!"
+      "type": "securestring"
     },
     "vm_pref": {
       "type": "string",
@@ -155,6 +153,5 @@
         "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('vm_pref'), copyIndex(1)))]"
       ]
     }
-  ],
-  "outputs": {}
+  ]
 }

@@ -17,7 +17,8 @@
         "scriptUri": "https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-9/Workflow_Stop-AzureVM.ps1",
         "sku": "Free",
         "accountName": "task9automationaccount",
-        "credentialName": "DefaultAzureCredential"
+        "credentialName": "DefaultAzureCredential",
+        "job_name":"task9andrei"
     },
     "resources": [
       {
@@ -68,7 +69,7 @@
             }
           },
           {
-            "name": "[parameters('jobId')]",
+            "name": "[variables('job_name')]",
             "type": "jobs",
             "apiVersion": "2015-01-01-preview",
             "location": "[resourceGroup().location]",

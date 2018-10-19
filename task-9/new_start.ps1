@@ -10,6 +10,7 @@ $templateURI = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/maste
 $workflowURI = "https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-9/Workflow_Stop-AzureVM.ps1"
 # $ParametersFilePath = "$env:TEMP\main-parameters.json"
 $skuName = "Standard_LRS"
+$location = 'West Europe'
 
 Select-AzureRmSubscription -Subscriptionid $Sub
 
@@ -40,7 +41,8 @@ if (!$resourceGroup) {
 
 $storageAccount = Get-AzureRmStorageAccount `
     -ResourceGroupName $resourceGroupName `
-    -Name $storageAccountName 
+    -Name $storageAccountName `
+    -ErrorAction SilentlyContinue
 
 if (!$storageAccount) {
     New-AzureRmStorageAccount `

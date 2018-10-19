@@ -44,7 +44,6 @@
             "runbookType": "Script",
             "logProgress": "false",
             "logVerbose": "false",
-            "description": "[variables('runbookDescription')]",
             "publishContentLink": {
               "uri": "[variables('scriptUri')]",
               "version": "1.0.0.0"

@@ -25,7 +25,7 @@ $vm_passwd = Read-Host -AsSecureString
 $app_pass = Read-Host -AsSecureString
 
 #Download from URI to %temp%
-Invoke-WebRequest -Uri $workflowURI -OutFile $workflow
+#Invoke-WebRequest -Uri $workflowURI -OutFile $workflow
 
 $resourceGroup = Get-AzureRmResourceGroup `
     -Name $resourceGroupName `

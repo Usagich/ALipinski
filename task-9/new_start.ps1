@@ -7,14 +7,14 @@ $Sub = "1f1fe2e5-5f13-4687-aef3-063acc693dd3"
 $storageAccountName = 'task9storage'
 # $dscName = 'dsc-all.ps1.zip'
 $templateURI = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-9/main.json'
-$workflowURI = "https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-9/Workflow_Stop-AzureVM.ps1"
+#$workflowURI = "https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-9/Workflow_Stop-AzureVM.ps1"
 # $ParametersFilePath = "$env:TEMP\main-parameters.json"
 $skuName = "Standard_LRS"
 $location = 'West Europe'
 
 Select-AzureRmSubscription -Subscriptionid $Sub
 
-$jobGuid = [System.Guid]::NewGuid().toString()
+$jobid = [System.Guid]::NewGuid().toString()
 
 #Enter login name for VM
 Write-Host "Please enter login name for VM: "
@@ -96,7 +96,7 @@ New-AzureRmResourceGroupDeployment `
     -vm_passwd $vm_passwd `
     -obj_id $obj_id `
     -app_pass $app_pass `
-    -jobGuid $jobGuid `
+    -jobid $jobid `
     -Verbose
     # -sastokenurl $sastokenurl `
 

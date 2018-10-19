@@ -8,7 +8,7 @@
     "app_pass": {
       "type": "securestring"
     },
-    "jobGuid": {
+    "jobid": {
       "type": "string"
     }
   },
@@ -67,7 +67,7 @@
           }
         },
         {
-          "name": "[parameters('jobGuid')]",
+          "name": "[parameters('jobid')]",
           "type": "jobs",
           "apiVersion": "2015-10-31",
           "location": "[resourceGroup().location]",

@@ -5,6 +5,7 @@ Param(
 Clear-Host
 $Sub = "1f1fe2e5-5f13-4687-aef3-063acc693dd3"
 $template = 'C:\git\ALipinski\task-9\vm_and_network.json'
+$location = 'West Europe'
 
 Select-AzureRmSubscription -Subscriptionid $Sub
 
@@ -30,7 +31,7 @@ if (!$resourceGroup) {
 #Deploy main template
 New-AzureRmResourceGroupDeployment `
     -ResourceGroupName $resourceGroupName `
-    -TemplateUri $templateURI `
+    -TemplateFile $template `
     # -login $login `
     # -password $password `
     # -TemplateParameterFile $ParametersFilePath `

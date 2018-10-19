@@ -14,6 +14,8 @@ $location = 'West Europe'
 
 Select-AzureRmSubscription -Subscriptionid $Sub
 
+$jobGuid = [System.Guid]::NewGuid().toString()
+
 #Enter login name for VM
 Write-Host "Please enter login name for VM: "
 $vm_login = Read-Host
@@ -94,7 +96,9 @@ New-AzureRmResourceGroupDeployment `
     -vm_passwd $vm_passwd `
     -obj_id $obj_id `
     -app_pass $app_pass `
-    # -sastokenurl $sastokenurl `
+    -jobGuid $jobGuid `
     -Verbose
+    # -sastokenurl $sastokenurl `
+
 
 # Remove-Item $ParametersFilePath

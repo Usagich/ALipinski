@@ -13,6 +13,9 @@
         },
         "app_pass": {
             "type": "securestring"
+        },
+        "jobGuid": {
+            "type": "string"
         }
     },
     "variables": {
@@ -35,6 +38,9 @@
                     },
                     "vm_passwd": {
                         "value": "[parameters('vm_passwd')]"
+                    },
+                    "jobGuid": {
+                        "value": "[parameters('jobGuid')]"
                     }
                 }
             }

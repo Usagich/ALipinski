@@ -9,8 +9,7 @@
       "type": "securestring"
     },
     "jobid": {
-      "type": "string",
-      "defaultValue": "eae7dbfd-0f41-406e-a3e8-746ca8673d46"
+      "type": "string"
     }
   },
   "variables": {

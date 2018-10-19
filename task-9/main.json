@@ -1,0 +1,58 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vm_login": {
+            "type": "string"
+        },
+        "vm_passwd": {
+            "type": "securestring"
+        },
+        "obj_id": {
+            "type": "string"
+        },
+        "app_pass": {
+            "type": "securestring"
+        }
+    },
+    "variables": {
+        "link": "https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-9"
+    },
+    "resources": [
+        {
+            "apiVersion": "2017-05-10",
+            "name": "vm_and_network",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('link'), '/all-network.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "vm_login":"[parameters('vm_login')]",
+                    "vm_password":"[parameters('vm_passwd')]"
+                }
+            }
+        },
+        {
+            "apiVersion": "2017-05-10",
+            "name": "create-automation-account",
+            "dependsOn": [
+                "vm_and_network"
+            ],
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('link'), '/create-automation-account.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "app_id":"[parameters('obj_id')]",
+                    "app_password":"[parameters('app_pass')]"
+                }
+            }
+        }
+    ]
+}

@@ -2,47 +2,26 @@
     "$schema": "http://schemas.microsoft.org/azure/deploymentTemplate?api-version=2015-01-01-preview#",
     "contentVersion": "1.0",
     "parameters": {
-        "accountName": {
-            "type": "string",
-            "metadata": {
-                "description": "The name of the Azure Automation account to deploy to."
-            }
+        "obj_id": {
+            "type": "string"
         },
-        "credentialName": {
-            "type": "string",
-            "defaultValue": "DefaultAzureCredential",
-            "metadata": {
-                "description": "DefaultAzureCredential is the name of the Automation credential used in this runbook. This credential allows you to authenticate to Azure. "
-            }
-        },
-        "userName": {
-            "type": "string",
-            "metadata": {
-                "description": "The username for the Azure Automation credential."
-            }
-        },
-        "password": {
-            "type": "securestring",
-            "metadata": {
-                "description": "The password for the Azure Automation credential."
-            }
+        "app_pass": {
+            "type": "securestring"
         },
         "jobId": {
-            "type": "string",
-            "metadata": {
-                "description": "The GUID for the runbook job to be started."
-            }
+            "type": "string"
         }
     },
     "variables": {
         "runbookName": "Shutdown-ARM-VMs-Parallel",
         "scriptUri": "https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-9/Workflow_Stop-AzureVM.ps1",
-        "runbookDescription": "Authenticates to Azure and lists all the Azure V1 VMs",
-        "sku": "Free"
+        "sku": "Free",
+        "accountName": "task9automationaccount",
+        "credentialName": "DefaultAzureCredential"
     },
     "resources": [
       {
-        "name": "[parameters('accountName')]",
+        "name": "[variables('accountName')]",
         "type": "Microsoft.Automation/automationAccounts",
         "apiVersion": "2015-01-01-preview",
         "location": "[resourceGroup().location]",
@@ -60,7 +39,7 @@
             "apiVersion": "2015-01-01-preview",
             "location": "[resourceGroup().location]",
             "dependsOn": [
-              "[concat('Microsoft.Automation/automationAccounts/', parameters('accountName'))]"
+              "[concat('Microsoft.Automation/automationAccounts/', variables('accountName'))]"
             ],
             "tags": { },
             "properties": {
@@ -75,17 +54,17 @@
             }
           },
           {
-            "name": "[parameters('credentialName')]",
+            "name": "[variables('credentialName')]",
             "type": "credentials",
             "apiVersion": "2015-01-01-preview",
             "location": "[resourceGroup().location]",
             "dependsOn": [
-              "[concat('Microsoft.Automation/automationAccounts/', parameters('accountName'))]"
+              "[concat('Microsoft.Automation/automationAccounts/', variables('accountName'))]"
             ],
             "tags": { },
             "properties": {
-              "userName": "[parameters('userName')]",
-              "password": "[parameters('password')]"
+              "userName": "[parameters('obj_id')]",
+              "password": "[parameters('app_pass')]"
             }
           },
           {
@@ -94,8 +73,8 @@
             "apiVersion": "2015-01-01-preview",
             "location": "[resourceGroup().location]",
             "dependsOn": [
-              "[concat('Microsoft.Automation/automationAccounts/', parameters('accountName'))]",
-              "[concat('Microsoft.Automation/automationAccounts/', parameters('accountName'), '/runbooks/',variables('runbookName'))]"
+              "[concat('Microsoft.Automation/automationAccounts/', variables('accountName'))]",
+              "[concat('Microsoft.Automation/automationAccounts/', variables('accountName'), '/runbooks/',variables('runbookName'))]"
             ],
             "tags": {
               "key": "value"

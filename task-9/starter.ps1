@@ -9,12 +9,12 @@ $location = 'West Europe'
 
 Select-AzureRmSubscription -Subscriptionid $Sub
 
-# #Enter login name
-# Write-Host "Please enter login name for VM: "
-# $login = Read-Host
-# #Enter password for VMc
-# Write-Host "Please enter password for VM: "
-# $password = Read-Host -AsSecureString
+#Enter login name
+Write-Host "Please enter login name for VM: "
+$login = Read-Host
+#Enter password for VMc
+Write-Host "Please enter password for VM: "
+$password = Read-Host -AsSecureString
 
 # $ParametersFilePath = "$env:TEMP\main-parameters.json"
 
@@ -44,4 +44,5 @@ $templatePar = "C:\git\ALipinski\task-9\create-automation-account-parameters.jso
 New-AzureRmResourceGroupDeployment `
     -ResourceGroupName $resourceGroupName `
     -TemplateFile $template `
-    -TemplateParameterFile $templatePar
+    -TemplateParameterFile $templatePar `
+    -Verbose

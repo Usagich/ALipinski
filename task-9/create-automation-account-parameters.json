@@ -3,19 +3,19 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
       "accountName": {
-        "value": "MyAutomationAccount"
+        "value": "task9automationaccount"
       },
       "jobId": {
-        "value": "65483005-2e89-4381-a40c-b3ebe6712358"
+        "value": "db9611c2-b3b9-4ba0-9b1f-3440e83e56c3"
       },
       "credentialName": {
         "value": "DefaultAzureCredential"
       },
-      "userName": {
-        "value": "MyAzureADUser"
+      " ": {
+        "value": "582f86ca-cff4-440d-9d76-3d525445198d"
       },
       "password": {
-        "value": "MyAzureADPassword"
+        "value": "Of5btfHtGpGedyp9vzqzy76jACMJiJHxEDSb01ZuNQw="
       }
     }
   }

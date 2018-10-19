@@ -30,8 +30,12 @@
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
-                    "vm_login":"[parameters('vm_login')]",
-                    "vm_passwd":"[parameters('vm_passwd')]"
+                    "vm_login": {
+                        "value": "[parameters('vm_login')]",
+                    },
+                    "vm_passwd": {
+                        "value": "[parameters('vm_passwd')]"
+                    }
                 }
             }
         },
@@ -49,8 +53,12 @@
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
-                    "app_id":"[parameters('obj_id')]",
-                    "app_password":"[parameters('app_pass')]"
+                    "obj_id": {
+                        "value": "[parameters('obj_id')]"
+                    },
+                    "app_pass": {
+                        "value": "[parameters('app_pass')]"
+                    }
                 }
             }
         }

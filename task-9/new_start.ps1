@@ -98,6 +98,7 @@ New-AzureRmResourceGroupDeployment `
     -app_pass $app_pass `
     -jobid $jobid `
     -Verbose
+
     # -sastokenurl $sastokenurl `
 
 

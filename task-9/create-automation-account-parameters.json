@@ -1,0 +1,21 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "accountName": {
+        "value": "MyAutomationAccount"
+      },
+      "jobId": {
+        "value": "65483005-2e89-4381-a40c-b3ebe6712358"
+      },
+      "credentialName": {
+        "value": "DefaultAzureCredential"
+      },
+      "userName": {
+        "value": "MyAzureADUser"
+      },
+      "password": {
+        "value": "MyAzureADPassword"
+      }
+    }
+  }

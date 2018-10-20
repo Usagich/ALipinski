@@ -8,7 +8,7 @@
     "vm_passwd": {
       "type": "securestring"
     }
-  }, 
+  },
   "variables": {
     "vnet_name": "[concat('vnet_',resourceGroup().name)]",
     "vnet_pref": "10.10.0.0/16",
@@ -16,8 +16,8 @@
     "subnet_pref": "10.10.0.0/24",
     "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('vnet_name'),  variables('subnet_name'))]",
     "vm_pref": "vm",
-    "res_count":2,
-    "dnsPrefixForPublicIP":"[uniqueString(resourceGroup().id)]"
+    "res_count": 2,
+    "dnsPrefixForPublicIP": "[uniqueString(resourceGroup().id)]"
   },
   "resources": [
     {

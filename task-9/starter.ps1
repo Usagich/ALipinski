@@ -40,13 +40,20 @@ if (!$storageAccount) {
         -SkuName $skuName
 }
 
-$storageAccountContext = (get-AzureRmStorageAccount -ResourceGroupName $resourceGroupName -Name $storageAccountName).Context
-New-AzureStorageContainer -Name $containerName -Context $storageAccountContext -Permission blob -ErrorAction SilentlyContinue
+$storageAccountContext = (get-AzureRmStorageAccount `
+        -ResourceGroupName $resourceGroupName `
+        -Name $storageAccountName).Context
+
+New-AzureStorageContainer -Name $containerName `
+    -Context $storageAccountContext `
+    -Permission blob `
+    -ErrorAction SilentlyContinue
+
 Set-AzureStorageBlobContent -file  $workflow `
-  -Container $containerName `
-  -Blob $blob_name `
-  -Context $storageAccountContext `
-  -Force
+    -Container $containerName `
+    -Blob $blob_name `
+    -Context $storageAccountContext `
+    -Force
 
 Remove-Item $workflow
 
@@ -59,11 +66,11 @@ $storageContext = New-AzureStorageContext `
     -StorageAccountKey $accountKeys[0].Value
 
 $sastokenurl = ConvertTo-SecureString -AsPlainText (New-AzureStorageBlobSASToken `
-    -Container $containerName `
-    -Blob $blob_name -Permission rwl `
-    -StartTime (Get-Date).AddHours(-1) `
-    -ExpiryTime (get-date).AddMonths(1) `
-    -FullUri -Context $storageContext) -Force
+        -Container $containerName `
+        -Blob $blob_name -Permission rwl `
+        -StartTime (Get-Date).AddHours(-1) `
+        -ExpiryTime (get-date).AddMonths(1) `
+        -FullUri -Context $storageContext) -Force
 
 $jobid = [System.Guid]::NewGuid().toString()
 

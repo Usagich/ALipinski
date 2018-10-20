@@ -7,20 +7,6 @@
     },
     "vm_passwd": {
       "type": "securestring"
-    },
-    "vm_pref": {
-      "type": "string",
-      "defaultValue": "vm"
-    },
-    "res_count": {
-      "type": "int",
-      "defaultValue": 2
-    },
-    "dnsPrefixForPublicIP": {
-      "type": "string",
-      "minLength": 1,
-      "maxLength": 14,
-      "defaultValue": "[uniqueString(resourceGroup().id)]"
     }
   }, 
   "variables": {
@@ -28,22 +14,25 @@
     "vnet_pref": "10.10.0.0/16",
     "subnet_name": "Subnet1",
     "subnet_pref": "10.10.0.0/24",
-    "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('vnet_name'),  variables('subnet_name'))]"
+    "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('vnet_name'),  variables('subnet_name'))]",
+    "vm_pref": "vm",
+    "res_count":2,
+    "dnsPrefixForPublicIP":"[uniqueString(resourceGroup().id)]"
   },
   "resources": [
     {
       "apiVersion": "2016-03-30",
       "type": "Microsoft.Network/publicIPAddresses",
-      "name": "[concat(parameters('vm_pref'), copyIndex(1))]",
+      "name": "[concat(variables('vm_pref'), copyIndex(1))]",
       "location": "[resourceGroup().location]",
       "copy": {
         "name": "PIPCopy",
-        "count": "[parameters('res_count')]"
+        "count": "[variables('res_count')]"
       },
       "properties": {
         "publicIPAllocationMethod": "Dynamic",
         "dnsSettings": {
-          "domainNameLabel": "[concat(parameters('dnsPrefixForPublicIP'), copyIndex(1))]"
+          "domainNameLabel": "[concat(variables('dnsPrefixForPublicIP'), copyIndex(1))]"
         }
       }
     },
@@ -71,12 +60,12 @@
     },
     {
       "type": "Microsoft.Network/networkInterfaces",
-      "name": "[concat(parameters('vm_pref'), copyIndex(1))]",
+      "name": "[concat(variables('vm_pref'), copyIndex(1))]",
       "apiVersion": "2016-03-30",
       "location": "[resourceGroup().location]",
       "copy": {
         "name": "NICCopy",
-        "count": "[parameters('res_count')]"
+        "count": "[variables('res_count')]"
       },
       "properties": {
         "ipConfigurations": [
@@ -85,7 +74,7 @@
             "properties": {
               "privateIPAllocationMethod": "Dynamic",
               "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses', concat(parameters('vm_pref'), copyIndex(1)))]"
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', concat(variables('vm_pref'), copyIndex(1)))]"
               },
               "subnet": {
                 "id": "[variables('subnetRef')]"
@@ -99,18 +88,18 @@
         "enableIPForwarding": false
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Network/publicIPAddresses', concat(parameters('vm_pref'), copyIndex(1)))]",
+        "[resourceId('Microsoft.Network/publicIPAddresses', concat(variables('vm_pref'), copyIndex(1)))]",
         "[resourceId('Microsoft.Network/virtualNetworks/', variables('vnet_name'))]"
       ]
     },
     {
       "type": "Microsoft.Compute/virtualMachines",
-      "name": "[concat(parameters('vm_pref'), copyIndex(1))]",
+      "name": "[concat(variables('vm_pref'), copyIndex(1))]",
       "apiVersion": "2017-03-30",
       "location": "[resourceGroup().location]",
       "copy": {
         "name": "VMcopy",
-        "count": "[parameters('res_count')]"
+        "count": "[variables('res_count')]"
       },
       "properties": {
         "hardwareProfile": {
@@ -124,7 +113,7 @@
             "version": "latest"
           },
           "osDisk": {
-            "name": "[concat(parameters('vm_pref'),copyIndex(1))]",
+            "name": "[concat(variables('vm_pref'),copyIndex(1))]",
             "createOption": "FromImage",
             "managedDisk": {
               "storageAccountType": "Premium_LRS"
@@ -133,7 +122,7 @@
           }
         },
         "osProfile": {
-          "computerName": "[concat(parameters('vm_pref'),copyIndex(1))]",
+          "computerName": "[concat(variables('vm_pref'),copyIndex(1))]",
           "adminUsername": "[parameters('vm_login')]",
           "windowsConfiguration": {
             "provisionVMAgent": true
@@ -144,13 +133,13 @@
         "networkProfile": {
           "networkInterfaces": [
             {
-              "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('vm_pref'), copyIndex(1)))]"
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(variables('vm_pref'), copyIndex(1)))]"
             }
           ]
         }
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('vm_pref'), copyIndex(1)))]"
+        "[resourceId('Microsoft.Network/networkInterfaces', concat(variables('vm_pref'), copyIndex(1)))]"
       ]
     }
   ]

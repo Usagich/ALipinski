@@ -87,7 +87,7 @@ New-AzureRmResourceGroupDeployment `
     -ResourceGroupName $resourceGroupName `
     -app_id $app_id `
     -app_pass $app_pass `
-    -automationAccountName $automationAccountName `
+    -accountName $automationAccountName `
     -Verbose
 
 $automationAccountKey = ConvertTo-SecureString -AsPlainText ((Get-AzureRmAutomationAccount -ResourceGroupName $resourceGroupName | `

@@ -113,18 +113,21 @@ Start-AzureRmAutomationDscCompilationJob `
 
 $VMs = (get-azurermvm  -ResourceGroupName $resourceGroupName).Name
 
-foreach ($vm in $VMs) {
-    # Get the ID of the DSC node
+$Dsc_Config = (Get-AzureRmAutomationDscNodeConfiguration `
+        -ResourceGroupName $resourceGroupName `
+        -AutomationAccountName $automationAccountName).Name
+
+
+for ($i = 0; $i -lt $VMs.Count; $i++) {
     $node = (Get-AzureRmAutomationDscNode  `
             -ResourceGroupName $resourceGroupName `
             -AutomationAccountName $automationAccountName `
-            -Name $vm)
+            -Name $VMs[$i])
 
-    # Assign the node configuration to the DSC node
     Set-AzureRmAutomationDscNode `
         -ResourceGroupName $resourceGroupName `
         -AutomationAccountName $automationAccountName `
-        -NodeConfigurationName 'TestConfig.WebServer' `
+        -NodeConfigurationName $Dsc_Config[$i] `
         -Id $node.Id `
         -Force
 }

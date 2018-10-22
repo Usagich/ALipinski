@@ -11,6 +11,11 @@ $skuName = "Standard_LRS"
 $location = 'West Europe'
 $templateAA = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-9.2/create-automation-account.json'
 $templateVMs = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-9.2/vm_and_network.json'
+$dscConfigUrl = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-9.2/TestConfig.ps1'
+
+$dscConfigPath = "$env:TEMP\TestConfig.ps1"
+#Download from URI to %temp%
+Invoke-WebRequest -Uri $dscConfigUrl -OutFile $dscConfigPath
 
 $resourceGroup = Get-AzureRmResourceGroup `
     -Name $resourceGroupName `
@@ -101,10 +106,12 @@ New-AzureRmResourceGroupDeployment `
 
 
 Import-AzureRmAutomationDscConfiguration `
-    -SourcePath 'C:\git\ALipinski\task-9.2\TestConfig.ps1' `
+    -SourcePath $dscConfigPath `
     -ResourceGroupName $resourceGroupName `
     -AutomationAccountName $automationAccountName `
     -Published
+
+Remove-Item $dscConfigPath
 
 Start-AzureRmAutomationDscCompilationJob `
     -ConfigurationName 'TestConfig' `

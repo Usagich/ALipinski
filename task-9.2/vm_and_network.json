@@ -3,8 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "vm_login": {
-      "type": "string",
-      "defaultValue": "azureuser"
+      "type": "string"
     },
     "vm_passwd": {
       "type": "securestring"
@@ -14,10 +13,6 @@
     },
     "automationAccountUrl": {
       "type": "securestring"
-    },
-    "nodeConfigurationName": {
-      "type": "string",
-      "defaultValue": ""
     }
   },
   "variables": {
@@ -30,6 +25,7 @@
     "res_count": 2,
     "dnsPrefixForPublicIP": "[uniqueString(resourceGroup().id)]",
     "configurationMode": "ApplyAndMonitor",
+    "nodeConfigurationName": "",
     "configurationModeFrequencyMins": 15,
     "refreshFrequencyMins": 30,
     "rebootNodeIfNeeded": true,
@@ -200,7 +196,7 @@
             },
             {
               "Name": "NodeConfigurationName",
-              "Value": "[parameters('nodeConfigurationName')]",
+              "Value": "[variables('nodeConfigurationName')]",
               "TypeName": "System.String"
             },
             {

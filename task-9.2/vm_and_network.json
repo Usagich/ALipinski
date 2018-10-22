@@ -9,6 +9,12 @@
     "vm_passwd": {
       "type": "securestring",
       "defaultValue": "ZEtyu7702954!"
+    },
+    "automationAccountKey": {
+      "type": "securestring"
+    },
+    "automationAccountUrl": {
+      "type": "securestring"
     }
   },
   "variables": {
@@ -163,7 +169,7 @@
         "autoUpgradeMinorVersion": true,
         "settings": {
           "configurationArguments": {
-            "RegistrationUrl": "https://we-agentservice-prod-1.azure-automation.net/accounts/62b0d185-a554-4913-8aad-bb852b002383",
+            "RegistrationUrl": "[parameters('automationAccountUrl')]",
             "NodeConfigurationName": "nodeConfigurationName"
           }
         },
@@ -171,7 +177,7 @@
           "configurationArguments": {
             "RegistrationKey": {
               "userName": "NOT_USED",
-              "Password": "u5O6WhDTs4IzhZDtJpMlQ4jzlnNGlRevryF+RD855/sniXr6BjG8jL50vpGbFVNLNg0+XIiJ4QFHthZGd0K14A=="
+              "Password": "[parameters('automationAccountKey')]"
             }
           }
         }

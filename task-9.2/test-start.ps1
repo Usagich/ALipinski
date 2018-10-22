@@ -10,10 +10,12 @@ $resourceGroupName = 'task9'
  
 # $VMsName = (Get-AzureRmVM -ResourceGroupName $resourceGroupName).Name
 
-$template = "C:\git\ALipinski\task-9.2\add-vms-to-dsc.json"
+$template = "C:\git\ALipinski\task-9.2\vm_and_network.json"
 
 New-AzureRmResourceGroupDeployment `
 -TemplateFile $template `
+-vm_login $vm_login `
+-vm_passwd $vm_passwd `
 -ResourceGroupName $resourceGroupName `
 -Verbose
 

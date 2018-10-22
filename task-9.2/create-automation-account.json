@@ -7,16 +7,18 @@
     },
     "app_pass": {
       "type": "securestring"
+    },
+    "accountName":{
+      "type": "string"
     }
   },
   "variables": {
     "sku": "Free",
-    "accountName": "task9automationaccount",
     "credentialName": "DefaultAzureCredential"
   },
   "resources": [
     {
-      "name": "[variables('accountName')]",
+      "name": "[parameters('accountName')]",
       "type": "Microsoft.Automation/automationAccounts",
       "apiVersion": "2015-10-31",
       "location": "[resourceGroup().location]",
@@ -32,7 +34,7 @@
           "apiVersion": "2015-10-31",
           "location": "[resourceGroup().location]",
           "dependsOn": [
-            "[concat('Microsoft.Automation/automationAccounts/', variables('accountName'))]"
+            "[concat('Microsoft.Automation/automationAccounts/', parameters('accountName'))]"
           ],
           "properties": {
             "userName": "[parameters('app_id')]",

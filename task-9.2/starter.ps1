@@ -12,6 +12,7 @@ $location = 'West Europe'
 $templateAA = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-9.2/create-automation-account.json'
 $templateVMs = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-9.2/vm_and_network.json'
 $dscConfigUrl = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-9.2/TestConfig.ps1'
+$automationAccountName = 'task9automationaccount'
 
 $dscConfigPath = "$env:TEMP\TestConfig.ps1"
 #Download from URI to %temp%
@@ -85,6 +86,7 @@ New-AzureRmResourceGroupDeployment `
     -ResourceGroupName $resourceGroupName `
     -app_id $app_id `
     -app_pass $app_pass `
+    -automationAccountName $automationAccountName `
     -Verbose
 
 $automationAccountKey = ConvertTo-SecureString -AsPlainText ((Get-AzureRmAutomationAccount -ResourceGroupName $resourceGroupName | `
@@ -103,7 +105,6 @@ New-AzureRmResourceGroupDeployment `
     -automationAccountKey $automationAccountKey `
     -automationAccountUrl $automationAccountUrl `
     -Verbose
-
 
 Import-AzureRmAutomationDscConfiguration `
     -SourcePath $dscConfigPath `
@@ -124,6 +125,7 @@ $Dsc_Config = (Get-AzureRmAutomationDscNodeConfiguration `
         -ResourceGroupName $resourceGroupName `
         -AutomationAccountName $automationAccountName).Name
 
+Start-Sleep -Seconds 120
 
 for ($i = 0; $i -lt $VMs.Count; $i++) {
     $node = (Get-AzureRmAutomationDscNode  `

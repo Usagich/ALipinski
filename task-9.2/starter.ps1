@@ -97,6 +97,19 @@ $automationAccountUrl = ConvertTo-SecureString -AsPlainText ((Get-AzureRmAutomat
             Get-AzureRmAutomationRegistrationInfo).Endpoint) -Force
 
 
+Import-AzureRmAutomationDscConfiguration `
+    -SourcePath $dscConfigPath `
+    -ResourceGroupName $resourceGroupName `
+    -AutomationAccountName $automationAccountName `
+    -Published
+        
+Remove-Item $dscConfigPath
+        
+Start-AzureRmAutomationDscCompilationJob `
+    -ConfigurationName $ConfigurationName `
+    -ResourceGroupName $resourceGroupName `
+    -AutomationAccountName $automationAccountName
+
 #Create VMs andd add it to DSC AA
 New-AzureRmResourceGroupDeployment `
     -TemplateUri $templateVMs `
@@ -107,27 +120,6 @@ New-AzureRmResourceGroupDeployment `
     -automationAccountUrl $automationAccountUrl `
     -Verbose
 
-Import-AzureRmAutomationDscConfiguration `
-    -SourcePath $dscConfigPath `
-    -ResourceGroupName $resourceGroupName `
-    -AutomationAccountName $automationAccountName `
-    -Published
-
-Remove-Item $dscConfigPath
-
-Start-AzureRmAutomationDscCompilationJob `
-    -ConfigurationName $ConfigurationName `
-    -ResourceGroupName $resourceGroupName `
-    -AutomationAccountName $automationAccountName
-
-# do {
-#     $Dsc_Config = (Get-AzureRmAutomationDscNodeConfiguration `
-#             -ResourceGroupName $resourceGroupName `
-#             -AutomationAccountName $automationAccountName).Name
-#             Start-Sleep -Seconds 10
-# } while (!$Dsc_Config)
-
-Start-Sleep -Seconds 120
 
 $VMs = (get-azurermvm  -ResourceGroupName $resourceGroupName).Name
 

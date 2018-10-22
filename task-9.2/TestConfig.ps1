@@ -1,4 +1,4 @@
-configuration install_iis
+configuration TestConfig
 {
     Node WebServer
     {
@@ -8,5 +8,12 @@ configuration install_iis
             IncludeAllSubFeature	= $true
         }
     }
-    
+
+    Node NotWebServer
+    {
+        WindowsFeature IIS {
+            Ensure = 'Absent'
+            Name   = 'Web-Server'
+        }
+    }	
 }

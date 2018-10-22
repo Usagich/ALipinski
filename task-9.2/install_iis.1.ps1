@@ -1,4 +1,4 @@
-configuration install_iis
+configuration install_iis_
 {
     Node WebServer
     {
@@ -8,5 +8,8 @@ configuration install_iis
             IncludeAllSubFeature	= $true
         }
     }
-    
+    WindowsFeature AspNet45 {
+        Ensure = "Present"
+        Name   = "Web-Asp-Net45"
+    }
 }

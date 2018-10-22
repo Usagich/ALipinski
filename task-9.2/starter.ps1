@@ -13,6 +13,7 @@ $templateAA = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master
 $templateVMs = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-9.2/vm_and_network.json'
 $dscConfigUrl = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-9.2/TestConfig.ps1'
 $automationAccountName = 'task9automationaccount'
+$ConfigurationName = 'TestConfig'
 
 $dscConfigPath = "$env:TEMP\TestConfig.ps1"
 #Download from URI to %temp%
@@ -115,17 +116,24 @@ Import-AzureRmAutomationDscConfiguration `
 Remove-Item $dscConfigPath
 
 Start-AzureRmAutomationDscCompilationJob `
-    -ConfigurationName 'TestConfig' `
+    -ConfigurationName $ConfigurationName `
     -ResourceGroupName $resourceGroupName `
     -AutomationAccountName $automationAccountName
+
+# do {
+#     $Dsc_Config = (Get-AzureRmAutomationDscNodeConfiguration `
+#             -ResourceGroupName $resourceGroupName `
+#             -AutomationAccountName $automationAccountName).Name
+#             Start-Sleep -Seconds 10
+# } while (!$Dsc_Config)
+
+Start-Sleep -Seconds 120
 
 $VMs = (get-azurermvm  -ResourceGroupName $resourceGroupName).Name
 
 $Dsc_Config = (Get-AzureRmAutomationDscNodeConfiguration `
         -ResourceGroupName $resourceGroupName `
         -AutomationAccountName $automationAccountName).Name
-
-Start-Sleep -Seconds 120
 
 for ($i = 0; $i -lt $VMs.Count; $i++) {
     $node = (Get-AzureRmAutomationDscNode  `

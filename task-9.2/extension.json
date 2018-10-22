@@ -1,0 +1,33 @@
+{
+    "type": "Microsoft.Compute/virtualMachines/extensions",
+    "name": "[concat(variables('vm_pref'), copyIndex(1),'/Microsoft.Powershell.DSC')]",
+    "apiVersion": "2018-06-01",
+    "location": "[resourceGroup().location]",
+    "copy": {
+      "name": "DSCcopy",
+      "count": "[variables('res_count')]"
+    },
+    "dependsOn": [
+      "[concat(variables('vm_pref'), copyIndex(1))]"
+    ],
+    "properties": {
+        "publisher": "Microsoft.Powershell",
+        "type": "DSC",
+        "typeHandlerVersion": "2.76",
+        "autoUpgradeMinorVersion": true,
+        "settings": {
+            "configurationArguments": {
+                "RegistrationUrl" : "https://we-agentservice-prod-1.azure-automation.net/accounts/b70f65c4-aa5b-4fe6-93a6-036a892aee77",
+                "NodeConfigurationName" : "nodeConfigurationName"
+            }
+        },
+        "protectedSettings": {
+            "configurationArguments": {
+                "RegistrationKey": {
+                    "userName": "NOT_USED",
+                    "Password": "S7yBKPa4QZkoK/xzpkyK81CA/HrgVjFgn6KaYPZmj9qa9gx6x3H5ej30/DQLbf1gy+aMkxVPP7WMZ06NHUIUpw=="
+                }
+            }
+        }
+    }
+}

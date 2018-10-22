@@ -16,16 +16,22 @@
         },
         "jobid": {
             "type": "string"
+        },
+        "sastokenurl": {
+            "type": "securestring"
         }
     },
     "variables": {
-        "link": "https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-9.2"
+        "link": "https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-9"
     },
     "resources": [
         {
             "apiVersion": "2017-05-10",
             "name": "vm_and_network",
             "type": "Microsoft.Resources/deployments",
+            "dependsOn": [
+                "create-automation-account"
+            ],
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
@@ -45,9 +51,6 @@
         {
             "apiVersion": "2017-05-10",
             "name": "create-automation-account",
-            "dependsOn": [
-                "vm_and_network"
-            ],
             "type": "Microsoft.Resources/deployments",
             "properties": {
                 "mode": "Incremental",
@@ -64,6 +67,9 @@
                     },
                     "jobid": {
                         "value": "[parameters('jobid')]"
+                    },
+                    "sastokenurl": {
+                        "value": "[parameters('sastokenurl')]"
                     }
                 }
             }

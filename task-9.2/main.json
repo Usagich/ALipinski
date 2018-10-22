@@ -13,12 +13,6 @@
         },
         "app_pass": {
             "type": "securestring"
-        },
-        "jobid": {
-            "type": "string"
-        },
-        "sastokenurl": {
-            "type": "securestring"
         }
     },
     "variables": {
@@ -64,12 +58,6 @@
                     },
                     "app_pass": {
                         "value": "[parameters('app_pass')]"
-                    },
-                    "jobid": {
-                        "value": "[parameters('jobid')]"
-                    },
-                    "sastokenurl": {
-                        "value": "[parameters('sastokenurl')]"
                     }
                 }
             }

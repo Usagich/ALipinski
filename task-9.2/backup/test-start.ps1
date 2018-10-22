@@ -1,25 +1,31 @@
 $resourceGroupName = 'task9'
 
-$template = "C:\git\ALipinski\task-9.2\add_vm.json"
+# $template = "C:\git\ALipinski\task-9.2\add_vm.json"
 
-$auto_acc_info = (Get-AzureRmAutomationRegistrationInfo -ResourceGroupName $resourceGroupName -AutomationAccountName 'task9automationaccount')
+# $auto_acc_info = (Get-AzureRmAutomationRegistrationInfo -ResourceGroupName $resourceGroupName -AutomationAccountName 'task9automationaccount')
 
-$registrationKey = $auto_acc_info.PrimaryKey
+# $registrationKey = $auto_acc_info.PrimaryKey
 
-$registrationUrl = $auto_acc_info.Endpoint
+# $registrationUrl = $auto_acc_info.Endpoint
  
-$VMsName = (Get-AzureRmVM -ResourceGroupName $resourceGroupName).Name
+# $VMsName = (Get-AzureRmVM -ResourceGroupName $resourceGroupName).Name
 
+$template = "C:\git\ALipinski\task-9.2\add-vms-to-dsc.json"
 
-foreach ($vmName in $VMsName) {
-    New-AzureRmResourceGroupDeployment `
-        -TemplateFile $template `
-        -ResourceGroupName $resourceGroupName `
-        -vmName $vmName `
-        -registrationKey $registrationKey `
-        -registrationUrl $registrationUrl `
-        -Verbose
-}
+New-AzureRmResourceGroupDeployment `
+-TemplateFile $template `
+-ResourceGroupName $resourceGroupName `
+-Verbose
+
+# foreach ($vmName in $VMsName) {
+#     New-AzureRmResourceGroupDeployment `
+#         -TemplateFile $template `
+#         -ResourceGroupName $resourceGroupName `
+#         -vmName $vmName `
+#         -registrationKey $registrationKey `
+#         -registrationUrl $registrationUrl `
+#         -Verbose
+# }
 
 
 # foreach ($vm in $vms_name) {

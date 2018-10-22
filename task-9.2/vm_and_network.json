@@ -3,10 +3,12 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "vm_login": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": "azureuser"
     },
     "vm_passwd": {
-      "type": "securestring"
+      "type": "securestring",
+      "defaultValue": "ZEtyu7702954!"
     }
   },
   "variables": {

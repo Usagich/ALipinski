@@ -100,5 +100,31 @@ New-AzureRmResourceGroupDeployment `
     -Verbose
 
 
+Import-AzureRmAutomationDscConfiguration `
+    -SourcePath 'C:\git\ALipinski\task-9.2\TestConfig.ps1' `
+    -ResourceGroupName $resourceGroupName `
+    -AutomationAccountName $automationAccountName `
+    -Published
 
+Start-AzureRmAutomationDscCompilationJob `
+    -ConfigurationName 'TestConfig' `
+    -ResourceGroupName $resourceGroupName `
+    -AutomationAccountName $automationAccountName
 
+$VMs = (get-azurermvm  -ResourceGroupName $resourceGroupName).Name
+
+foreach ($vm in $VMs) {
+    # Get the ID of the DSC node
+    $node = (Get-AzureRmAutomationDscNode  `
+            -ResourceGroupName $resourceGroupName `
+            -AutomationAccountName $automationAccountName `
+            -Name $vm)
+
+    # Assign the node configuration to the DSC node
+    Set-AzureRmAutomationDscNode `
+        -ResourceGroupName $resourceGroupName `
+        -AutomationAccountName $automationAccountName `
+        -NodeConfigurationName 'TestConfig.WebServer' `
+        -Id $node.Id `
+        -Force
+}

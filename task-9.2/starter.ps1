@@ -11,8 +11,8 @@ $containerName = "task9"
 $blob_name = "Workflow_Stop-AzureVM.ps1"
 $skuName = "Standard_LRS"
 $location = 'West Europe'
-$templateURI = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-9/main.json'
-$workflowURI = "https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-9/Workflow_Stop-AzureVM.ps1"
+$templateURI = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-9.1/main.json'
+$workflowURI = "https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/task-9.1/Workflow_Stop-AzureVM.ps1"
 $workflow = "$env:TEMP\Workflow_Stop-AzureVM.ps1"
 #Download from URI to %temp%
 Invoke-WebRequest -Uri $workflowURI -OutFile $workflow

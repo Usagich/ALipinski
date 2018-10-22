@@ -54,10 +54,11 @@ $vm_passwd = Read-Host -AsSecureString
 Write-Host "Enter password for app registration secret: "
 $app_pass = Read-Host -AsSecureString
 
-
+Write-Host -ForegroundColor Green "Looking for ADApplication."
 $application = Get-AzureRmADApplication | `
     Where-Object {$_.HomePage -like "http://task9.com"}
-    
+
+Write-Host -ForegroundColor Green "Get application Id and application key."   
 $obj_id = $application.ObjectId
 
 $app_id = ($application.ApplicationId).Guid
@@ -81,22 +82,23 @@ else {
         -Password $app_pass 
 }
 
+Write-Host -ForegroundColor Green "Create Automation Account."   
 #create Automation Account
 New-AzureRmResourceGroupDeployment `
     -TemplateUri $templateAA `
     -ResourceGroupName $resourceGroupName `
     -app_id $app_id `
     -app_pass $app_pass `
-    -accountName $automationAccountName `
-    -Verbose
+    -accountName $automationAccountName 
 
+Write-Host -ForegroundColor Green "Get Automation Account Key and URL."   
 $automationAccountKey = ConvertTo-SecureString -AsPlainText ((Get-AzureRmAutomationAccount -ResourceGroupName $resourceGroupName | `
             Get-AzureRmAutomationRegistrationInfo).PrimaryKey) -Force
 
 $automationAccountUrl = ConvertTo-SecureString -AsPlainText ((Get-AzureRmAutomationAccount -ResourceGroupName $resourceGroupName | `
             Get-AzureRmAutomationRegistrationInfo).Endpoint) -Force
 
-
+Write-Host -ForegroundColor Green "Import DSC configuration."  
 Import-AzureRmAutomationDscConfiguration `
     -SourcePath $dscConfigPath `
     -ResourceGroupName $resourceGroupName `
@@ -110,16 +112,17 @@ Start-AzureRmAutomationDscCompilationJob `
     -ResourceGroupName $resourceGroupName `
     -AutomationAccountName $automationAccountName
 
-#Create VMs andd add it to DSC AA
+Write-Host -ForegroundColor Green "Create VMs and use DSC extention for connecting to DSC state configuration."  
+#Create VMs and use DSC extention for connecting to DSC state configuration
 New-AzureRmResourceGroupDeployment `
     -TemplateUri $templateVMs `
     -ResourceGroupName $resourceGroupName `
     -vm_login $vm_login `
     -vm_passwd $vm_passwd `
     -automationAccountKey $automationAccountKey `
-    -automationAccountUrl $automationAccountUrl `
-    -Verbose
+    -automationAccountUrl $automationAccountUrl
 
+Write-Host -ForegroundColor Green "Add Compiled configurations to VMs"  
 
 $VMs = (get-azurermvm  -ResourceGroupName $resourceGroupName).Name
 
@@ -131,7 +134,7 @@ for ($i = 0; $i -lt $VMs.Count; $i++) {
     $node = (Get-AzureRmAutomationDscNode  `
             -ResourceGroupName $resourceGroupName `
             -AutomationAccountName $automationAccountName `
-            -Name $VMs[$i])
+            -Name $VMs[$i]) 
 
     Set-AzureRmAutomationDscNode `
         -ResourceGroupName $resourceGroupName `

@@ -50,37 +50,9 @@ $vm_login = Read-Host
 Write-Host "Please enter password for VM: "
 $vm_passwd = Read-Host -AsSecureString
 
-#Enter password for app registration secret
-Write-Host "Enter password for app registration secret: "
-$app_pass = Read-Host -AsSecureString
-
-Write-Host -ForegroundColor Green "Looking for ADApplication."
-$application = Get-AzureRmADApplication | `
-    Where-Object {$_.HomePage -like "http://task9.com"}
-
-Write-Host -ForegroundColor Green "Get application Id and application key."   
-$obj_id = $application.ObjectId
-
-$app_id = ($application.ApplicationId).Guid
-
-$app_key = Get-AzureRmADAppCredential `
-    -ObjectId $obj_id `
-    -ErrorAction SilentlyContinue
-
-if ($app_key) {
-    Remove-AzureRmADAppCredential `
-        -ObjectId $obj_id `
-        -Force
-
-    New-AzureRmADAppCredential `
-        -ObjectId $obj_id `
-        -Password $app_pass
-}
-else {
-    New-AzureRmADAppCredential `
-        -ObjectId $obj_id `
-        -Password $app_pass 
-}
+$KeyVault = (Get-AzureRmKeyVault | where {$_.VaultName -like 'task9'}).VaultName
+$app_id = (Get-AzureKeyVaultSecret -VaultName $KeyVault).Name
+$app_pass = (Get-AzureKeyVaultSecret -VaultName $KeyVault -Name $app_id).SecretValue
 
 Write-Host -ForegroundColor Green "Create Automation Account."   
 #create Automation Account

@@ -86,7 +86,6 @@ $KeyVault = (Get-AzureRmKeyVault | where {$_.VaultName -like 'task9'}).VaultName
 $app_id = (Get-AzureKeyVaultSecret -VaultName $KeyVault).Name
 $app_pass = (Get-AzureKeyVaultSecret -VaultName $KeyVault -Name $app_id).SecretValue
 
-
 New-AzureRmResourceGroupDeployment `
     -TemplateUri $templateURI `
     -ResourceGroupName $resourceGroupName `
@@ -97,7 +96,3 @@ New-AzureRmResourceGroupDeployment `
     -jobid $jobid `
     -sastokenurl $sastokenurl `
     -Verbose
-
-
-
-

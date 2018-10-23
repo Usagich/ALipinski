@@ -16,7 +16,7 @@
     "subnet_pref": "10.10.0.0/24",
     "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('vnet_name'),  variables('subnet_name'))]",
     "vm_pref": "vm",
-    "res_count": 2,
+    "res_count": 1,
     "dnsPrefixForPublicIP": "[uniqueString(resourceGroup().id)]"
   },
   "resources": [

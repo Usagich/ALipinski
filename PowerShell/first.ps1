@@ -22,7 +22,7 @@ get-command | where {$_.commandtype -eq "function"} | format-list
 $proc = get-process chrome;
 $proc | add-member -Type scriptproperty "UpTime" {return ((Get-Date) - ($this.starttime))};
 
-$proc | Select-Object Name, @{name='Uptime'; Expression={«{0:n0}» -f $_.UpTime.TotalMinutes}};
+$proc | Select-Object Name, @{name = 'Uptime'; Expression = {« {0:n0}» -f $_.UpTime.TotalMinutes}};
 
 $proc | Get-Member
 
@@ -35,11 +35,12 @@ $iexp.visible = $true
 
 function speaker {
     param (
-        [Parameter(Mandatory=$false)]
+        [Parameter(Mandatory = $false)]
         $GitText = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/PowerShell/text.txt'
     )
+    $day = (Get-Date).DayOfWeek
     $text = Invoke-WebRequest -Uri $GitText
     $text.Content
     $voice = new-object -comobject "SAPI.SPVoice"
-    $voice.speak($text.Content)
+    $voice.speak("happy $day $($text.Content)")
 }

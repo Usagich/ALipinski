@@ -36,11 +36,10 @@ $iexp.visible = $true
 function speaker {
     param (
         [Parameter(Mandatory=$false)]
-        [String[]]$text = 'Fuck you'
+        $GitText = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/PowerShell/text.txt'
     )
+    $text = Invoke-WebRequest -Uri $GitText
+    $text.Content
     $voice = new-object -comobject "SAPI.SPVoice"
-    $voice.speak("$text")
-    
+    $voice.speak($text.Content)
 }
-
-Invoke-WebRequest -Uri $templateParametersURI -OutFile $ParametersFilePath

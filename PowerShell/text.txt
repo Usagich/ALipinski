@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 and f*ck you!!
+=======
+and good luck!
+>>>>>>> 4132c0bcb9e37b6e8cb865b64b3170df26849b7f

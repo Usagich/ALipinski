@@ -66,3 +66,18 @@ workflow Invoke-ParallelForEach {
 $startcount = Get-Process -Name PowerShell* | Measure-Object |Select-Object -ExpandProperty Count
 "Number of starting PowerShell processes = $startcount"
 Invoke-ParallelForEach
+
+
+for ($i = 0; $i -lt 5; $i++) {
+
+    Write-Host $i
+    $Private:S = 'sdfsdfs'
+    
+}
+
+Write-Host $s
+
+
+
+
+(Get-Date).Year -100

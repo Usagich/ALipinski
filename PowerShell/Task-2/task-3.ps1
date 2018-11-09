@@ -13,9 +13,10 @@ $main = @{
 function Yandex-Translater ([string]$inp, [string]$key, [string]$from, [string]$to) {
     Invoke-RestMethod -Uri "https://translate.yandex.net/api/v1.5/tr.json/translate?key=$key&text=$inp&lang=$from-$to&format=plain"
 }
+$textUrl = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/PowerShell/Task-2/text.txt'
+$text = Invoke-WebRequest -Uri $textUrl
 
-$Inp = (Get-Content 'C:\git\ALipinski\PowerShell\Task-2\text.txt')
-$InpParagraphs = $inp.Split("`n")
+$InpParagraphs = $text.Content.Split("`n")
 
 for ($i = 0; $i -lt $InpParagraphs.Length; $i++) {
     if ($InpParagraphs[$i] -match "[a-z]") {

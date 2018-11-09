@@ -39,14 +39,6 @@ Translate-English -inp $inp
 
 $strings = $inp
 
-# for ($nomerString = 0; $nomerString -lt $strings.Length; $nomerString++) {
-#     if ($strings[$nomerString] -match "[a-z]") {
-#         $finalTest += $strings[$nomerString] + '.'
-#     }
-#     else {
-#         $finalTest += $rezStrings[$nomerString] + '.'
-#     }
-# }
 
 $iphashes = @();
 # for each array ip

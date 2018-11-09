@@ -3,10 +3,8 @@ function Translate-English ([string]$inp) {
     $from = "ru"
     $to = "en"
     $out = Invoke-RestMethod -Uri "https://translate.yandex.net/api/v1.5/tr.json/translate?key=$key&text=$inp&lang=$from-$to&format=plain"
-    write-output $out.text
+    return $out.text
 }
-
-$inp = (Get-Content 'C:\git\ALipinski\PowerShell\Task-2\text.txt')
 
 $main = @{
     text = @{
@@ -14,31 +12,21 @@ $main = @{
     }
 }
 
-foreach ($item in $inp.Split("`n")) {
-    
-    Translate-English -inp $item
-}
 
-for ($nomerString = 0; $nomerString -lt $strings.Length; $nomerString++) {
-    if ($strings[$nomerString] -match "[a-z]") {
-        $finalTest += $strings[$nomerString] + '.'
-    }
-    else {
-        $finalTest += $rezStrings[$nomerString] + '.'
-    }
-}
+$InpParagraphs = $inp.Split("`n")
+$Inp = (Get-Content 'C:\git\ALipinski\PowerShell\Task-2\text.txt')
 
-
-
-for ($i = 1; $i -le $inp.Split("`n").Count; $i++) {
-    $num = "$i"
-    $main.text.paragraphs += @{
-        "$num" = @{
-            Original   = "Привет";
-            Translated = "Hello";
-        }
+for ($i = 1; $i -lt $InpParagraphs.Length; $i++) {
+    [string[]]$paragraph = $InpParagraphs[$i]
+    $Translated = Translate-English -inp $paragraph
+    $Index = $i+1
+    $main.text.paragraphs += [Ordered]@{
+        Index      = "$Index";
+        Original   = 'null';
+        Translated = $Translated;
     }
 }
+
 
 #$main.text.paragraphs.Clear()
 $main | ConvertTo-Json -Depth 10

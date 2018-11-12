@@ -2,7 +2,7 @@ $params = @{
     key     = 'trnsl.1.1.20181108T111043Z.f85c4ecbdca8a18f.f6d21f508063bc4448229ac30745b254de960f97'
     from    = "ru"
     to      = "en"
-    textUrl = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/PowerShell/Task-2/text.txt'
+    textUrl = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/PowerShell/Module-2/text.txt'
 }
 
 function Yandex-Translater (

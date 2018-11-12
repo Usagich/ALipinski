@@ -22,7 +22,7 @@ function Get-Info {
 
 [string]$textPath = '.\cn.txt'
 $ComputersList = (Get-Content $textPath).Split("`n|,| ")
-$per = Invoke-Command -ThrottleLimit 2 -ComputerName $ComputersList -ScriptBlock ${function:Get-Info}
+$main.Computers += Invoke-Command -ThrottleLimit 2 -ComputerName $ComputersList -ScriptBlock ${function:Get-Info}
 # $new | ConvertTo-Json
 
-$per | ConvertTo-Json
+$main | ConvertTo-Json -Depth 10

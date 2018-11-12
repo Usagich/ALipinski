@@ -9,10 +9,14 @@ function Yandex-Translater {
 
     [CmdletBinding()]
     Param(
-        [string]$textUrl,
-        [string]$key,
-        [string]$from,
-        [string]$to) 
+        [Parameter(Mandatory = $true)]
+        [ValidatePattern("^http")][string]$textUrl,
+        [Parameter(Mandatory = $true)]
+        [ValidatePattern("^trnsl")][string]$key,
+        [Parameter(Mandatory = $true)]
+        [ValidatePattern("ru|en")][string]$from,
+        [Parameter(Mandatory = $true)]
+        [ValidatePattern("ru|en")][string]$to)
     Begin {
         $main = @{
             text = @{
@@ -22,7 +26,6 @@ function Yandex-Translater {
         $text = Invoke-WebRequest -Uri $textUrl
         $InpParagraphs = $text.Content.Split("`n")
     }
-    
     Process {
         for ($i = 0; $i -lt $InpParagraphs.Length; $i++) {
             if ($InpParagraphs[$i] -match "[a-z]") {
@@ -41,7 +44,6 @@ function Yandex-Translater {
             }
         }
     }
-
     End {
         $main | ConvertTo-Json -Depth 10 | Out-File .\text.json
         $main | Export-Clixml -Depth 10 -Path text.xml

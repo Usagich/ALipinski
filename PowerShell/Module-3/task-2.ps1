@@ -12,6 +12,6 @@ function Get-Info {
 }
 
 [string]$textPath = '.\cn.txt'
-$ComputersList = (Get-Content $textPath).Split("`n|,| ")
+$ComputersList = (Get-Content $textPath).Split("`n|,| |;")
 Invoke-Command -ThrottleLimit 2 -ComputerName $ComputersList `
     -ScriptBlock ${function:Get-Info} | ConvertTo-Json | Out-File .\get-info.json

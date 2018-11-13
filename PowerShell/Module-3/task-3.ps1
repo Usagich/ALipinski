@@ -3,7 +3,7 @@ $JobsCount = 8
 $folders = (Get-ChildItem $path  | ? { $_.PSIsContainer}).FullName
 
 foreach ($folder in $folders) {
-    $running = Get-Job | Where-Object { $_.State -eq 'Running' }
+    $running = Get-Job | ? { $_.State -eq 'Running' }
     if ($running.Count -lt $JobsCount) {
         Start-Job -ScriptBlock {
             param ($folder)

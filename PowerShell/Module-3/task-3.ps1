@@ -1,5 +1,5 @@
 $path = $env:TEMP
-$JobsCount = 8
+$JobsCount = 3
 $folders = (Get-ChildItem $path  | ? { $_.PSIsContainer}).FullName
 
 foreach ($folder in $folders) {

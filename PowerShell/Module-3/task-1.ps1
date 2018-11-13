@@ -4,7 +4,6 @@ $params = @{
     to      = "en"
     textUrl = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/PowerShell/Module-3/text.txt'
 }
-
 function Yandex-Translater {
 
     [CmdletBinding()]

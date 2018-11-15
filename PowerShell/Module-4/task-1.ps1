@@ -1,2 +1,6 @@
-Get-Content "c:\Windows\Logs\DISM\DISM.log" | Select-String -SimpleMatch "warning"
-Get-content -Path "c:\Windows\Logs\DISM\DISM.log" | where {$_ -match "\[0x"}
+$errors = (Get-Content ".\DISM.log").Split("`n") | where {$_ -match "^(.{21})error"}
+foreach ($item in $errors) {
+    if (($item -match "(?<=hr:0x).*\+?(?=\))") -or ($item -match "(?<=HRESULT\=).*$")) {
+        "`tERROR_CODE:$($Matches[0]) " + $item | out-file -Append .\errors.txt
+    }
+}

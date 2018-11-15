@@ -3,25 +3,31 @@ $site = "https://github.com/trending"
 
 [Reflection.Assembly]::LoadFile($path)|Out-Null
 [HtmlAgilityPack.HtmlWeb]$web = @{}
-[HtmlAgilityPack.HtmlDocument]$doc = $web.LoadFromBrowser("https://github.com/trending") 
-[HtmlAgilityPack.HtmlNodeCollection]$NameHtml = $doc.DocumentNode.SelectNodes("//div[@class='d-inline-block col-9 mb-1']/h3/a/text()")
-[HtmlAgilityPack.HtmlNodeCollection]$AddressHtml = $doc.DocumentNode.SelectNodes("//div[@class='d-inline-block col-9 mb-1']/h3/a")
-[HtmlAgilityPack.HtmlNodeCollection]$LanguageHtml = $doc.DocumentNode.SelectNodes("//span[@itemprop='programmingLanguage']")
-[HtmlAgilityPack.HtmlNodeCollection]$StarsTotalHtml = $doc.DocumentNode.SelectNodes("//div[@class='f6 text-gray mt-2']/a[1]/text()")
-[HtmlAgilityPack.HtmlNodeCollection]$StarsTodayHtml = $doc.DocumentNode.SelectNodes("//div[@class='f6 text-gray mt-2']/span[3]/text()")
+[HtmlAgilityPack.HtmlDocument]$doc = $web.LoadFromBrowser($site) 
+[HtmlAgilityPack.HtmlNodeCollection]$NameHtml = $doc.DocumentNode.SelectNodes("//div[1]/h3[1]/a[1]/text()")
+[HtmlAgilityPack.HtmlNodeCollection]$AddressHtml = $doc.DocumentNode.SelectNodes("//div[1]/h3[1]/a[1]")
+[HtmlAgilityPack.HtmlNodeCollection]$LanguageHtml = $doc.DocumentNode.SelectNodes("//div[4]/span[1]/span[2]/text()")
+[HtmlAgilityPack.HtmlNodeCollection]$StarsTotalHtml = $doc.DocumentNode.SelectNodes("//div[4]/a[1]/text()")
+[HtmlAgilityPack.HtmlNodeCollection]$StarsTodayHtml = $doc.DocumentNode.SelectNodes("//div[4]/span[3]/text()")
 
 $Name = $NameHtml.Text
-$Address = $AddressHtml.InnerText
+$Address = $AddressHtml.InnerText -replace '\s', ''
 $Language = $LanguageHtml.InnerText
 $StarsTotal = $StarsTotalHtml.Text
-$StarsToday = $StarsTodayHtml.Text
+$StarsToday = $StarsTodayHtml.Text  -replace '[a-z]', '' -replace '\s',''
+
+$fullAddress = @()
+
+foreach ($item in $Address) {
+    $fullAddress += $site + $item
+}
 
 $main = @()
 
 for ($i = 0; $i -lt $Name.Length; $i++) {
     $main += [ordered]@{
         Name       = $Name[$i];
-        Address    = $Address[$i];
+        Address    = $fullAddress[$i];
         Language   = $Language[$i];
         StarsTotal = $StarsTotal[$i];
         StarsToday = $StarsToday[$i]
@@ -29,3 +35,6 @@ for ($i = 0; $i -lt $Name.Length; $i++) {
 }
 
 $main | ConvertTo-Json | Out-File .\github.json
+
+$Language.Length
+$Name.Length

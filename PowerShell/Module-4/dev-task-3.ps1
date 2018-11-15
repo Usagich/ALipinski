@@ -18,7 +18,7 @@ $StarsToday = $StarsTodayHtml.Text
 $main = @()
 
 for ($i = 0; $i -lt $Address.Length; $i++) {
-    $main += @{
+    $main += [ordered]@{
         Address    = $Address[$i];
         Language   = $Language[$i];
         StarsTotal = $StarsTotal[$i];

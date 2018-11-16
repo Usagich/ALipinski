@@ -10,11 +10,11 @@ $site = "https://github.com/trending"
 [HtmlAgilityPack.HtmlNodeCollection]$StarsTotalHtml = $doc.DocumentNode.SelectNodes("//div[4]/a[1]/text()")
 [HtmlAgilityPack.HtmlNodeCollection]$StarsTodayHtml = $doc.DocumentNode.SelectNodes("//div[4]/span[3]/text()")
 
-$Name = $NameHtml.Text
+$Name = $NameHtml.Text -replace '\s', ''
 $Address = $AddressHtml.InnerText -replace '\s', ''
-$Language = $LanguageHtml.InnerText
-$StarsTotal = $StarsTotalHtml.Text
-$StarsToday = $StarsTodayHtml.Text  -replace '[a-z]', '' -replace '\s',''
+$Language = $LanguageHtml.InnerText -replace '\s', ''
+$StarsTotal = $StarsTotalHtml.Text -replace '\s', ''
+$StarsToday = $StarsTodayHtml.Text -replace '[a-z]', '' -replace '\s', ''
 
 $fullAddress = @()
 
@@ -22,10 +22,12 @@ foreach ($item in $Address) {
     $fullAddress += $site + $item
 }
 
-$main = @()
+$main = @{
+    GitHub_Trends = @()
+}
 
 for ($i = 0; $i -lt $Name.Length; $i++) {
-    $main += [ordered]@{
+    $main.GitHub_Trends += [ordered]@{
         Name       = $Name[$i];
         Address    = $fullAddress[$i];
         Language   = $Language[$i];
@@ -35,6 +37,3 @@ for ($i = 0; $i -lt $Name.Length; $i++) {
 }
 
 $main | ConvertTo-Json | Out-File .\github.json
-
-$Language.Length
-$Name.Length

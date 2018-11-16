@@ -1,42 +1,33 @@
-$path = 'C:\git\ALipinski\PowerShell\Module-4\HtmlAgilityPack.dll'
-[Reflection.Assembly]::LoadFile($path) | Out-Null
+$urifile = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
+Invoke-WebRequest -Uri $urifile -OutFile "nuget.exe" -UseBasicParsing -Verbose 
+.\nuget.exe install HtmlAgilityPack -Version 1.8.10 
 $site = "https://github.com/trending"
 
-add-type @"
-    using System.Net;
-    using System.Security.Cryptography.X509Certificates;
-    public class TrustAllCertsPolicy : ICertificatePolicy {
-        public bool CheckValidationResult(
-            ServicePoint srvPoint, X509Certificate certificate,
-            WebRequest request, int certificateProblem) {
-            return true;
-        }
-    }
-"@
-$AllProtocols = [System.Net.SecurityProtocolType]'Ssl3,Tls,Tls11,Tls12'
-[System.Net.ServicePointManager]::SecurityProtocol = $AllProtocols
-[System.Net.ServicePointManager]::CertificatePolicy = New-Object TrustAllCertsPolicy
-
+[Reflection.Assembly]::LoadFile("$PWD\HtmlAgilityPack.1.8.10\lib\Net45\HtmlAgilityPack.dll") | Out-Null
 [HtmlAgilityPack.HtmlWeb]$web = @{}
-[HtmlAgilityPack.HtmlDocument]$doc = $web.Load($site)
+[HtmlAgilityPack.HtmlDocument]$doc = $web.LoadFromBrowser($site) 
+[HtmlAgilityPack.HtmlNodeCollection]$nodes = $doc.DocumentNode.SelectNodes("//html/body/div[4]/div[2]/div/div[1]/div[2]/ol/*")
 
-$repo_names = @()
-# [HtmlAgilityPack.HtmlNodeCollection]$repo_names = $doc.DocumentNode.SelectNodes("//span[@class='text-normal']")
-[HtmlAgilityPack.HtmlNodeCollection]$repoList = $doc.DocumentNode.SelectNodes("/html/body/div[4]/div[2]/div/div[1]/div[2]/ol")
-$repoList
-
-[HtmlAgilityPack.HtmlNodeCollection]$repoList = $doc.DocumentNode.SelectNodes("//div[@class='d-inline-block col-9 mb-1']/h3/a")
-[HtmlAgilityPack.HtmlNodeCollection]$nameNodes = $doc.DocumentNode.SelectNodes("//div[@class='d-inline-block col-9 mb-1']/h3/a")
-[HtmlAgilityPack.HtmlNodeCollection]$LanguageNodes = $doc.DocumentNode.SelectNodes("//span[@itemprop='programmingLanguage']")
-[HtmlAgilityPack.HtmlNodeCollection]$LanguageNodes = $doc.DocumentNode.SelectNodes("//*[@id='pa-tensorspace']/div[4]/a[1]/text()")
-
-$nameNodes | ForEach-Object { $_.OuterHtml} | where {$_ -match "\/.*..\+?(?=`")"} | foreach {$repo_names += $Matches[0] + "`n"}
-$LanguageNodes | ForEach-Object { $_.OuterHtml} | where {$_ -match " "} | foreach {$repo_langs += $Matches[0] + "`n"}
-$repos = $repo_names.Split("`n")
-$address = ""
-for ($i = 0; $i -lt ($repos.Length)-1; $i++) {
-    $address += "https://github.com" + $repos[$i] + "`n"
+$main = @{
+    GitHub_Trends = @()
 }
-$addr = $address.Split("`n")
 
-itemprop="programmingLanguage"
+for ($i = 0; $i -lt $nodes.Count; $i++) {
+    $Name = (($nodes[$i].InnerText.Split("`n"))[2]).Replace(" ", "").Trim()
+    $Address = "https://github.com/$Name"
+    ($nodes[$i].InnerText.Split("`n"))[6] -match "((.*)\s)?(.*\d)\s(.*\d)\s(.*\w)\s(.*\w)(.*\s)(.*\d)" | Out-Null
+    $Language = $Matches[1]
+    $Starstoday = $Matches[8]
+    $Starstotal = $Matches[3]
+
+    $repo = [ordered]@{
+        Name       = $Name
+        Address    = $Address
+        Language   = $Language
+        Starstoday = $Starstoday
+        Starstotal = $Starstotal
+    }
+    $main.GitHub_Trends += $repo
+}
+
+$main | ConvertTo-Json | Out-File .\github.json

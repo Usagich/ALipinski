@@ -1,41 +1,87 @@
 Configuration InstallAll
 {
-    Node localhost
+    import-DscResource -ModuleName 'xPSDesiredStateConfiguration'
+    Node $AllNodes.NodeName
     {
-        Package JRE {
-            Ensure    = "Present"
-            Name      = "Java Platform SE 8 U191"
-            Path      = "C:\soft\jre-8u191-windows-x64.exe"
-            ProductId = ""
-            Arguments = "/s INSTALLDIR=`"C:\soft\Java`" STATIC=1"
+        LocalConfigurationManager
+        {                 
+            RebootNodeIfNeeded  = $True                    
         }
-        Environment  JAVA_HOME {
-            Name      = "JAVA_HOME"
-            Ensure    = "Present"
-            Path      = $true
-            Value     = "C:\soft\Java"
-            DependsOn = "[Package]JRE"
+        Script EnableTLS12 {
+            SetScript  = {
+                [ Net.ServicePointManager ]::SecurityProtocol = [ Net.ServicePointManager ]::SecurityProtocol.toString() + ' , ' + [ Net.SecurityProtocolType ]::Tls12
+            }
+            TestScript = {
+                return ([ Net.ServicePointManager ]::SecurityProtocol -match ' Tls12 ' )
+            }
+            GetScript  = {
+                return @{
+                    Result = ([ Net.ServicePointManager ]::SecurityProtocol -match ' Tls12 ' )
+                }
+            }
         }
-        Package 7-Zip {
+        xRemoteFile Zip {
+            DestinationPath = "$($AllNodes.Out)\$($AllNodes.zipOut)"
+            Uri             = $AllNodes.zipUri
+        }
+        xRemoteFile GitLastOut {
+            DestinationPath = "$($AllNodes.Out)\$($AllNodes.GitLastOut)"
+            Uri             = $AllNodes.GitLastUri
+        }
+        xRemoteFile GitOldOut {
+            DestinationPath = "$($AllNodes.Out)\$($AllNodes.GitOldOut)"
+            Uri             = $AllNodes.GitOldUri
+        }
+        xRemoteFile JreOut {
+            DestinationPath = "$($AllNodes.Out)\$($AllNodes.JreOut)"
+            Uri             = $AllNodes.JreUri
+        }
+        xPackage 7zip {
             Ensure    = "Present"
             Name      = "7-Zip 18.05 (x64 edition)"
-            Path      = "C:\soft\7z1805-x64.msi"
+            Path      = "$($AllNodes.Out)\$($AllNodes.zipOut)"
             ProductId = "23170F69-40C1-2702-1805-000001000000"
-            Arguments = "INSTALLDIR=`"C:\soft\7-Zip`""
+            Arguments = "INSTALLDIR=`"$($AllNodes.Out)\7-Zip`""
+            DependsOn = "[xRemoteFile]Zip"
         }
-        WindowsProcess ExtractGit_Latest {
-            Path      = "C:\soft\7-Zip\7z.exe"
-            Arguments = "x c:\soft\PortableGit-2.19.1-64-bit.7z.exe -oc:\soft\Git_Latest -y"
-            DependsOn = "[Package]7-Zip"
+        Script ExtractGit {
+            SetScript  = {
+                & "C:\soft\7-Zip\7z.exe" "x" "$($using:AllNodes.Out)\$($using:AllNodes.GitOldOut)" "-o$($using:AllNodes.Out)\GitOldVersion"
+                & "C:\soft\7-Zip\7z.exe" "x" "$($using:AllNodes.Out)\$($using:AllNodes.GitLastOut)" "-o$($using:AllNodes.Out)\GitLatestVersion"
+            }
+            TestScript = {
+                (Test-Path -Path "$($using:AllNodes.Out)\GitOldVersion") -and `
+                (Test-Path -Path "$($using:AllNodes.Out)\GitLatestVersion")
+            }
+            GetScript  = {
+            }
+            DependsOn  = "[xPackage]7zip", "[xRemoteFile]GitLastOut", "[xRemoteFile]GitOldOut"
         }
-        WindowsProcess ExtractGit_Old {
-            Path      = "C:\soft\7-Zip\7z.exe"
-            Arguments = "x c:\soft\PortableGit-2.17.0-64-bit.7z.exe -oc:\soft\Git_Old -y"
-            DependsOn = "[Package]7-Zip"
+        xPackage JRE {
+            Ensure    = "Present"
+            Name      = "Java Platform SE 8 U192"
+            Path      = "$($AllNodes.Out)\$($AllNodes.JreOut)"
+            ProductId = "26A24AE4-039D-4CA4-87B4-2F64180191F0"
+            Arguments = "/s INSTALLDIR=`"$($AllNodes.Out)\Java`" STATIC=1"
+            DependsOn = "[xRemoteFile]JreOut"
         }
+        Environment  JAVA_HOME {
+            Ensure    = "Present"
+            Name      = "JAVA_HOME"
+            Path      = $true
+            Value     = "$($AllNodes.Out)\Java"
+            DependsOn = "[xPackage]JRE"
+        }
+        Environment  GIT {
+            Ensure    = "Present"
+            Name      = "GIT"
+            Path      = $true
+            Value     = "$($AllNodes.Out)\GitLatestVersion"
+            DependsOn = "[Script]ExtractGit"
+        } 
     }
 }
 
-InstallAll -OutputPath "C:\soft\mof"
+InstallAll -ConfigurationData .\ConfigurationData.psd1 -OutputPath C:\soft\mof
 
-Start-DscConfiguration -Path "C:\soft\mof" -ComputerName localhost -Force -Verbose -wait
+Start-DscConfiguration -Path C:\soft\mof -ComputerName localhost -Force -Verbose -wait

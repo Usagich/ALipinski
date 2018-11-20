@@ -1,11 +1,12 @@
 Configuration InstallAll
 {
     import-DscResource -ModuleName 'xPSDesiredStateConfiguration'
+    import-DscResource -ModuleName 'PSDesiredStateConfiguration'
     Node $AllNodes.NodeName
     {
-        LocalConfigurationManager
-        {                 
-            RebootNodeIfNeeded  = $True                    
+        LocalConfigurationManager {
+
+            RebootNodeIfNeeded = $False;
         }
         Script EnableTLS12 {
             SetScript  = {

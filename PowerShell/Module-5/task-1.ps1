@@ -24,18 +24,22 @@ Configuration InstallAll
         xRemoteFile Zip {
             DestinationPath = "$($AllNodes.Out)\$($AllNodes.zipOut)"
             Uri             = $AllNodes.zipUri
+            MatchSource = $false
         }
         xRemoteFile GitLastOut {
             DestinationPath = "$($AllNodes.Out)\$($AllNodes.GitLastOut)"
             Uri             = $AllNodes.GitLastUri
+            MatchSource = $false
         }
         xRemoteFile GitOldOut {
             DestinationPath = "$($AllNodes.Out)\$($AllNodes.GitOldOut)"
             Uri             = $AllNodes.GitOldUri
+            MatchSource = $false
         }
         xRemoteFile JreOut {
             DestinationPath = "$($AllNodes.Out)\$($AllNodes.JreOut)"
             Uri             = $AllNodes.JreUri
+            MatchSource = $false
         }
         xPackage 7zip {
             Ensure    = "Present"

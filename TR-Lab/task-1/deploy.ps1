@@ -1,5 +1,5 @@
 Param(
-  [string]$ResourceGroupName = 'alipinski',
+  [string]$ResourceGroupName = 'lipinski',
   [string]$Sub = 'b4d05768-e295-4195-9cdb-c07ecd987720',
   [string]$Location = 'East US',
   [string]$Path = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/TR-Lab/task-1/'
@@ -37,5 +37,5 @@ $SplatParams = @{
   TemplateParameterObject = $Creds
 }
 
-New-AzureRmResourceGroupDeployment @SplatParams -Verbose
+test-AzureRmResourceGroupDeployment @SplatParams -Verbose
 

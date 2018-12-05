@@ -36,9 +36,6 @@
     },
     "enabledForDiskEncryption": {
       "type": "bool"
-    },
-    "networkAcls": {
-      "type": "object"
     }
   },
   "resources": [

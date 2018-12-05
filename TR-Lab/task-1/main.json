@@ -7,7 +7,7 @@
       "defaultValue": "andreitest"
     },
     "AdminPassword": {
-      "type": "securestring"
+      "type": "string"
     },
     "Path": {
       "type": "string"

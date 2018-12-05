@@ -33,9 +33,6 @@
     },
     "enabledForDiskEncryption": {
       "type": "bool"
-    },
-    "networkAcls": {
-      "type": "object"
     }
   },
   "variables": {
@@ -56,8 +53,7 @@
         "sku": {
           "name": "[parameters('sku')]",
           "family": "A"
-        },
-        "networkAcls": "[parameters('networkAcls')]"
+        }
       }
     },
     {

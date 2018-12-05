@@ -19,7 +19,8 @@
     "PipName":"[concat(variables('VmName'),'-pip')]",
     "VnetAddrPref": "10.0.0.0/16",
     "SubnetAddrPref": "10.0.0.0/24",
-    "domainNameLabel":"[concat(resourceGroup().name,'test')]"
+    "DomainNameLabel":"[concat(resourceGroup().name,'test')]",
+    "OsDiskName":"[concat(variables('VmName'),'-disk1')]"
 
   },
   "resources": [
@@ -107,7 +108,7 @@
             "version": "latest"
           },
           "osDisk": {
-            "name": "myManagedOSDisk",
+            "name": "[variables('OsDiskName')]",
             "caching": "ReadWrite",
             "createOption": "FromImage"
           }

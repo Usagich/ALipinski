@@ -34,6 +34,9 @@
     "enabledForTemplateDeployment": {
       "type": "bool"
     },
+    "tenant": {
+      "type": "string"
+    },
     "enabledForDiskEncryption": {
       "type": "bool"
     }
@@ -84,6 +87,9 @@
           },
           "enabledForDiskEncryption": {
             "value": "[parameters('enabledForDiskEncryption')]"
+          },
+          "tenant": {
+            "value": "[parameters('tenant')]"
           },
           "adminUsername": {
             "value": "[parameters('adminUsername')]"

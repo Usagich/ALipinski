@@ -7,10 +7,13 @@
       "defaultValue": "andreitest"
     },
     "AdminPassword": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": "Pa$$w0rd"
     },
     "Path": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": "https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/TR-Lab/task-1"
+
     },
     "sku": {
       "type": "string",

@@ -29,9 +29,6 @@
       "type": "array",
       "defaultValue": []
     },
-    "tenant": {
-      "type": "string"
-    },
     "enabledForDeployment": {
       "type": "bool"
     },
@@ -79,9 +76,6 @@
           },
           "accessPolicies": {
             "value": "[parameters('accessPolicies')]"
-          },
-          "tenant": {
-            "value": "[parameters('tenant')]"
           },
           "enabledForDeployment": {
             "value": "[parameters('enabledForDeployment')]"

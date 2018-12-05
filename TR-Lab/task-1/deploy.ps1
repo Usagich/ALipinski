@@ -14,16 +14,16 @@ if (!(Get-AzureRmResourceGroup -Name $ResourceGroupName -ErrorAction SilentlyCon
     -Location $Location
 }
 
-#Enter login for VM
-Write-Host "Please enter login name for VM: "
-$adminUsername = Read-Host
+# #Enter login for VM
+# Write-Host "Please enter login name for VM: "
+# $adminUsername = Read-Host
 
-#Enter password for VM
-Write-Host "Please enter password for VM: "
-$AdminPassword = Read-Host -AsSecureString
+# #Enter password for VM
+# Write-Host "Please enter password for VM: "
+# $AdminPassword = Read-Host -AsSecureString
 
-# $Vm_Login = 'andreitest'
-# $Vm_Passwd = 'Pa$$w0rd'
+$Vm_Login = 'andreitest'
+$Vm_Passwd = 'Pa$$w0rd'
 
 $Creds = @{
   adminUsername = "$adminUsername"
@@ -37,5 +37,5 @@ $SplatParams = @{
   TemplateParameterObject = $Creds
 }
 
-test-AzureRmResourceGroupDeployment @SplatParams -Verbose
+New-AzureRmResourceGroupDeployment @SplatParams -Verbose
 

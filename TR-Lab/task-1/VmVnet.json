@@ -6,7 +6,7 @@
       "type": "string"
     },
     "AdminPassword": {
-      "type": "securestring"
+      "type": "string"
     }
   },
   "variables": {

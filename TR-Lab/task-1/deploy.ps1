@@ -33,6 +33,6 @@ $AdminPassword = Read-Host -AsSecureString
 
 # New-AzureRmResourceGroupDeployment @SplatParams -Verbose
 
-New-AzureRmResourceGroupDeployment -TemplateUri "$Path/main.json" -TemplateParameterUri = "$Path/main-params.json" `
-  -ResourceGroupName $ResourceGroupName -adminUsername 'andreitest' -AdminPassword $AdminPassword `
+New-AzureRmResourceGroupDeployment -TemplateUri "$Path/main.json" -TemplateParameterUri "$Path/main-params.json" `
+  -ResourceGroupName $ResourceGroupName -adminUsername 'andreitest' -AdminPassword '$AdminPassword' `
   -Path $Path -Verbose

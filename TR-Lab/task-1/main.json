@@ -91,9 +91,6 @@
           "enabledForDiskEncryption": {
             "value": "[parameters('enabledForDiskEncryption')]"
           },
-          "networkAcls": {
-            "value": "[parameters('networkAcls')]"
-          },
           "adminUsername": {
             "value": "[parameters('adminUsername')]"
           },

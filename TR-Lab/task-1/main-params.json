@@ -63,14 +63,6 @@
     },
     "enabledForDiskEncryption": {
       "value": false
-    },
-    "networkAcls": {
-      "value": {
-        "defaultAction": "Allow",
-        "bypass": "AzureServices",
-        "virtualNetworkRules": [],
-        "ipRules": []
-      }
     }
   }
 }

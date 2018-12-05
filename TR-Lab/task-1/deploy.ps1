@@ -32,7 +32,8 @@ $Creds = @{
 }
 
 $SplatParams = @{
-  TemplateFile            = "$Path`main.json"
+  TemplateUri             = "$Path`main.json"
+  TemplateParameterUri    = "$Path`main-params.json"
   ResourceGroupName       = $ResourceGroupName
   TemplateParameterObject = $Creds
 }

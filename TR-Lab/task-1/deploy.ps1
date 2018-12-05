@@ -23,8 +23,8 @@ if (!(Get-AzureRmResourceGroup -Name $ResourceGroupName -ErrorAction SilentlyCon
 # $AdminPassword = Read-Host
 
 $SplatParams = @{
-  TemplateUri          = "$Path`main.json"
-  TemplateParameterFile = "$Path`main-params.json"
+  TemplateUri          = "$Path/main.json"
+  TemplateParameterFile = "$Path/main-params.json"
   ResourceGroupName    = $ResourceGroupName
 }
 

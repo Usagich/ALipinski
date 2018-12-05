@@ -2,46 +2,55 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "adminUsername":{
+    "adminUsername": {
       "type": "string"
     },
-    "AdminPassword":{
+    "AdminPassword": {
       "type": "securestring"
     }
   },
   "variables": {
-    "vnetID": "[resourceId('Microsoft.Network/virtualNetworks','myVNet')]",
-    "subnetRef": "[concat(variables('vnetID'),'/subnets/mySubnet')]"
+    "VnetName":"[concat(resourceGroup().name,'-vnet')]",
+    "VnetID": "[resourceId('Microsoft.Network/virtualNetworks',variables('VnetName'))]",
+    "SubnetName":"backend",
+    "SubnetRef": "[concat(variables('vnetID'),'/subnets/',variables('SubnetName'))]",
+    "VmName":"[concat(resourceGroup().name,'-vm1')]",
+    "NicName":"[concat(variables('VmName'),'-nic1')]",
+    "PipName":"[concat(variables('VmName'),'-pip')]",
+    "VnetAddrPref": "10.0.0.0/16",
+    "SubnetAddrPref": "10.0.0.0/24",
+    "domainNameLabel":"[concat(resourceGroup().name,'test')]"
+
   },
   "resources": [
     {
       "apiVersion": "2016-03-30",
       "type": "Microsoft.Network/publicIPAddresses",
-      "name": "myPublicIPAddress",
+      "name": "[concat(resourceGroup().name,'-pip')]",
       "location": "[resourceGroup().location]",
       "properties": {
         "publicIPAllocationMethod": "Dynamic",
         "dnsSettings": {
-          "domainNameLabel": "asdaswerwer11123235"
+          "domainNameLabel": "[variables('domainNameLabel')]"
         }
       }
     },
     {
       "apiVersion": "2016-03-30",
       "type": "Microsoft.Network/virtualNetworks",
-      "name": "myVNet",
+      "name": "[variables('VnetName')]",
       "location": "[resourceGroup().location]",
       "properties": {
         "addressSpace": {
           "addressPrefixes": [
-            "10.0.0.0/16"
+            "[variables('VnetAddrPref')]"
           ]
         },
         "subnets": [
           {
-            "name": "mySubnet",
+            "name": "[variables('SubnetName')]",
             "properties": {
-              "addressPrefix": "10.0.0.0/24"
+              "addressPrefix": "[variables('SubnetAddrPref')]"
             }
           }
         ]
@@ -50,11 +59,11 @@
     {
       "apiVersion": "2016-03-30",
       "type": "Microsoft.Network/networkInterfaces",
-      "name": "myNic",
+      "name": "[variables('NicName')]",
       "location": "[resourceGroup().location]",
       "dependsOn": [
-        "[resourceId('Microsoft.Network/publicIPAddresses/', 'myPublicIPAddress')]",
-        "[resourceId('Microsoft.Network/virtualNetworks/', 'myVNet')]"
+        "[resourceId('Microsoft.Network/publicIPAddresses/', variables('PipName'))]",
+        "[resourceId('Microsoft.Network/virtualNetworks/', variables('VnetName'))]"
       ],
       "properties": {
         "ipConfigurations": [
@@ -63,7 +72,7 @@
             "properties": {
               "privateIPAllocationMethod": "Dynamic",
               "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses','myPublicIPAddress')]"
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('PipName'))]"
               },
               "subnet": {
                 "id": "[variables('subnetRef')]"
@@ -76,10 +85,10 @@
     {
       "apiVersion": "2016-04-30-preview",
       "type": "Microsoft.Compute/virtualMachines",
-      "name": "myVM",
+      "name": "[variables('VmName')]",
       "location": "[resourceGroup().location]",
       "dependsOn": [
-        "[resourceId('Microsoft.Network/networkInterfaces/', 'myNic')]"
+        "[resourceId('Microsoft.Network/networkInterfaces/', variables('NicName'))]"
       ],
       "properties": {
         "hardwareProfile": {
@@ -106,7 +115,7 @@
         "networkProfile": {
           "networkInterfaces": [
             {
-              "id": "[resourceId('Microsoft.Network/networkInterfaces','myNic')]"
+              "id": "[resourceId('Microsoft.Network/networkInterfaces',variables('NicName'))]"
             }
           ]
         }

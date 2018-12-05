@@ -66,7 +66,7 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "[concat(parameters('Path'), '/keyVault.json')]",
+          "uri": "[concat(parameters('Path'), '/KeyVault.json')]",
           "contentVersion": "1.0.0.0"
         },
         "parameters": {

@@ -23,9 +23,9 @@ if (!(Get-AzureRmResourceGroup -Name $ResourceGroupName -ErrorAction SilentlyCon
 # $AdminPassword = Read-Host
 
 $SplatParams = @{
-  TemplateUri          = "$Path/main.json"
+  TemplateUri           = "$Path/main.json"
   TemplateParameterFile = "C:\git\ALipinski\TR-Lab\task-1\main-params.json"
-  ResourceGroupName    = $ResourceGroupName
+  ResourceGroupName     = $ResourceGroupName
 }
 
 New-AzureRmResourceGroupDeployment @SplatParams -Verbose

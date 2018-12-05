@@ -2,7 +2,7 @@ Param(
   [string]$ResourceGroupName = 'test_RG_alipinski',
   [string]$Sub = 'b4d05768-e295-4195-9cdb-c07ecd987720',
   [string]$Location = 'East US',
-  [string]$Path = 'https://bitbucket.org/ALipinski770/tr-lab/raw/9d7f37cbeb987e95affd9c22ae637c0c705b4e75/task-1/'
+  [string]$Path = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/TR-Lab/task-1/'
 )
 
 Write-Host "Select Subscription $sub "

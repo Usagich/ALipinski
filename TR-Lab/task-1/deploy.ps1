@@ -2,7 +2,7 @@ Param(
   [string]$ResourceGroupName = 'andreirg',
   [string]$Sub = 'b4d05768-e295-4195-9cdb-c07ecd987720',
   [string]$Location = 'East US',
-  [string]$Path = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/TR-Lab/task-1/'
+  [string]$Path = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/TR-Lab/task-1'
 )
 
 Write-Host "Select Subscription $sub "
@@ -22,14 +22,17 @@ if (!(Get-AzureRmResourceGroup -Name $ResourceGroupName -ErrorAction SilentlyCon
 Write-Host "Please enter password for VM: "
 $AdminPassword = Read-Host -AsSecureString
 
-$SplatParams = @{
-  TemplateUri          = "$Path`main.json"
-  TemplateParameterUri = "$Path`main-params.json"
-  ResourceGroupName    = $ResourceGroupName
-  adminUsername        = 'andreitest'
-  AdminPassword        = $AdminPassword
-  Path                 = $Path
-}
+# $SplatParams = @{
+#   TemplateUri          = "$Path`main.json"
+#   TemplateParameterUri = "$Path`main-params.json"
+#   ResourceGroupName    = $ResourceGroupName
+#   adminUsername        = 'andreitest'
+#   AdminPassword        = $AdminPassword
+#   Path                 = $Path
+# }
 
-New-AzureRmResourceGroupDeployment @SplatParams -Debug
+# New-AzureRmResourceGroupDeployment @SplatParams -Verbose
 
+New-AzureRmResourceGroupDeployment -TemplateUri "$Path/main.json" -TemplateParameterUri = "$Path/main-params.json" `
+  -ResourceGroupName $ResourceGroupName -adminUsername 'andreitest' -AdminPassword $AdminPassword `
+  -Path $Path -Verbose

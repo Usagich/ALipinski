@@ -3,7 +3,8 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "adminUsername": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": "andreitest"
     },
     "AdminPassword": {
       "type": "securestring"
@@ -46,7 +47,7 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "[concat(parameters('Path'), 'VmVnet.json')]",
+          "uri": "[concat(parameters('Path'), '/VmVnet.json')]",
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
@@ -66,7 +67,7 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "[concat(parameters('Path'), 'keyVault.json')]",
+          "uri": "[concat(parameters('Path'), '/keyVault.json')]",
           "contentVersion": "1.0.0.0"
         },
         "parameters": {

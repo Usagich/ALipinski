@@ -1,5 +1,5 @@
 Param(
-  [string]$ResourceGroupName = 'lipinski',
+  [string]$ResourceGroupName = 'andreirg',
   [string]$Sub = 'b4d05768-e295-4195-9cdb-c07ecd987720',
   [string]$Location = 'East US',
   [string]$Path = 'https://raw.githubusercontent.com/AzureLabDevOps/ALipinski/master/TR-Lab/task-1/'

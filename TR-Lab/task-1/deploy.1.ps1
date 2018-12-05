@@ -19,17 +19,24 @@ if (!(Get-AzureRmResourceGroup -Name $ResourceGroupName -ErrorAction SilentlyCon
 # $adminUsername = Read-Host
 
 # #Enter password for VM
-Write-Host "Please enter password for VM: "
-$AdminPassword = Read-Host -AsSecureString
+# Write-Host "Please enter password for VM: "
+# $AdminPassword = Read-Host -AsSecureString
 
-$SplatParams = @{
-  TemplateUri          = "$Path`main.json"
-  TemplateParameterUri = "$Path`main-params.json"
-  ResourceGroupName    = $ResourceGroupName
-  adminUsername        = 'andreitest'
-  AdminPassword        = $AdminPassword
-  Path                 = $Path
+$adminUsername = 'andreitest'
+$adminUsername = 'Pa$$w0rd'
+
+$Creds = @{
+  adminUsername = "$adminUsername"
+  AdminPassword = "$adminUsername"
+  Path          = "$Path"
 }
 
-New-AzureRmResourceGroupDeployment @SplatParams -Debug
+$SplatParams = @{
+  TemplateUri             = "$Path`main.json"
+  TemplateParameterUri    = "$Path`main-params.json"
+  ResourceGroupName       = $ResourceGroupName
+  TemplateParameterObject = $Creds
+}
+
+New-AzureRmResourceGroupDeployment @SplatParams -Verbose
 

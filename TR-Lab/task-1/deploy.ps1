@@ -22,12 +22,12 @@ if (!(Get-AzureRmResourceGroup -Name $ResourceGroupName -ErrorAction SilentlyCon
 # Write-Host "Please enter password for VM: "
 # $AdminPassword = Read-Host -AsSecureString
 
-$Vm_Login = 'andreitest'
-$Vm_Passwd = 'Pa$$w0rd'
+$adminUsername = 'andreitest'
+$adminUsername = 'Pa$$w0rd'
 
 $Creds = @{
   adminUsername = "$adminUsername"
-  AdminPassword = "$AdminPassword"
+  AdminPassword = "$adminUsername"
   Path          = "$Path"
 }
 

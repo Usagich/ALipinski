@@ -2,6 +2,12 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
+    "adminUsername": {
+      "type": "string"
+    },
+    "AdminPassword": {
+      "type": "securestring"
+    },
     "keyVaultName": {
       "type": "string"
     },
@@ -32,10 +38,6 @@
       "type": "bool",
       "defaultValue": false
     },
-    "secretsObject": {
-      "type": "secureObject",
-      "defaultValue": "{}"
-    },
     "location": {
       "type": "string",
       "defaultValue": "[resourceGroup().location]"
@@ -64,18 +66,14 @@
     },
     {
       "type": "Microsoft.KeyVault/vaults/secrets",
-      "name": "[concat(parameters('keyVaultName'), '/', parameters('secretsObject').secrets[copyIndex()].secretName)]",
+      "name": "[concat(parameters('keyVaultName'), '/', parameters('adminUsername'))]",
       "apiVersion": "2015-06-01",
       "properties": {
-        "value": "[parameters('secretsObject').secrets[copyIndex()].secretValue]"
+        "value": "[parameters('AdminPassword')]"
       },
       "dependsOn": [
         "[concat('Microsoft.KeyVault/vaults/', parameters('keyVaultName'))]"
-      ],
-      "copy": {
-        "name": "secretsCopy",
-        "count": "[length(parameters('secretsObject').secrets)]"
-      }
+      ]
     }
   ]
 }

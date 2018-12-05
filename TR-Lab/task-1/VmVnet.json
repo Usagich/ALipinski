@@ -10,18 +10,17 @@
     }
   },
   "variables": {
-    "VnetName":"[concat(resourceGroup().name,'-vnet')]",
+    "VnetName": "[concat(resourceGroup().name,'-vnet')]",
     "VnetID": "[resourceId('Microsoft.Network/virtualNetworks',variables('VnetName'))]",
-    "SubnetName":"backend",
+    "SubnetName": "backend",
     "SubnetRef": "[concat(variables('vnetID'),'/subnets/',variables('SubnetName'))]",
-    "VmName":"[concat(resourceGroup().name,'-vm1')]",
-    "NicName":"[concat(variables('VmName'),'-nic1')]",
-    "PipName":"[concat(variables('VmName'),'-pip')]",
+    "VmName": "[concat(resourceGroup().name,'-vm1')]",
+    "NicName": "[concat(variables('VmName'),'-nic1')]",
+    "PipName": "[concat(variables('VmName'),'-pip')]",
     "VnetAddrPref": "10.0.0.0/16",
     "SubnetAddrPref": "10.0.0.0/24",
-    "DomainNameLabel":"[concat(resourceGroup().name,'test')]",
-    "OsDiskName":"[concat(variables('VmName'),'-disk1')]"
-
+    "DomainNameLabel": "[concat(resourceGroup().name,'test')]",
+    "OsDiskName": "[concat(variables('VmName'),'-disk1')]"
   },
   "resources": [
     {
